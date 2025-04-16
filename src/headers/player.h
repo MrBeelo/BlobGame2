@@ -19,7 +19,7 @@ class Player : public Entity
     
     float speed = 5;
     bool IsTouchingGround();
-    bool isLeft;
+    bool isLeft = false;
     
     enum Direction
     {
@@ -33,6 +33,9 @@ class Player : public Entity
         DOWN_RIGHT,
         NA
     };
+    
+    void ResetPos();
+    void ResetState();
 };
 
 #endif

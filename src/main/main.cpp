@@ -12,6 +12,7 @@
 float buffer = 10.0f;
 Vector2 windowSize = {800, 450};
 float simDT = 0;
+bool f3On = false;
 GameState gameState = MAIN_MENU;
 
 void LeaveGame()
@@ -45,6 +46,8 @@ int main(void)
         windowSize = {(float) GetScreenWidth(), (float) GetScreenHeight()};
         simDT = GetFrameTime() * 60;
         
+        if(IsKeyPressed(KEY_F3)) f3On = !f3On;
+        
         switch (gameState) {
             case PLAYING:
                 player.Update();
@@ -67,12 +70,16 @@ int main(void)
                 MainMenuScreen::Draw();
             break;
         }
-            
-        Text::DrawOutfitBoldText(("Game State: " + std::to_string(gameState)).c_str(), {10, 10}, 24, BLACK);
-        Text::DrawOutfitBoldText(("Pos: " + Text::Vector2ToString(player.GetPos())).c_str(), {10, 40}, 24, BLACK);
-        Text::DrawOutfitBoldText(("Velocity: " + Text::Vector2ToString(player.GetVelocity())).c_str(), {10, 70}, 24, BLACK);
-        Text::DrawOutfitBoldText(("Is on ground: " + std::to_string(player.IsTouchingGround())).c_str(), {10, 100}, 24, BLACK);
-        Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 130}, 24, BLACK);
+        
+        //DEBUG
+        if(f3On)
+        {
+            Text::DrawOutfitBoldText(("Game State: " + std::to_string(gameState)).c_str(), {10, 10}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Pos: " + Text::Vector2ToString(player.GetPos())).c_str(), {10, 40}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Velocity: " + Text::Vector2ToString(player.GetVelocity())).c_str(), {10, 70}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is on ground: " + std::to_string(player.IsTouchingGround())).c_str(), {10, 100}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 130}, 24, BLACK);
+        }
             
         EndDrawing();
     }

@@ -2,9 +2,7 @@
 #include "../headers/raylib.h"
 #include "../headers/entity.h"
 #include "../headers/globals.h"
-#include "../headers/text.hpp"
 #include <algorithm>
-#include <string>
 
 using namespace std;
 
@@ -62,6 +60,12 @@ void Player::Update()
         isLeft = false;
     }
     
+    if(IsKeyPressed(KEY_R))
+    {
+        ResetPos();
+        ResetState();
+    }
+    
     Entity::Update();
 }
 
@@ -74,4 +78,17 @@ bool Player::IsTouchingGround()
 {
     //TEMPORARY
     return GetPos().y >= windowSize.y - GetSize().y;
+}
+
+void Player::ResetPos()
+{
+    //TEMPORARY
+    SetPos({10, 10});
+}
+
+void Player::ResetState()
+{
+    SetVelocity({0, 0.5f});
+    isLeft = false;
+    speed = 5;
 }

@@ -10,11 +10,9 @@ void Entity::Update()
 {
     Sprite::Update();
     
-    AddPosX(velocity.x);
-    //COLLISION CHECK
-    
     AddPosY(velocity.y);
     //COLLISION CHECK
+    AddPosX(velocity.x);
 }
 
 Vector2 Entity::GetVelocity()

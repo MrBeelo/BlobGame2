@@ -5,6 +5,7 @@
 extern float buffer;
 extern Vector2 windowSize;
 extern float simDT;
+extern bool f3On;
 
 enum GameState
 {
