@@ -62,8 +62,9 @@ ifeq ($(TARGET_LANGUAGE), c++)
 endif
 
 # Find all .cpp files in the src directory
-SRC_FILES = $(wildcard $(SRC_DIR)/*$(FILE_FORMAT))
-OBJ_FILES = $(patsubst $(SRC_DIR)/%$(FILE_FORMAT), $(OBJ_DIR)/%.o, $(SRC_FILES))
+SRC_FILES = $(shell find $(SRC_DIR) -name '*$(FILE_FORMAT)')
+OBJ_FILES = $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%,$(SRC_FILES:$(FILE_FORMAT)=.o))
+
 
 # Targets
 all: $(EXECUTABLE) copy-assets
@@ -74,8 +75,8 @@ $(EXECUTABLE): $(OBJ_FILES)
 	$(CXX) $(OBJ_FILES) $(LIBRARY) -o $@ $(LDFLAGS)
 
 # Compile each .cpp file into an object file
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%$(FILE_FORMAT) $(wildcard $(HEADERS_DIR)/*.h)
-	@mkdir -p $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%$(FILE_FORMAT)
+	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Copy assets folder to the build directory

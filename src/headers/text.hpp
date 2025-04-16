@@ -12,6 +12,7 @@ class Text
     static void UnloadContent();
     static std::string Vector2ToString(Vector2 value);
     static void DrawOutfitBoldText(const char *text, Vector2 position, float fontSize, Color color);
+    static Vector2 MeasureOutfitBoldText(const char *text, float fontSize);
 };
 
 #endif
