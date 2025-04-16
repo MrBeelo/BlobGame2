@@ -6,7 +6,7 @@
 class Sprite
 {
     private:
-    Vector2 pos;
+    Vector2 pos = {0, 0};
     Vector2 size;
     Rectangle bounds;
     Texture2D texture;

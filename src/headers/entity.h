@@ -6,11 +6,18 @@
 
 class Entity : public Sprite
 {
+    private:
+    Vector2 velocity = {0, 0};
+    
     public: 
-    Vector2 velocity;
     Entity(Vector2 pos, Vector2 size, Texture2D texture);
     ~Entity();
     void Update();
+    Vector2 GetVelocity();
+    void SetVelocityX(float velocity);
+    void SetVelocityY(float velocity);
+    void SetVelocity(Vector2 velocity);
+    void AddVelocity(Vector2 velocity);
 };
 
 #endif

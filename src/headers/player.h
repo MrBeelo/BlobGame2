@@ -16,6 +16,9 @@ class Player : public Entity
     
     void Update();
     void Draw();
+    
+    float speed = 5;
+    bool isTouchingGround();
 };
 
 #endif

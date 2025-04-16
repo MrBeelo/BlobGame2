@@ -11,3 +11,29 @@ void Entity::Update()
     Sprite::Update();
     AddPos(velocity);
 }
+
+Vector2 Entity::GetVelocity()
+{
+    return this->velocity;
+}
+
+void Entity::SetVelocityX(float velocity)
+{
+    this->velocity.x = velocity;
+}
+
+void Entity::SetVelocityY(float velocity)
+{
+    this->velocity.y = velocity;
+}
+
+void Entity::SetVelocity(Vector2 velocity)
+{
+    this->velocity = velocity;
+}
+
+void Entity::AddVelocity(Vector2 velocity)
+{
+    this->velocity.x += velocity.x * simDT;
+    this->velocity.y += velocity.y * simDT;
+}

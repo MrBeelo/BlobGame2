@@ -1,6 +1,6 @@
 #include "headers/raylib.h"
 #include "headers/resource_dir.h"
-#include "headers/sprite.h"
+#include "headers/text.hpp"
 #include "headers/player.h"
 
 Vector2 windowSize = {800, 450};
@@ -11,6 +11,7 @@ int main(void)
     InitWindow(windowSize.x, windowSize.y, "Blob Game 2");
     SearchAndSetResourceDir("assets");
     
+    Text::LoadContent();
     Player::LoadContent();
     
     Player player = {{10, 10}, {40, 60}};
@@ -28,6 +29,7 @@ int main(void)
         EndDrawing();
     }
     
+    Text::UnloadContent();
     Player::UnloadContent();
 
     CloseWindow();
