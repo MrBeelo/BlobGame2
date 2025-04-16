@@ -51,3 +51,9 @@ void Sprite::Draw()
 {
     DrawTexturePro(texture, {0, 0, (float) texture.width, (float) texture.height}, bounds, {0, 0}, 0, WHITE);
 }
+
+void Sprite::DrawWithFlip(bool isLeft)
+{
+    float flip = isLeft ? -1.0f : 1.0f;
+    DrawTexturePro(texture, {0, 0, (float) texture.width * flip, (float) texture.height}, bounds, {0, 0}, 0, WHITE);
+}

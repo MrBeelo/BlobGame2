@@ -18,7 +18,21 @@ class Player : public Entity
     void Draw();
     
     float speed = 5;
-    bool isTouchingGround();
+    bool IsTouchingGround();
+    bool isLeft;
+    
+    enum Direction
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        UP_LEFT,
+        DOWN_LEFT,
+        UP_RIGHT,
+        DOWN_RIGHT,
+        NA
+    };
 };
 
 #endif

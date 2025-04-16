@@ -22,6 +22,7 @@ class Sprite
     void AddPos(Vector2 pos);
     void Update();
     void Draw();
+    void DrawWithFlip(bool isLeft);
 };
 
 

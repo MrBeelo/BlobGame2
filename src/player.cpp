@@ -50,7 +50,7 @@ void Player::Update()
         SetVelocityX(0);
     }
     
-    if(isTouchingGround())  
+    if(IsTouchingGround())  
     {
         SetVelocityY(0.5f);
         
@@ -63,18 +63,27 @@ void Player::Update()
         AddVelocity({0, 1});
     }
     
+    if(GetVelocity().x < 0)
+    {
+        isLeft = true;
+    } else if(GetVelocity().x > 0)
+    {
+        isLeft = false;
+    }
+    
     Entity::Update();
 }
 
 void Player::Draw()
 {
-    Sprite::Draw();
+    Sprite::DrawWithFlip(isLeft);
     Text::DrawOutfitBoldText(("Pos: " + Text::Vector2ToString(GetPos())).c_str(), {10, 10}, 32, BLACK);
     Text::DrawOutfitBoldText(("Velocity: " + Text::Vector2ToString(GetVelocity())).c_str(), {10, 50}, 32, BLACK);
-    Text::DrawOutfitBoldText(("Is on ground: " + to_string(isTouchingGround())).c_str(), {10, 90}, 32, BLACK);
+    Text::DrawOutfitBoldText(("Is on ground: " + to_string(IsTouchingGround())).c_str(), {10, 90}, 32, BLACK);
+    Text::DrawOutfitBoldText(("Is Left: " + to_string(isLeft)).c_str(), {10, 130}, 32, BLACK);
 }
 
-bool Player::isTouchingGround()
+bool Player::IsTouchingGround()
 {
     //TEMPORARY
     return GetPos().y >= windowSize.y - GetSize().y;
