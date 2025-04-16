@@ -36,6 +36,16 @@ void Sprite::SetSize(Vector2 size)
     this->size = size;
 }
 
+void Sprite::AddPosX(float pos)
+{
+    this->pos.x += pos * simDT;
+}
+
+void Sprite::AddPosY(float pos)
+{
+    this->pos.y += pos * simDT;
+}
+
 void Sprite::AddPos(Vector2 pos)
 {
     this->pos.x += pos.x * simDT;

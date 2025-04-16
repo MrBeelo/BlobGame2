@@ -29,7 +29,7 @@ int main(void)
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     
     InitWindow(windowSize.x, windowSize.y, "Blob Game 2");
-    SearchAndSetResourceDir("assets");
+    SearchAndSetResourceDir("res/assets");
     
     InitAudioDevice();
     SetWindowIcon(LoadImage("other/icon.png"));
@@ -42,6 +42,7 @@ int main(void)
     
     while (!WindowShouldClose())
     {
+        windowSize = {(float) GetScreenWidth(), (float) GetScreenHeight()};
         simDT = GetFrameTime() * 60;
         
         switch (gameState) {

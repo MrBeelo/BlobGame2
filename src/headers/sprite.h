@@ -19,6 +19,8 @@ class Sprite
     Rectangle GetBounds();
     void SetPos(Vector2 pos);
     void SetSize(Vector2 size);
+    void AddPosX(float pos);
+    void AddPosY(float pos);
     void AddPos(Vector2 pos);
     void Update();
     void Draw();
