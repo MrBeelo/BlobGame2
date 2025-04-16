@@ -1,0 +1,21 @@
+Makefile Commands:
+
+make (will run the makefile, output will be in the bin directory)
+make clean (will delete the bin and the obj directories)
+make clean-this (will delete the directories that the makefile is configured to export to)
+make run (will run the executable in the directory that the makefile is configured to export to)
+
+Git Actions:
+
+git init -b main (to make a git repository)
+git status (optional, outputs all changed files)
+git add . (to stage all files) OR git add file1 file2 (to stage specific files)
+git commit -m "Your commit message here" (to commit)
+git push origin main (to push, with main being the branch name)
+
+GitHub Actions:
+
+gh repo create (to make a repo on GitHub)
+git remote add origin REMOTE-URL (to locally add GitHub repo, where REMOTE-URL is the url that it is hosted on)
+git remote -v (to check all remotes)
+git pull REMOTE-URL main (to pull from the main branch of a remote url)
