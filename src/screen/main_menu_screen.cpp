@@ -1,6 +1,6 @@
 #include "../headers/main_menu_screen.h"
 #include "../headers/text.hpp"
-#include "../headers/globals.h"
+#include "../headers/globals.hpp"
 #include "../headers/raygui.h"
 
 MainMenuScreen::MainMenuScreen() {}

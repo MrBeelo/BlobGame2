@@ -1,6 +1,6 @@
 #include "../headers/sprite.h"
 #include "../headers/raylib.h"
-#include "../headers/globals.h"
+#include "../headers/globals.hpp"
 
 Sprite::Sprite(Vector2 pos, Vector2 size, Texture2D texture)
 {
@@ -62,8 +62,19 @@ void Sprite::Draw()
     DrawTexturePro(texture, {0, 0, (float) texture.width, (float) texture.height}, bounds, {0, 0}, 0, WHITE);
 }
 
+void Sprite::DrawWithSrc(Vector2 srcRect)
+{
+    DrawTexturePro(texture, {srcRect.x, srcRect.y, (float) texture.width, (float) texture.height}, bounds, {0, 0}, 0, WHITE);
+}
+
 void Sprite::DrawWithFlip(bool isLeft)
 {
     float flip = isLeft ? -1.0f : 1.0f;
     DrawTexturePro(texture, {0, 0, (float) texture.width * flip, (float) texture.height}, bounds, {0, 0}, 0, WHITE);
+}
+
+void Sprite::DrawAdvanced(bool isLeft, Vector2 srcRect)
+{
+    float flip = isLeft ? -1.0f : 1.0f;
+    DrawTexturePro(texture, {srcRect.x, srcRect.y, (float) texture.width * flip, (float) texture.height}, bounds, {0, 0}, 0, WHITE);
 }

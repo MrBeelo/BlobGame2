@@ -1,7 +1,7 @@
 #include "../headers/player.h"
 #include "../headers/raylib.h"
 #include "../headers/entity.h"
-#include "../headers/globals.h"
+#include "../headers/globals.hpp"
 #include <algorithm>
 
 using namespace std;
@@ -10,7 +10,7 @@ Texture2D Player::texture;
 
 void Player::LoadContent()
 {
-    texture = LoadTexture("player/blob.png");
+    texture = LoadTexture("res/assets/player/blob.png");
 }
 
 void Player::UnloadContent()

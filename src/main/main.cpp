@@ -5,14 +5,16 @@
 #include "../headers/resource_dir.h"
 #include "../headers/text.hpp"
 #include "../headers/player.h"
-#include "../headers/globals.h"
+#include "../headers/globals.hpp"
 #include "../headers/main_menu_screen.h"
+#include "../headers/map.h"
 #include <string>
 
 float buffer = 10.0f;
-Vector2 windowSize = {800, 450};
+Vector2 windowSize = {1920, 1031};
 float simDT = 0;
 bool f3On = false;
+int currentLevel = 0;
 GameState gameState = MAIN_MENU;
 
 void LeaveGame()
@@ -30,14 +32,17 @@ int main(void)
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     
     InitWindow(windowSize.x, windowSize.y, "Blob Game 2");
-    SearchAndSetResourceDir("res/assets");
+    //SearchAndSetResourceDir("res/assets");
     
     InitAudioDevice();
-    SetWindowIcon(LoadImage("other/icon.png"));
+    SetWindowIcon(LoadImage("res/assets/other/icon.png"));
     SetExitKey(KEY_NULL);
     
     Text::LoadContent();
     Player::LoadContent();
+    Map::LoadContent();
+    
+    Map map;
     
     Player player = {{10, 10}, {40, 60}};
     
@@ -59,10 +64,11 @@ int main(void)
         }
         
         BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(SKYBLUE);
             
         switch (gameState) {
             case PLAYING:
+                Map::Draw(currentLevel);
                 player.Draw();
             break;
                 
