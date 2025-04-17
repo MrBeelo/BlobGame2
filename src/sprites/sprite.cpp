@@ -33,21 +33,25 @@ Vector2 Sprite::GetSize()
 void Sprite::SetPosX(float pos)
 {
     this->pos.x = pos;
+    UpdateDest();
 }
 
 void Sprite::SetPosY(float pos)
 {
     this->pos.y = pos;
+    UpdateDest();
 }
 
 void Sprite::SetPos(Vector2 pos)
 {
     this->pos = pos;
+    UpdateDest();
 }
 
 void Sprite::SetSize(Vector2 size)
 {
     this->size = size;
+    UpdateDest();
 }
 
 Rectangle Sprite::GetDest()
@@ -58,17 +62,20 @@ Rectangle Sprite::GetDest()
 void Sprite::AddPosX(float pos)
 {
     this->pos.x += pos * simDT;
+    UpdateDest();
 }
 
 void Sprite::AddPosY(float pos)
 {
     this->pos.y += pos * simDT;
+    UpdateDest();
 }
 
 void Sprite::AddPos(Vector2 pos)
 {
     this->pos.x += pos.x * simDT;
     this->pos.y += pos.y * simDT;
+    UpdateDest();
 }
 
 void Sprite::Draw()
