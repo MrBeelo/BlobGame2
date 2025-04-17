@@ -1,6 +1,7 @@
 #include "../headers/map.h"
 #include "../headers/raylib.h"
 #include "../headers/globals.hpp"
+#include "../headers/tile.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -13,10 +14,10 @@ Texture2D Map::normalAtlas;
 Texture2D Map::collisionAtlas;
 
 std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> Map::normalTilemap[levelAmount];
-std::vector<Sprite> Map::normalTiles;
+std::vector<Tile> Map::normalTiles;
 
 std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> Map::collisionTilemap[levelAmount];
-std::vector<Sprite> Map::collisionTiles;
+std::vector<Tile> Map::collisionTiles;
 
 Vector2 Map::mapSize;
 
@@ -143,7 +144,7 @@ void Map::Draw(int currentLevel)
             (float) p_tilesize
         };
         
-        normalTiles.push_back({dest, normalAtlas}); //TEXTURE WON'T BE NEEDED HERE, JUST TEMPORARY
+        normalTiles.push_back({dest, normalAtlas, item.second}); //TEXTURE WON'T BE NEEDED HERE, JUST TEMPORARY
         
         DrawTexturePro(normalAtlas, src, dest, {0, 0}, 0.0f, WHITE);
     }
@@ -175,46 +176,8 @@ void Map::DrawCollisions(int currentLevel)
             (float) p_tilesize
         };
         
-        collisionTiles.push_back({dest, collisionAtlas});
+        collisionTiles.push_back({dest, collisionAtlas, item.second});
         
         DrawTexturePro(collisionAtlas, src, dest, {0, 0}, 0.0f, WHITE);
-    }
-}
-
-void Map::CheckCollisionsX(Sprite *sprite, std::vector<Sprite> &collisionTiles)
-{
-    sprite->isCollidingX = false;
-    
-    for(Sprite tile : collisionTiles)
-    {
-        if(CheckCollisionRecs(sprite->GetDest(), tile.GetDest()))
-        {
-            sprite->isCollidingX = true;
-            if(sprite->GetDest().x > tile.GetDest().x)
-            {
-                sprite->SetPosX(tile.GetDest().x + tile.GetDest().width);
-            } else {
-                sprite->SetPosX(tile.GetDest().x - sprite->GetDest().width);
-            }
-        }
-    }
-}
-
-void Map::CheckCollisionsY(Sprite *sprite, std::vector<Sprite> &collisionTiles)
-{
-    sprite->isCollidingY = false;
-    
-    for(Sprite tile : collisionTiles)
-    {
-        if(CheckCollisionRecs(sprite->GetDest(), tile.GetDest()))
-        {
-            sprite->isCollidingY = true;
-            if(sprite->GetDest().y > tile.GetDest().y)
-            {
-                sprite->SetPosY(tile.GetDest().y + tile.GetDest().height);
-            } else {
-                sprite->SetPosY(tile.GetDest().y - sprite->GetDest().height);
-            }
-        }
     }
 }

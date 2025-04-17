@@ -3,6 +3,8 @@
 
 #include "raylib.h"
 #include "sprite.h"
+#include "tile.h"
+#include <vector>
 
 class Entity : public Sprite
 {
@@ -18,6 +20,8 @@ class Entity : public Sprite
     void SetVelocityY(float velocity);
     void SetVelocity(Vector2 velocity);
     void AddVelocity(Vector2 velocity);
+    static void CheckCollisionsX(Entity *entity, std::vector<Tile> &collisionTiles);
+    static void CheckCollisionsY(Entity *entity, std::vector<Tile> &collisionTiles);
 };
 
 #endif

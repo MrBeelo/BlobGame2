@@ -10,9 +10,9 @@ Entity::~Entity() {}
 void Entity::Update()
 {
     AddPosY(velocity.y);
-    Map::CheckCollisionsY(this, Map::collisionTiles);
+    CheckCollisionsY(this, Map::collisionTiles);
     AddPosX(velocity.x);
-    Map::CheckCollisionsX(this, Map::collisionTiles);
+    CheckCollisionsX(this, Map::collisionTiles);
     
     Sprite::Update();
 }
@@ -41,4 +41,42 @@ void Entity::AddVelocity(Vector2 velocity)
 {
     this->velocity.x += velocity.x * simDT;
     this->velocity.y += velocity.y * simDT;
+}
+
+void Entity::CheckCollisionsX(Entity *entity, std::vector<Tile> &collisionTiles)
+{
+    entity->isCollidingX = false;
+    
+    for(Sprite tile : collisionTiles)
+    {
+        if(CheckCollisionRecs(entity->GetDest(), tile.GetDest()))
+        {
+            entity->isCollidingX = true;
+            if(entity->GetDest().x > tile.GetDest().x)
+            {
+                entity->SetPosX(tile.GetDest().x + tile.GetDest().width);
+            } else {
+                entity->SetPosX(tile.GetDest().x - entity->GetDest().width);
+            }
+        }
+    }
+}
+
+void Entity::CheckCollisionsY(Entity *entity, std::vector<Tile> &collisionTiles)
+{
+    entity->isCollidingY = false;
+    
+    for(Sprite tile : collisionTiles)
+    {
+        if(CheckCollisionRecs(entity->GetDest(), tile.GetDest()))
+        {
+            entity->isCollidingY = true;
+            if(entity->GetDest().y > tile.GetDest().y)
+            {
+                entity->SetPosY(tile.GetDest().y + tile.GetDest().height);
+            } else {
+                entity->SetPosY(tile.GetDest().y - entity->GetDest().height);
+            }
+        }
+    }
 }
