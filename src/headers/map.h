@@ -32,6 +32,8 @@ class Map
     static void CalculateTiles(int currentLevel);
     static void Draw(int currentLevel);
     static void DrawCollisions(int currentLevel);
+    static void AdvanceLevel(int currentLevel);
+    static void LoadMapSizeAndTiles(int currentLevel);
 };
 
 #endif

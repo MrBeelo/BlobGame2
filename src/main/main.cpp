@@ -42,15 +42,13 @@ int main(void)
     Player::LoadContent();
     Map::LoadContent();
     
+    Map::LoadMapSizeAndTiles(currentLevel);
     Player player = {{50, 50}, {40, 60}};
     
     while (!WindowShouldClose())
     {
         windowSize = {(float) GetScreenWidth(), (float) GetScreenHeight()};
         simDT = GetFrameTime() * 60;
-        
-        Map::GetCurrentMapSize(currentLevel); //RUN WHEN PLAYER CHANGES LEVEL
-        Map::CalculateTiles(currentLevel); //SAME HERE
         
         if(IsKeyPressed(KEY_F3)) f3On = !f3On;
         

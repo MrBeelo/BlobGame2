@@ -226,3 +226,15 @@ void Map::DrawCollisions(int currentLevel)
         DrawTexturePro(collisionAtlas, src, dest, {0, 0}, 0.0f, WHITE);
     }
 }
+
+void Map::AdvanceLevel(int currentLevel)
+{
+    currentLevel++;
+    LoadMapSizeAndTiles(currentLevel);
+}
+
+void Map::LoadMapSizeAndTiles(int currentLevel)
+{
+    Map::GetCurrentMapSize(currentLevel);
+    Map::CalculateTiles(currentLevel);
+}

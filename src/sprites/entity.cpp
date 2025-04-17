@@ -4,6 +4,7 @@
 #include "../headers/globals.hpp"
 #include "../headers/map.h"
 #include <algorithm>
+#include <cmath>
 
 Entity::Entity(Vector2 pos, Vector2 size, Texture2D texture) : Sprite(pos, size, texture) {}
 Entity::~Entity() {}
@@ -15,9 +16,9 @@ void Entity::Update()
     UpdateDest();
     
     AddPosX(velocity.x);
-    CheckCollisions(this, Map::collisionTiles, true);
+    CheckCollisions(Map::collisionTiles, true);
     AddPosY(velocity.y);
-    CheckCollisions(this, Map::collisionTiles, false);
+    CheckCollisions(Map::collisionTiles, false);
     
     UpdateDest();
     SetPos({std::clamp(GetPos().x, 0.0f, Map::mapSize.x - GetSize().x), std::clamp(GetPos().y, 0.0f, Map::mapSize.y - GetSize().y)});
@@ -57,35 +58,35 @@ void Entity::AddVelocity(Vector2 velocity)
     this->velocity.y += velocity.y * simDT;
 }
 
-void Entity::CheckCollisions(Entity *entity, std::vector<Tile> &collisionTiles, bool horizontal)
+void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
 {
-    entity->isCollidingX = false;
-    entity->isCollidingY = false;
-    entity->isCollidingDown = false;
+    this->isCollidingX = false;
+    this->isCollidingY = false;
+    this->isCollidingDown = false;
     
     for(Tile tile : collisionTiles)
     {
-        if(CheckCollisionRecs(tile.GetDest(), entity->GetDest()))
+        if(CheckCollisionRecs(tile.GetDest(), this->GetDest()))
         {
             if(horizontal)
             {
-                entity->isCollidingX = true;
-                if(entity->GetVelocity().x > 0) //MOVING RIGHT
+                this->isCollidingX = true;
+                if(this->GetVelocity().x > 0) //MOVING RIGHT
                 {
-                    entity->SetPosX(tile.GetDest().x - entity->GetDest().width);
-                } else if(entity->GetVelocity().x < 0) { //MOVING LEFT
-                    entity->SetPosX(tile.GetDest().x + tile.GetDest().width);
+                    this->SetPosX(tile.GetDest().x - this->GetDest().width);
+                } else if(this->GetVelocity().x < 0) { //MOVING LEFT
+                    this->SetPosX(tile.GetDest().x + tile.GetDest().width);
                 }
-            } else if(!horizontal)
+            } else
             {
-                entity->isCollidingY = true;
-                if(entity->GetVelocity().y < 0) //MOVING UP
+                this->isCollidingY = true;
+                if(this->GetVelocity().y < 0) //MOVING UP
                 {
-                    entity->SetPosY(tile.GetDest().y + tile.GetDest().height);
-                } else if (entity->GetVelocity().y > 0) { //MOVING DOWN
-                    entity->isCollidingDown = true;
-                    entity->SetVelocityY(0.1f);
-                    entity->SetPosY(tile.GetDest().y - entity->GetDest().height);
+                    this->SetPosY(tile.GetDest().y + tile.GetDest().height);
+                } else if (this->GetVelocity().y > 0) { //MOVING DOWN
+                    this->isCollidingDown = true;
+                    this->SetVelocityY(0.1f);
+                    this->SetPosY(tile.GetDest().y - this->GetDest().height);
                 }
             }
         }
@@ -94,7 +95,7 @@ void Entity::CheckCollisions(Entity *entity, std::vector<Tile> &collisionTiles, 
 
 bool Entity::IsTouchingMapFloor()
 {
-    return GetPos().y >= Map::mapSize.y - GetSize().y - 0.1f;
+    return GetPos().y >= Map::mapSize.y - GetSize().y;
 }
 
 void Entity::ApplyGravity()
