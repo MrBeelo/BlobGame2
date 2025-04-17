@@ -83,8 +83,9 @@ void Entity::CheckCollisions(Entity *entity, std::vector<Tile> &collisionTiles, 
                 {
                     entity->SetPosY(tile.GetDest().y + tile.GetDest().height);
                 } else if (entity->GetVelocity().y > 0) { //MOVING DOWN
-                    entity->SetPosY(tile.GetDest().y - entity->GetDest().height);
                     entity->isCollidingDown = true;
+                    entity->SetVelocityY(0.1f);
+                    entity->SetPosY(tile.GetDest().y - entity->GetDest().height);
                 }
             }
         }
@@ -93,15 +94,13 @@ void Entity::CheckCollisions(Entity *entity, std::vector<Tile> &collisionTiles, 
 
 bool Entity::IsTouchingMapFloor()
 {
-    return GetPos().y >= Map::mapSize.y - GetSize().y;
+    return GetPos().y >= Map::mapSize.y - GetSize().y - 0.1f;
 }
 
 void Entity::ApplyGravity()
 {
-    if(IsOnGround())
+    if(!IsOnGround())
     {
-        SetVelocityY(0.0f);
-    } else {
         AddVelocity({0, 1});
     }
 }

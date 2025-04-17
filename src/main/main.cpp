@@ -20,6 +20,7 @@ void LeaveGame()
 {
     Text::UnloadContent();
     Player::UnloadContent();
+    Map::UnloadContent();
 
     CloseWindow();
 }
@@ -40,8 +41,6 @@ int main(void)
     Text::LoadContent();
     Player::LoadContent();
     Map::LoadContent();
-    
-    Map map;
     
     Player player = {{50, 50}, {40, 60}};
     
@@ -82,9 +81,7 @@ int main(void)
         //DEBUG
         if(f3On)
         {
-            if(gameState == PLAYING) {
-                Map::DrawCollisions(currentLevel);
-            }
+            if(gameState == PLAYING) Map::DrawCollisions(currentLevel);
             Text::DrawOutfitBoldText(("Game State: " + std::to_string(gameState)).c_str(), {10, 10}, 24, BLACK);
             Text::DrawOutfitBoldText(("Map Size: " + Text::Vector2ToString(Map::mapSize)).c_str(), {10, 40}, 24, BLACK);
             Text::DrawOutfitBoldText(("Pos: " + Text::Vector2ToString(player.GetPos())).c_str(), {10, 70}, 24, BLACK);
