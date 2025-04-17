@@ -1,12 +1,14 @@
 #define RAYGUI_IMPLEMENTATION
 
-#include "../headers/raygui.h"
 #include "../headers/raylib.h"
 #include "../headers/text.hpp"
 #include "../headers/player.h"
 #include "../headers/globals.hpp"
 #include "../headers/main_menu_screen.h"
+#include "../headers/paused_screen.h"
+#include "../headers/exit_screen.h"
 #include "../headers/map.h"
+#include "../headers/style_cyber.h"
 #include <string>
 
 float buffer = 10.0f;
@@ -34,6 +36,8 @@ int main(void)
     InitWindow(windowSize.x, windowSize.y, "Blob Game 2");
     //SearchAndSetResourceDir("res/assets");
     
+    GuiLoadStyleCyber();
+    
     InitAudioDevice();
     SetWindowIcon(LoadImage("res/assets/other/icon.png"));
     SetExitKey(KEY_NULL);
@@ -51,6 +55,7 @@ int main(void)
         simDT = GetFrameTime() * 60;
         
         if(IsKeyPressed(KEY_F3)) f3On = !f3On;
+        if(IsKeyPressed(KEY_ESCAPE) && gameState == PLAYING) gameState = PAUSED;
         
         switch (gameState) {
             case PLAYING:
@@ -59,6 +64,14 @@ int main(void)
                 
             case MAIN_MENU:
                 MainMenuScreen::Update();
+            break;
+            
+            case PAUSED:
+                PausedScreen::Update();
+            break;
+            
+            case EXIT:
+                ExitScreen::Update();
             break;
         }
         
@@ -73,6 +86,14 @@ int main(void)
                 
             case MAIN_MENU:
                 MainMenuScreen::Draw();
+            break;
+            
+            case PAUSED:
+                PausedScreen::Draw();
+            break;
+            
+            case EXIT:
+                ExitScreen::Draw();
             break;
         }
         

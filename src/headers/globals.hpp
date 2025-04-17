@@ -13,7 +13,9 @@ extern int currentLevel;
 enum GameState
 {
     PLAYING,
-    MAIN_MENU
+    MAIN_MENU,
+    PAUSED,
+    EXIT
 };
 
 extern GameState gameState;
