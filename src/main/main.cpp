@@ -87,7 +87,7 @@ int main(void)
             Text::DrawOutfitBoldText(("Map Size: " + Text::Vector2ToString(Map::mapSize)).c_str(), {10, 40}, 24, BLACK);
             Text::DrawOutfitBoldText(("Pos: " + Text::Vector2ToString(player.GetPos())).c_str(), {10, 70}, 24, BLACK);
             Text::DrawOutfitBoldText(("Velocity: " + Text::Vector2ToString(player.GetVelocity())).c_str(), {10, 100}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is on ground: " + std::to_string(player.IsTouchingMapFloor())).c_str(), {10, 130}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is on ground: " + std::to_string(player.IsTouchingMapFloor() || player.isCollidingDown)).c_str(), {10, 130}, 24, BLACK);
             Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 160}, 24, BLACK);
             Text::DrawOutfitBoldText(("Is Colliding: " + (std::to_string(player.isCollidingX) + ", " + std::to_string(player.isCollidingY))).c_str(), {10, 190}, 24, BLACK);
         }

@@ -23,8 +23,6 @@ Player::~Player() {}
 
 void Player::Update()
 {
-    SetPos({clamp(GetPos().x, 0.0f, Map::mapSize.x - GetSize().x), clamp(GetPos().y, 0.0f, Map::mapSize.y - GetSize().y)});
-    
     if(IsKeyDown(KEY_A))
     {
         SetVelocityX(-speed);
@@ -38,7 +36,7 @@ void Player::Update()
         SetVelocityX(0);
     }
     
-    if(IsTouchingMapFloor())  
+    if(IsTouchingMapFloor() || isCollidingDown)  
     {
         SetVelocityY(0.5f);
         

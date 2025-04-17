@@ -3,18 +3,20 @@
 #include "../headers/sprite.h"
 #include "../headers/globals.hpp"
 #include "../headers/map.h"
+#include <algorithm>
 
 Entity::Entity(Vector2 pos, Vector2 size, Texture2D texture) : Sprite(pos, size, texture) {}
 Entity::~Entity() {}
 
 void Entity::Update()
 {
-    AddPosY(velocity.y);
-    CheckCollisionsY(this, Map::collisionTiles);
     AddPosX(velocity.x);
-    CheckCollisionsX(this, Map::collisionTiles);
+    //CheckCollisions(this, Map::collisionTiles, true);
+    AddPosY(velocity.y);
+    CheckCollisions(this, Map::collisionTiles, false);
     
     UpdateDest();
+    SetPos({std::clamp(GetPos().x, 0.0f, Map::mapSize.x - GetSize().x), std::clamp(GetPos().y, 0.0f, Map::mapSize.y - GetSize().y)});
 }
 
 Vector2 Entity::GetVelocity()
@@ -43,39 +45,35 @@ void Entity::AddVelocity(Vector2 velocity)
     this->velocity.y += velocity.y * simDT;
 }
 
-void Entity::CheckCollisionsX(Entity *entity, std::vector<Tile> &collisionTiles)
+void Entity::CheckCollisions(Entity *entity, std::vector<Tile> &collisionTiles, bool horizontal)
 {
     entity->isCollidingX = false;
-    
-    for(Sprite tile : collisionTiles)
-    {
-        if(CheckCollisionRecs(entity->GetDest(), tile.GetDest()))
-        {
-            entity->isCollidingX = true;
-            if(entity->GetDest().x > tile.GetDest().x)
-            {
-                entity->SetPosX(tile.GetDest().x + tile.GetDest().width);
-            } else {
-                entity->SetPosX(tile.GetDest().x - entity->GetDest().width);
-            }
-        }
-    }
-}
-
-void Entity::CheckCollisionsY(Entity *entity, std::vector<Tile> &collisionTiles)
-{
     entity->isCollidingY = false;
+    entity->isCollidingDown = false;
     
-    for(Sprite tile : collisionTiles)
+    for(Tile tile : collisionTiles)
     {
-        if(CheckCollisionRecs(entity->GetDest(), tile.GetDest()))
+        if(CheckCollisionRecs(tile.GetDest(), entity->GetDest()))
         {
-            entity->isCollidingY = true;
-            if(entity->GetDest().y > tile.GetDest().y)
+            if(horizontal)
             {
-                entity->SetPosY(tile.GetDest().y + tile.GetDest().height);
-            } else {
-                entity->SetPosY(tile.GetDest().y - entity->GetDest().height);
+                entity->isCollidingX = true;
+                if(entity->GetVelocity().x > 0) //MOVING RIGHT
+                {
+                    entity->SetPosX(tile.GetDest().x - entity->GetDest().width);
+                } else { //MOVING LEFT
+                    entity->SetPosX(tile.GetDest().x + tile.GetDest().width);
+                }
+            } else if(!horizontal)
+            {
+                entity->isCollidingY = true;
+                if(entity->GetVelocity().y < 0) //MOVING UP
+                {
+                    entity->SetPosY(tile.GetDest().y + tile.GetDest().height);
+                } else { //MOVING DOWN
+                    entity->SetPosY(tile.GetDest().y - entity->GetDest().height);
+                    entity->isCollidingDown = true;
+                }
             }
         }
     }

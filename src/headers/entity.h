@@ -20,12 +20,12 @@ class Entity : public Sprite
     void SetVelocityY(float velocity);
     void SetVelocity(Vector2 velocity);
     void AddVelocity(Vector2 velocity);
-    static void CheckCollisionsX(Entity *entity, std::vector<Tile> &collisionTiles);
-    static void CheckCollisionsY(Entity *entity, std::vector<Tile> &collisionTiles);
+    static void CheckCollisions(Entity *entity, std::vector<Tile> &collisionTiles, bool horizontal);
     bool IsTouchingMapFloor();
     bool isLeft = false;
     bool isCollidingX = false;
     bool isCollidingY = false;
+    bool isCollidingDown = false;
 };
 
 #endif
