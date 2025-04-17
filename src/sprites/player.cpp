@@ -38,7 +38,7 @@ void Player::Update()
         SetVelocityX(0);
     }
     
-    if(IsTouchingGround())  
+    if(IsTouchingMapFloor())  
     {
         SetVelocityY(0.5f);
         
@@ -73,15 +73,10 @@ void Player::Draw()
     Sprite::DrawWithFlip(isLeft);
 }
 
-bool Player::IsTouchingGround()
-{
-    return GetPos().y >= Map::mapSize.y - GetSize().y;
-}
-
 void Player::ResetPos()
 {
     //TEMPORARY
-    SetPos({10, 10});
+    SetPos({50, 50});
 }
 
 void Player::ResetState()

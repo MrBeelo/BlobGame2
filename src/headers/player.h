@@ -18,8 +18,6 @@ class Player : public Entity
     void Draw();
     
     float speed = 5;
-    bool IsTouchingGround();
-    bool isLeft = false;
     
     enum Direction
     {

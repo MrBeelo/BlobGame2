@@ -14,7 +14,7 @@ void Entity::Update()
     AddPosX(velocity.x);
     CheckCollisionsX(this, Map::collisionTiles);
     
-    Sprite::Update();
+    UpdateDest();
 }
 
 Vector2 Entity::GetVelocity()
@@ -79,4 +79,9 @@ void Entity::CheckCollisionsY(Entity *entity, std::vector<Tile> &collisionTiles)
             }
         }
     }
+}
+
+bool Entity::IsTouchingMapFloor()
+{
+    return GetPos().y >= Map::mapSize.y - GetSize().y;
 }

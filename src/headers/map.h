@@ -29,6 +29,7 @@ class Map
     static void GetCurrentMapSize(int currentLevel);
     static void LoadContent();
     static void UnloadContent();
+    static void CalculateTiles(int currentLevel);
     static void Draw(int currentLevel);
     static void DrawCollisions(int currentLevel);
 };

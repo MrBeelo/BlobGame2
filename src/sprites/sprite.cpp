@@ -7,6 +7,7 @@ Sprite::Sprite(Vector2 pos, Vector2 size, Texture2D texture)
     this->pos = pos;
     this->size = size;
     this->texture = texture;
+    UpdateDest();
 }
 
 Sprite::Sprite(Rectangle dest, Texture2D texture)
@@ -14,6 +15,7 @@ Sprite::Sprite(Rectangle dest, Texture2D texture)
     this->pos = {dest.x, dest.y};
     this->size = {dest.width, dest.height};
     this->texture = texture;
+    UpdateDest();
 }
 
 Sprite::~Sprite() {}
@@ -69,11 +71,6 @@ void Sprite::AddPos(Vector2 pos)
     this->pos.y += pos.y * simDT;
 }
 
-void Sprite::Update()
-{
-    dest = {pos.x, pos.y, size.x, size.y};
-}
-
 void Sprite::Draw()
 {
     DrawTexturePro(texture, {0, 0, (float) texture.width, (float) texture.height}, dest, {0, 0}, 0, WHITE);
@@ -94,4 +91,9 @@ void Sprite::DrawAdvanced(bool isLeft, Vector2 srcRect)
 {
     float flip = isLeft ? -1.0f : 1.0f;
     DrawTexturePro(texture, {srcRect.x, srcRect.y, (float) texture.width * flip, (float) texture.height}, dest, {0, 0}, 0, WHITE);
+}
+
+void Sprite::UpdateDest()
+{
+    dest = {pos.x, pos.y, size.x, size.y};
 }

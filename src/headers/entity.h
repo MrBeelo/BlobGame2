@@ -22,6 +22,10 @@ class Entity : public Sprite
     void AddVelocity(Vector2 velocity);
     static void CheckCollisionsX(Entity *entity, std::vector<Tile> &collisionTiles);
     static void CheckCollisionsY(Entity *entity, std::vector<Tile> &collisionTiles);
+    bool IsTouchingMapFloor();
+    bool isLeft = false;
+    bool isCollidingX = false;
+    bool isCollidingY = false;
 };
 
 #endif

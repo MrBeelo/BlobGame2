@@ -25,13 +25,11 @@ class Sprite
     void AddPosX(float pos);
     void AddPosY(float pos);
     void AddPos(Vector2 pos);
-    void Update();
     void Draw();
     void DrawWithSrc(Vector2 srcRect);
     void DrawWithFlip(bool isLeft);
     void DrawAdvanced(bool isLeft, Vector2 srcRect);
-    bool isCollidingX = false;
-    bool isCollidingY = false;
+    void UpdateDest();
 };
 
 

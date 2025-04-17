@@ -118,9 +118,10 @@ void Map::UnloadContent()
     UnloadTexture(collisionAtlas);
 }
 
-void Map::Draw(int currentLevel)
+void Map::CalculateTiles(int currentLevel)
 {
     normalTiles.clear();
+    collisionTiles.clear();
 
     int tpr = 8; //Tiles per row
     int p_tilesize = 32; //Pixel Tilesize
@@ -145,6 +146,54 @@ void Map::Draw(int currentLevel)
         };
         
         normalTiles.push_back({dest, normalAtlas, item.second}); //TEXTURE WON'T BE NEEDED HERE, JUST TEMPORARY
+    }
+    
+    for(std::pair<Vector2, int> item : collisionTilemap[currentLevel])
+    {
+        Rectangle dest = {
+            item.first.x * tilesize,
+            item.first.y * tilesize,
+            tilesize,
+            tilesize
+        };
+        
+        int x = item.second % tpr;
+        int y = item.second / tpr;
+        
+        Rectangle src = {
+            (float) x * p_tilesize,
+            (float) y * p_tilesize,
+            (float) p_tilesize,
+            (float) p_tilesize
+        };
+        
+        collisionTiles.push_back({dest, collisionAtlas, item.second}); //TEXTURE WON'T BE NEEDED HERE, JUST TEMPORARY
+    }
+}
+
+void Map::Draw(int currentLevel)
+{
+    int tpr = 8; //Tiles per row
+    int p_tilesize = 32; //Pixel Tilesize
+    
+    for(std::pair<Vector2, int> item : normalTilemap[currentLevel])
+    {
+        Rectangle dest = {
+            item.first.x * tilesize,
+            item.first.y * tilesize,
+            tilesize,
+            tilesize
+        };
+        
+        int x = item.second % tpr;
+        int y = item.second / tpr;
+        
+        Rectangle src = {
+            (float) x * p_tilesize,
+            (float) y * p_tilesize,
+            (float) p_tilesize,
+            (float) p_tilesize
+        };
         
         DrawTexturePro(normalAtlas, src, dest, {0, 0}, 0.0f, WHITE);
     }
@@ -152,8 +201,6 @@ void Map::Draw(int currentLevel)
 
 void Map::DrawCollisions(int currentLevel)
 {
-    collisionTiles.clear();
-    
     int tpr = 8; //Tiles per row
     int p_tilesize = 32; //Pixel Tilesize
     
@@ -175,8 +222,6 @@ void Map::DrawCollisions(int currentLevel)
             (float) p_tilesize,
             (float) p_tilesize
         };
-        
-        collisionTiles.push_back({dest, collisionAtlas, item.second});
         
         DrawTexturePro(collisionAtlas, src, dest, {0, 0}, 0.0f, WHITE);
     }
