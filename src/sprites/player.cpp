@@ -1,8 +1,6 @@
 #include "../headers/player.h"
 #include "../headers/raylib.h"
 #include "../headers/entity.h"
-#include "../headers/map.h"
-#include <algorithm>
 
 using namespace std;
 
@@ -23,47 +21,14 @@ Player::~Player() {}
 
 void Player::Update()
 {
-    if(IsKeyDown(KEY_A))
-    {
-        SetVelocityX(-speed);
-    }
-    else if(IsKeyDown(KEY_D))
-    {
-        SetVelocityX(speed);
-    }
-    else
-    {
-        SetVelocityX(0);
-    }
-    
-    if(IsTouchingMapFloor() || isCollidingDown)  
-    {
-        SetVelocityY(0.5f);
-        
-        if(IsKeyPressed(KEY_SPACE))
-        {
-            SetVelocityY(-15);
-        }
-    } else 
-    {
-        AddVelocity({0, 1});
-    }
-    
-    if(GetVelocity().x < 0)
-    {
-        isLeft = true;
-    } else if(GetVelocity().x > 0)
-    {
-        isLeft = false;
-    }
+    PlayerMove();
+    Entity::Update();
     
     if(IsKeyPressed(KEY_R))
     {
         ResetPos();
         ResetState();
     }
-    
-    Entity::Update();
 }
 
 void Player::Draw()
@@ -82,4 +47,23 @@ void Player::ResetState()
     SetVelocity({0, 0.5f});
     isLeft = false;
     speed = 5;
+}
+
+void Player::PlayerMove()
+{
+    SetVelocityX(0);
+    
+    if(IsKeyDown(KEY_A))
+    {
+        SetVelocityX(-speed);
+    }
+    else if(IsKeyDown(KEY_D))
+    {
+        SetVelocityX(speed);
+    }
+    
+    if(IsOnGround() && IsKeyPressed(KEY_SPACE))
+    {
+        SetVelocityY(-15);
+    }
 }

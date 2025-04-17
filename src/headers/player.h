@@ -34,6 +34,7 @@ class Player : public Entity
     
     void ResetPos();
     void ResetState();
+    void PlayerMove();
 };
 
 #endif
