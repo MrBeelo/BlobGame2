@@ -2,7 +2,6 @@
 
 #include "../headers/raygui.h"
 #include "../headers/raylib.h"
-#include "../headers/resource_dir.h"
 #include "../headers/text.hpp"
 #include "../headers/player.h"
 #include "../headers/globals.hpp"
@@ -51,6 +50,8 @@ int main(void)
         windowSize = {(float) GetScreenWidth(), (float) GetScreenHeight()};
         simDT = GetFrameTime() * 60;
         
+        Map::GetCurrentMapSize(currentLevel); //RUN WHEN PLAYER CHANGES LEVEL
+        
         if(IsKeyPressed(KEY_F3)) f3On = !f3On;
         
         switch (gameState) {
@@ -80,11 +81,14 @@ int main(void)
         //DEBUG
         if(f3On)
         {
+            if(gameState == PLAYING) Map::DrawCollisions(currentLevel);
             Text::DrawOutfitBoldText(("Game State: " + std::to_string(gameState)).c_str(), {10, 10}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Pos: " + Text::Vector2ToString(player.GetPos())).c_str(), {10, 40}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Velocity: " + Text::Vector2ToString(player.GetVelocity())).c_str(), {10, 70}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is on ground: " + std::to_string(player.IsTouchingGround())).c_str(), {10, 100}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 130}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Map Size: " + Text::Vector2ToString(Map::mapSize)).c_str(), {10, 40}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Pos: " + Text::Vector2ToString(player.GetPos())).c_str(), {10, 70}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Velocity: " + Text::Vector2ToString(player.GetVelocity())).c_str(), {10, 100}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is on ground: " + std::to_string(player.IsTouchingGround())).c_str(), {10, 130}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 160}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is Colliding: " + (std::to_string(player.isCollidingX) + ", " + std::to_string(player.isCollidingY))).c_str(), {10, 190}, 24, BLACK);
         }
             
         EndDrawing();

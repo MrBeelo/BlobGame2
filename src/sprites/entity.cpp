@@ -2,17 +2,19 @@
 #include "../headers/raylib.h"
 #include "../headers/sprite.h"
 #include "../headers/globals.hpp"
+#include "../headers/map.h"
 
 Entity::Entity(Vector2 pos, Vector2 size, Texture2D texture) : Sprite(pos, size, texture) {}
 Entity::~Entity() {}
 
 void Entity::Update()
 {
-    Sprite::Update();
-    
     AddPosY(velocity.y);
-    //COLLISION CHECK
+    Map::CheckCollisionsY(this, Map::collisionTiles);
     AddPosX(velocity.x);
+    Map::CheckCollisionsX(this, Map::collisionTiles);
+    
+    Sprite::Update();
 }
 
 Vector2 Entity::GetVelocity()

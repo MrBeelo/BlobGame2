@@ -1,7 +1,7 @@
 #include "../headers/player.h"
 #include "../headers/raylib.h"
 #include "../headers/entity.h"
-#include "../headers/globals.hpp"
+#include "../headers/map.h"
 #include <algorithm>
 
 using namespace std;
@@ -23,8 +23,7 @@ Player::~Player() {}
 
 void Player::Update()
 {
-    //TEMPORARY
-    SetPos({clamp(GetPos().x, 0.0f, windowSize.x - GetSize().x), clamp(GetPos().y, 0.0f, windowSize.y - GetSize().y)});
+    SetPos({clamp(GetPos().x, 0.0f, Map::mapSize.x - GetSize().x), clamp(GetPos().y, 0.0f, Map::mapSize.y - GetSize().y)});
     
     if(IsKeyDown(KEY_A))
     {
@@ -76,8 +75,7 @@ void Player::Draw()
 
 bool Player::IsTouchingGround()
 {
-    //TEMPORARY
-    return GetPos().y >= windowSize.y - GetSize().y;
+    return GetPos().y >= Map::mapSize.y - GetSize().y;
 }
 
 void Player::ResetPos()
