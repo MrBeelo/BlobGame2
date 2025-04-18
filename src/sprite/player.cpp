@@ -25,8 +25,6 @@ void Player::Update()
     PlayerMove();
     Entity::Update();
     
-    if(immunity > 0) immunity -= 1 * simDT;
-    
     if(IsKeyPressed(KEY_R))
     {
         ResetPos();
@@ -81,7 +79,6 @@ void Player::Kill()
 
 void Player::Respawn()
 {
-    immunity = 10;
     ResetPos();
     ResetState();
 }

@@ -106,7 +106,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 if(isPlayer)
                 {
                     Player* player = static_cast<Player*>(this);
-                    if((horizontal && !isCollidingX) || (!horizontal && !isCollidingY) && player->immunity <= 0)
+                    if((horizontal && !isCollidingX) || (!horizontal && !isCollidingY))
                     {
                         
                         player->Kill();

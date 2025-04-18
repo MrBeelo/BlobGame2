@@ -37,8 +37,6 @@ class Player : public Entity
     void PlayerMove();
     void Kill();
     void Respawn();
-    
-    float immunity = 0;
 };
 
 #endif

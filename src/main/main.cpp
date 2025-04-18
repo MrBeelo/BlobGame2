@@ -120,7 +120,6 @@ int main(void)
             Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 160}, 24, BLACK);
             Text::DrawOutfitBoldText(("Is Colliding: " + (std::to_string(player.isCollidingX) + ", " + std::to_string(player.isCollidingY))).c_str(), {10, 190}, 24, BLACK);
             Text::DrawOutfitBoldText(("Is Alive: " + std::to_string(player.alive)).c_str(), {10, 220}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Immunity:" + std::to_string(player.immunity)).c_str(), {10, 250}, 24, BLACK);
         }
             
         EndDrawing();
