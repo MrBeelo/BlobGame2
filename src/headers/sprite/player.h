@@ -7,36 +7,27 @@
 class Player : public Entity
 {
     public:
-    Player(Vector2 pos, Vector2 size);
+    Player(Vector2 pos);
     ~Player();
-    static Texture2D texture;
+    static Texture2D textureAtlas;
     
     static void LoadContent();
     static void UnloadContent();
-    
     void Update();
     void Draw();
-    
     float speed = 5;
-    
-    enum Direction
-    {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-        UP_LEFT,
-        DOWN_LEFT,
-        UP_RIGHT,
-        DOWN_RIGHT,
-        NA
-    };
-    
+    constexpr static Vector2 defSize = {40, 60};
+    enum Animation { DEFAULT, IDLE_1, WALK_1, WALK_2, JUMP_1, JUMP_2 };
+    Animation texture = DEFAULT;
+    float textureOffset = 0;
     void ResetPos();
     void ResetState();
     void PlayerMove();
     void Kill();
     void Respawn();
+    void EvaluateTextureOffset();
+    float textureTickCounter = 0;
+    void EvaluateTextures(float delay);
 };
 
 #endif

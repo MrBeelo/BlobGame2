@@ -32,6 +32,7 @@ class Entity : public Sprite
     bool isPlayer = false;
     void Kill();
     bool alive = true;
+    bool IsMoving();
 };
 
 #endif

@@ -26,9 +26,9 @@ class Sprite
     void AddPosY(float pos);
     void AddPos(Vector2 pos);
     void Draw();
-    void DrawWithSrc(Vector2 srcRect);
+    void DrawWithSrc(Vector2 srcRect, Vector2 textureSnippetSize);
     void DrawWithFlip(bool isLeft);
-    void DrawAdvanced(bool isLeft, Vector2 srcRect);
+    void DrawAdvanced(bool isLeft, Vector2 srcRect, Vector2 textureSnippetSize);
     void UpdateDest();
 };
 

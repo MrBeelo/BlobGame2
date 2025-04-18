@@ -44,7 +44,7 @@ int main(void)
     SetWindowIcon(LoadImage("res/assets/other/icon.png"));
     SetExitKey(KEY_NULL);
     
-    Player player = {{50, 50}, {40, 60}};
+    Player player = {{50, 50}};
     Map::LoadMapSizeAndTiles(currentLevel);
     
     MainMenuScreen mainMenuScreen = {};
@@ -120,6 +120,9 @@ int main(void)
             Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 160}, 24, BLACK);
             Text::DrawOutfitBoldText(("Is Colliding: " + (std::to_string(player.isCollidingX) + ", " + std::to_string(player.isCollidingY))).c_str(), {10, 190}, 24, BLACK);
             Text::DrawOutfitBoldText(("Is Alive: " + std::to_string(player.alive)).c_str(), {10, 220}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is Moving: " + std::to_string(player.IsMoving())).c_str(), {10, 250}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Texture Tick Counter: " + std::to_string(player.textureTickCounter)).c_str(), {10, 280}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Texture Offset: " + std::to_string(player.textureOffset)).c_str(), {10, 310}, 24, BLACK);
         }
             
         EndDrawing();

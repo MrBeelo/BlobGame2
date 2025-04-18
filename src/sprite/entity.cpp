@@ -80,7 +80,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 case 0:
                 if(horizontal)
                 {
-                    this->isCollidingX = true;
+                    if(IsMoving()) this->isCollidingX = true;
                     if(this->GetVelocity().x > 0) //MOVING RIGHT
                     {
                         this->SetPosX(tile.GetDest().x - this->GetDest().width);
@@ -139,4 +139,9 @@ bool Entity::IsOnGround()
 void Entity::Kill()
 {
     alive = false;
+}
+
+bool Entity::IsMoving()
+{
+    return GetVelocity().x != 0;
 }

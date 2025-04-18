@@ -5,19 +5,19 @@
 
 using namespace std;
 
-Texture2D Player::texture;
+Texture2D Player::textureAtlas;
 
 void Player::LoadContent()
 {
-    texture = LoadTexture("res/assets/player/blob.png");
+    textureAtlas = LoadTexture("res/assets/sprite/player_atlas.png");
 }
 
 void Player::UnloadContent()
 {
-    UnloadTexture(texture);
+    UnloadTexture(textureAtlas);
 }
 
-Player::Player(Vector2 pos, Vector2 size) : Entity(pos, size, texture, true) {}
+Player::Player(Vector2 pos) : Entity(pos, defSize, textureAtlas, true) {}
 Player::~Player() {}
 
 void Player::Update()
@@ -25,16 +25,15 @@ void Player::Update()
     PlayerMove();
     Entity::Update();
     
-    if(IsKeyPressed(KEY_R))
-    {
-        ResetPos();
-        ResetState();
-    }
+    EvaluateTextures(29);
+    EvaluateTextureOffset();
+    
+    if(IsKeyPressed(KEY_R)) Respawn();
 }
 
 void Player::Draw()
 {
-    Sprite::DrawWithFlip(isLeft);
+    Sprite::DrawAdvanced(isLeft, {textureOffset, 0}, {20, 30});
 }
 
 void Player::ResetPos()
@@ -81,4 +80,54 @@ void Player::Respawn()
 {
     ResetPos();
     ResetState();
+}
+
+void Player::EvaluateTextureOffset()
+{
+    switch (texture) {
+        case DEFAULT: textureOffset = 0; break;
+        case IDLE_1: textureOffset = 20; break;
+        case WALK_1: textureOffset = 40; break;
+        case WALK_2: textureOffset = 60; break;
+        case JUMP_1: textureOffset = 80; break;
+        case JUMP_2: textureOffset = 100; break;
+    }
+}
+
+void Player::EvaluateTextures(float delay)
+{
+    textureTickCounter += simDT;
+    
+    if(textureTickCounter > delay)
+    {
+        if(IsOnGround() && IsMoving()) //MOVING
+        {
+            bool doWalk1 = true;
+            if(texture == DEFAULT)
+            {
+                if(doWalk1)
+                {
+                    texture = WALK_1;
+                    doWalk1 = false;
+                } else if(!doWalk1)
+                {
+                    texture = WALK_2;
+                    doWalk1 = true;
+                }
+            } else {
+                texture = DEFAULT;
+            }
+        } else if(IsOnGround() && !IsMoving()) //IDLE
+        {
+            if(texture == DEFAULT) texture = IDLE_1; else texture = DEFAULT;
+        }
+        
+        textureTickCounter = 0;
+    }
+    
+    if(!IsOnGround()) //JUMPING
+    {
+        textureTickCounter = delay;
+        if((GetVelocity().y > -3) && (GetVelocity().y < 3)) texture = JUMP_2; else texture = JUMP_1;
+    }
 }
