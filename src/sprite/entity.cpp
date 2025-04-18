@@ -106,12 +106,76 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 if(isPlayer)
                 {
                     Player* player = static_cast<Player*>(this);
-                    if((horizontal && !isCollidingX) || (!horizontal && !isCollidingY))
+                    if((horizontal && !isCollidingX) || (!horizontal && !isCollidingY)) player->Kill();
+                }
+                break;
+                
+                case 2:
+                if(horizontal)
+                {
+                    if(IsMoving()) this->isCollidingX = true;
+                    if(this->GetVelocity().x > 0) //MOVING RIGHT
                     {
-                        
-                        player->Kill();
+                        this->SetPosX(tile.GetDest().x - this->GetDest().width);
+                    } else if(this->GetVelocity().x < 0) { //MOVING LEFT
+                        this->SetPosX(tile.GetDest().x + tile.GetDest().width);
                     }
-                } 
+                } else
+                {
+                    this->isCollidingY = true;
+                    if(this->GetVelocity().y < 0) //MOVING UP
+                    {
+                        this->SetVelocityY(-0.1f);
+                        this->SetPosY(tile.GetDest().y + tile.GetDest().height);
+                    } else if (this->GetVelocity().y > 0) { //MOVING DOWN
+                        if(isPlayer)
+                        {
+                            Player* player = static_cast<Player*>(this);
+                            gameState = PASS;
+                            Map::AdvanceLevel();
+                            player->Respawn();
+                        }
+                        
+                        
+                        this->isCollidingDown = true;
+                        this->SetVelocityY(0.1f);
+                        this->SetPosY(tile.GetDest().y - this->GetDest().height);
+                    }
+                }
+                break;
+                
+                case 3:
+                if(horizontal)
+                {
+                    if(IsMoving()) this->isCollidingX = true;
+                    if(this->GetVelocity().x > 0) //MOVING RIGHT
+                    {
+                        this->SetPosX(tile.GetDest().x - this->GetDest().width);
+                    } else if(this->GetVelocity().x < 0) { //MOVING LEFT
+                        this->SetPosX(tile.GetDest().x + tile.GetDest().width);
+                    }
+                } else
+                {
+                    this->isCollidingY = true;
+                    if(this->GetVelocity().y < 0) //MOVING UP
+                    {
+                        this->SetVelocityY(-0.1f);
+                        this->SetPosY(tile.GetDest().y + tile.GetDest().height);
+                    } else if (this->GetVelocity().y > 0) { //MOVING DOWN
+                        if(isPlayer)
+                        {
+                            Player* player = static_cast<Player*>(this);
+                            gameState = WIN;
+                            Map::Win();
+                            player->Respawn();
+                        }
+                        
+                        
+                        this->isCollidingDown = true;
+                        this->SetVelocityY(0.1f);
+                        this->SetPosY(tile.GetDest().y - this->GetDest().height);
+                    }
+                }
                 break;
             }
         }

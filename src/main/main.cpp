@@ -8,6 +8,8 @@
 #include "../headers/screen/paused_screen.h"
 #include "../headers/screen/exit_screen.h"
 #include "../headers/screen/death_screen.h"
+#include "../headers/screen/pass_screen.h"
+#include "../headers/screen/win_screen.h"
 #include "../headers/map/map.h"
 #include <string>
 
@@ -45,12 +47,14 @@ int main(void)
     SetExitKey(KEY_NULL);
     
     Player player = {{50, 50}};
-    Map::LoadMapSizeAndTiles(currentLevel);
+    Map::LoadMapSizeAndTiles();
     
     MainMenuScreen mainMenuScreen = {};
     PausedScreen pausedScreen = {};
     ExitScreen exitScreen = {};
     DeathScreen deathScreen = {};
+    PassScreen passScreen = {};
+    WinScreen winScreen = {};
     
     while (!WindowShouldClose())
     {
@@ -61,68 +65,44 @@ int main(void)
         if(IsKeyPressed(KEY_ESCAPE) && gameState == PLAYING) gameState = PAUSED;
         
         switch (gameState) {
-            case PLAYING:
-                player.Update();
-            break;
-                
-            case MAIN_MENU:
-                mainMenuScreen.Update();
-            break;
-            
-            case PAUSED:
-                pausedScreen.Update();
-            break;
-            
-            case EXIT:
-                exitScreen.Update();
-            break;
-            
-            case DIED:
-                deathScreen.Update();
-            break;
+            case PLAYING: player.Update(); break;  
+            case MAIN_MENU: mainMenuScreen.Update(); break;
+            case PAUSED: pausedScreen.Update(); break;
+            case EXIT: exitScreen.Update(); break;
+            case DIED: deathScreen.Update(); break;
+            case PASS: passScreen.Update(); break;
+            case WIN: winScreen.Update(); break;
         }
         
         BeginDrawing();
         ClearBackground(SKYBLUE);
             
         switch (gameState) {
-            case PLAYING:
-                Map::Draw(currentLevel);
-                player.Draw();
-            break;
-                
-            case MAIN_MENU:
-                mainMenuScreen.Draw();
-            break;
-            
-            case PAUSED:
-                pausedScreen.Draw();
-            break;
-            
-            case EXIT:
-                exitScreen.Draw();
-            break;
-            
-            case DIED:
-                deathScreen.Draw();
-            break;
+            case PLAYING: Map::Draw(); player.Draw(); break;
+            case MAIN_MENU: mainMenuScreen.Draw(); break;
+            case PAUSED: pausedScreen.Draw(); break;
+            case EXIT: exitScreen.Draw(); break;
+            case DIED: deathScreen.Draw(); break;
+            case PASS: passScreen.Draw(); break;
+            case WIN: winScreen.Draw(); break;
         }
         
         //DEBUG
         if(f3On)
         {
-            if(gameState == PLAYING) Map::DrawCollisions(currentLevel);
+            if(gameState == PLAYING) Map::DrawCollisions();
             Text::DrawOutfitBoldText(("Game State: " + std::to_string(gameState)).c_str(), {10, 10}, 24, BLACK);
             Text::DrawOutfitBoldText(("Map Size: " + Text::Vector2ToString(Map::mapSize)).c_str(), {10, 40}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Pos: " + Text::Vector2ToString(player.GetPos())).c_str(), {10, 70}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Velocity: " + Text::Vector2ToString(player.GetVelocity())).c_str(), {10, 100}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is on ground: " + std::to_string(player.IsOnGround())).c_str(), {10, 130}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 160}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is Colliding: " + (std::to_string(player.isCollidingX) + ", " + std::to_string(player.isCollidingY))).c_str(), {10, 190}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is Alive: " + std::to_string(player.alive)).c_str(), {10, 220}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is Moving: " + std::to_string(player.IsMoving())).c_str(), {10, 250}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Texture Tick Counter: " + std::to_string(player.textureTickCounter)).c_str(), {10, 280}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Texture Offset: " + std::to_string(player.textureOffset)).c_str(), {10, 310}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Current Level: " + std::to_string(currentLevel)).c_str(), {10, 70}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Pos: " + Text::Vector2ToString(player.GetPos())).c_str(), {10, 100}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Velocity: " + Text::Vector2ToString(player.GetVelocity())).c_str(), {10, 130}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is on ground: " + std::to_string(player.IsOnGround())).c_str(), {10, 160}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 190}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is Colliding: " + (std::to_string(player.isCollidingX) + ", " + std::to_string(player.isCollidingY))).c_str(), {10, 220}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is Alive: " + std::to_string(player.alive)).c_str(), {10, 250}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is Moving: " + std::to_string(player.IsMoving())).c_str(), {10, 280}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Texture Tick Counter: " + std::to_string(player.textureTickCounter)).c_str(), {10, 310}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Texture Offset: " + std::to_string(player.textureOffset)).c_str(), {10, 340}, 24, BLACK);
         }
             
         EndDrawing();

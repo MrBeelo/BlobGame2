@@ -16,7 +16,9 @@ enum GameState
     MAIN_MENU,
     PAUSED,
     EXIT,
-    DIED
+    DIED,
+    PASS,
+    WIN
 };
 
 extern GameState gameState;

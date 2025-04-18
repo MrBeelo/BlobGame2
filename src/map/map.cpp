@@ -95,7 +95,7 @@ void Map::GetMapSize(std::string filepath)
     mapSize = { (float)(x * tilesize), (float)(y * tilesize) };
 }
 
-void Map::GetCurrentMapSize(int currentLevel)
+void Map::GetCurrentMapSize()
 {
     GetMapSize("res/data/level" + std::to_string(currentLevel) + "_collision.csv");
 }
@@ -118,7 +118,7 @@ void Map::UnloadContent()
     UnloadTexture(collisionAtlas);
 }
 
-void Map::CalculateTiles(int currentLevel)
+void Map::CalculateTiles()
 {
     normalTiles.clear();
     collisionTiles.clear();
@@ -171,7 +171,7 @@ void Map::CalculateTiles(int currentLevel)
     }
 }
 
-void Map::Draw(int currentLevel)
+void Map::Draw()
 {
     int tpr = 8; //Tiles per row
     int p_tilesize = 32; //Pixel Tilesize
@@ -199,7 +199,7 @@ void Map::Draw(int currentLevel)
     }
 }
 
-void Map::DrawCollisions(int currentLevel)
+void Map::DrawCollisions()
 {
     int tpr = 8; //Tiles per row
     int p_tilesize = 32; //Pixel Tilesize
@@ -227,14 +227,20 @@ void Map::DrawCollisions(int currentLevel)
     }
 }
 
-void Map::AdvanceLevel(int currentLevel)
+void Map::AdvanceLevel()
 {
     currentLevel++;
-    LoadMapSizeAndTiles(currentLevel);
+    LoadMapSizeAndTiles();
 }
 
-void Map::LoadMapSizeAndTiles(int currentLevel)
+void Map::Win()
 {
-    Map::GetCurrentMapSize(currentLevel);
-    Map::CalculateTiles(currentLevel);
+    currentLevel = 0;
+    LoadMapSizeAndTiles();
+}
+
+void Map::LoadMapSizeAndTiles()
+{
+    Map::GetCurrentMapSize();
+    Map::CalculateTiles();
 }
