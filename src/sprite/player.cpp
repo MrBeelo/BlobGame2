@@ -2,6 +2,7 @@
 #include "../headers/raylib/raylib.h"
 #include "../headers/sprite/entity.h"
 #include "../headers/main/globals.hpp"
+#include "../headers/sound/sounds.h"
 
 using namespace std;
 
@@ -65,6 +66,7 @@ void Player::PlayerMove()
     
     if(IsOnGround() && IsKeyPressed(KEY_SPACE))
     {
+        PlaySound(Sounds::jump);
         SetVelocityY(-15);
     }
 }

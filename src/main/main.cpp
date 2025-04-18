@@ -10,6 +10,7 @@
 #include "../headers/screen/death_screen.h"
 #include "../headers/screen/pass_screen.h"
 #include "../headers/screen/win_screen.h"
+#include "../headers/sound/sounds.h"
 #include "../headers/map/map.h"
 #include <string>
 
@@ -25,6 +26,7 @@ void LeaveGame()
     Text::UnloadContent();
     Player::UnloadContent();
     Map::UnloadContent();
+    Sounds::UnloadContent();
 
     CloseWindow();
 }
@@ -36,13 +38,15 @@ int main(void)
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     
     InitWindow(windowSize.x, windowSize.y, "Blob Game 2");
-    //SearchAndSetResourceDir("res/assets");
+    InitAudioDevice();
     
     Text::LoadContent();
     Player::LoadContent();
     Map::LoadContent();
+    Sounds::LoadContent();
     
-    InitAudioDevice();
+    PlaySound(Sounds::success);
+    
     SetWindowIcon(LoadImage("res/assets/other/icon.png"));
     SetExitKey(KEY_NULL);
     
