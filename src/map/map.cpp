@@ -1,7 +1,7 @@
-#include "../headers/map.h"
-#include "../headers/raylib.h"
-#include "../headers/globals.hpp"
-#include "../headers/tile.h"
+#include "../headers/map/map.h"
+#include "../headers/raylib/raylib.h"
+#include "../headers/main/globals.hpp"
+#include "../headers/sprite/tile.h"
 #include <fstream>
 #include <iostream>
 #include <string>

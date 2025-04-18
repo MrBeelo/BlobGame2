@@ -1,5 +1,5 @@
-#include "../headers/text.hpp"
-#include "../headers/raylib.h"
+#include "../headers/main/text.hpp"
+#include "../headers/raylib/raylib.h"
 #include <string>
 
 

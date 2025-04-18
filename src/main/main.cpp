@@ -1,14 +1,13 @@
 #define RAYGUI_IMPLEMENTATION
 
-#include "../headers/raylib.h"
-#include "../headers/text.hpp"
-#include "../headers/player.h"
-#include "../headers/globals.hpp"
-#include "../headers/main_menu_screen.h"
-#include "../headers/paused_screen.h"
-#include "../headers/exit_screen.h"
-#include "../headers/map.h"
-#include "../headers/style_cyber.h"
+#include "../headers/raylib/raylib.h"
+#include "../headers/main/text.hpp"
+#include "../headers/sprite/player.h"
+#include "../headers/main/globals.hpp"
+#include "../headers/screen/main_menu_screen.h"
+#include "../headers/screen/paused_screen.h"
+#include "../headers/screen/exit_screen.h"
+#include "../headers/map/map.h"
 #include <string>
 
 float buffer = 10.0f;
@@ -36,8 +35,6 @@ int main(void)
     InitWindow(windowSize.x, windowSize.y, "Blob Game 2");
     //SearchAndSetResourceDir("res/assets");
     
-    GuiLoadStyleCyber();
-    
     InitAudioDevice();
     SetWindowIcon(LoadImage("res/assets/other/icon.png"));
     SetExitKey(KEY_NULL);
@@ -47,7 +44,11 @@ int main(void)
     Map::LoadContent();
     
     Map::LoadMapSizeAndTiles(currentLevel);
+    
     Player player = {{50, 50}, {40, 60}};
+    MainMenuScreen mainMenuScreen = {};
+    PausedScreen pausedScreen = {};
+    ExitScreen exitScreen = {};
     
     while (!WindowShouldClose())
     {
@@ -63,15 +64,15 @@ int main(void)
             break;
                 
             case MAIN_MENU:
-                MainMenuScreen::Update();
+                mainMenuScreen.Update();
             break;
             
             case PAUSED:
-                PausedScreen::Update();
+                pausedScreen.Update();
             break;
             
             case EXIT:
-                ExitScreen::Update();
+                exitScreen.Update();
             break;
         }
         
@@ -85,15 +86,15 @@ int main(void)
             break;
                 
             case MAIN_MENU:
-                MainMenuScreen::Draw();
+                mainMenuScreen.Draw();
             break;
             
             case PAUSED:
-                PausedScreen::Draw();
+                pausedScreen.Draw();
             break;
             
             case EXIT:
-                ExitScreen::Draw();
+                exitScreen.Draw();
             break;
         }
         
