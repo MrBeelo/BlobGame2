@@ -13,6 +13,7 @@ class Entity : public Sprite
     
     public: 
     Entity(Vector2 pos, Vector2 size, Texture2D texture);
+    Entity(Vector2 pos, Vector2 size, Texture2D texture, bool isPlayer);
     ~Entity();
     void Update();
     Vector2 GetVelocity();
@@ -28,6 +29,9 @@ class Entity : public Sprite
     bool isCollidingDown = false;
     void ApplyGravity();
     bool IsOnGround();
+    bool isPlayer = false;
+    void Kill();
+    bool alive = true;
 };
 
 #endif

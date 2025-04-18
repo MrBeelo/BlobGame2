@@ -7,6 +7,7 @@
 #include "../headers/screen/main_menu_screen.h"
 #include "../headers/screen/paused_screen.h"
 #include "../headers/screen/exit_screen.h"
+#include "../headers/screen/death_screen.h"
 #include "../headers/map/map.h"
 #include <string>
 
@@ -35,20 +36,21 @@ int main(void)
     InitWindow(windowSize.x, windowSize.y, "Blob Game 2");
     //SearchAndSetResourceDir("res/assets");
     
-    InitAudioDevice();
-    SetWindowIcon(LoadImage("res/assets/other/icon.png"));
-    SetExitKey(KEY_NULL);
-    
     Text::LoadContent();
     Player::LoadContent();
     Map::LoadContent();
     
-    Map::LoadMapSizeAndTiles(currentLevel);
+    InitAudioDevice();
+    SetWindowIcon(LoadImage("res/assets/other/icon.png"));
+    SetExitKey(KEY_NULL);
     
     Player player = {{50, 50}, {40, 60}};
+    Map::LoadMapSizeAndTiles(currentLevel);
+    
     MainMenuScreen mainMenuScreen = {};
     PausedScreen pausedScreen = {};
     ExitScreen exitScreen = {};
+    DeathScreen deathScreen = {};
     
     while (!WindowShouldClose())
     {
@@ -74,6 +76,10 @@ int main(void)
             case EXIT:
                 exitScreen.Update();
             break;
+            
+            case DIED:
+                deathScreen.Update();
+            break;
         }
         
         BeginDrawing();
@@ -96,6 +102,10 @@ int main(void)
             case EXIT:
                 exitScreen.Draw();
             break;
+            
+            case DIED:
+                deathScreen.Draw();
+            break;
         }
         
         //DEBUG
@@ -109,6 +119,8 @@ int main(void)
             Text::DrawOutfitBoldText(("Is on ground: " + std::to_string(player.IsOnGround())).c_str(), {10, 130}, 24, BLACK);
             Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 160}, 24, BLACK);
             Text::DrawOutfitBoldText(("Is Colliding: " + (std::to_string(player.isCollidingX) + ", " + std::to_string(player.isCollidingY))).c_str(), {10, 190}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is Alive: " + std::to_string(player.alive)).c_str(), {10, 220}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Immunity:" + std::to_string(player.immunity)).c_str(), {10, 250}, 24, BLACK);
         }
             
         EndDrawing();

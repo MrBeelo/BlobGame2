@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../raylib/raylib.h"
-#include <string>
-#include <vector>
+#include <cstdlib>
+#include <functional>
 
 extern float buffer;
 extern Vector2 windowSize;
@@ -15,7 +15,8 @@ enum GameState
     PLAYING,
     MAIN_MENU,
     PAUSED,
-    EXIT
+    EXIT,
+    DIED
 };
 
 extern GameState gameState;

@@ -1,6 +1,7 @@
 #include "../headers/sprite/player.h"
 #include "../headers/raylib/raylib.h"
 #include "../headers/sprite/entity.h"
+#include "../headers/main/globals.hpp"
 
 using namespace std;
 
@@ -16,13 +17,15 @@ void Player::UnloadContent()
     UnloadTexture(texture);
 }
 
-Player::Player(Vector2 pos, Vector2 size) : Entity(pos, size, texture) {}
+Player::Player(Vector2 pos, Vector2 size) : Entity(pos, size, texture, true) {}
 Player::~Player() {}
 
 void Player::Update()
 {
     PlayerMove();
     Entity::Update();
+    
+    if(immunity > 0) immunity -= 1 * simDT;
     
     if(IsKeyPressed(KEY_R))
     {
@@ -47,6 +50,7 @@ void Player::ResetState()
     SetVelocity({0, 0.5f});
     isLeft = false;
     speed = 5;
+    alive = true;
 }
 
 void Player::PlayerMove()
@@ -66,4 +70,18 @@ void Player::PlayerMove()
     {
         SetVelocityY(-15);
     }
+}
+
+void Player::Kill()
+{
+    Entity::Kill();
+    Respawn();
+    gameState = DIED;
+}
+
+void Player::Respawn()
+{
+    immunity = 10;
+    ResetPos();
+    ResetState();
 }

@@ -35,6 +35,10 @@ class Player : public Entity
     void ResetPos();
     void ResetState();
     void PlayerMove();
+    void Kill();
+    void Respawn();
+    
+    float immunity = 0;
 };
 
 #endif

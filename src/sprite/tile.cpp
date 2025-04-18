@@ -11,3 +11,8 @@ Tile::Tile(Rectangle dest, Texture2D texture, int type) : Sprite(dest, texture) 
 }
 
 Tile::~Tile() {}
+
+int Tile::GetType()
+{
+    return this->type;
+}
