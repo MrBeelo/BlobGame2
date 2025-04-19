@@ -8,8 +8,8 @@ Sound Sounds::jump;
 
 void Sounds::LoadContent()
 {
-    success = LoadSound("res/assets/sound/success.wav");
-    jump = LoadSound("res/assets/sound/jump.wav");
+    success = LoadSound("assets/sound/success.wav");
+    jump = LoadSound("assets/sound/jump.wav");
 }
 
 void Sounds::UnloadContent()

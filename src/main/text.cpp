@@ -7,7 +7,7 @@ Font Text::OutfitBold;
 
 void Text::LoadContent()
 {
-    OutfitBold = LoadFont("res/assets/font/outfit_bold.ttf");
+    OutfitBold = LoadFont("assets/font/outfit_bold.ttf");
 }
 
 void Text::UnloadContent()

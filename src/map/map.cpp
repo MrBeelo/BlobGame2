@@ -97,18 +97,18 @@ void Map::GetMapSize(std::string filepath)
 
 void Map::GetCurrentMapSize()
 {
-    GetMapSize("res/data/level" + std::to_string(currentLevel) + "_collision.csv");
+    GetMapSize("data/level" + std::to_string(currentLevel) + "_collision.csv");
 }
 
 void Map::LoadContent()
 {
-    normalAtlas = LoadTexture("res/assets/map/normal_atlas.png");
-    collisionAtlas = LoadTexture("res/assets/map/collision_atlas.png");
+    normalAtlas = LoadTexture("assets/map/normal_atlas.png");
+    collisionAtlas = LoadTexture("assets/map/collision_atlas.png");
     
     for(int i = 0; i < levelAmount; i++)
     {
-        normalTilemap[i] = LoadMap("res/data/level" + std::to_string(i) + "_normal.csv");
-        collisionTilemap[i] = LoadMap("res/data/level" + std::to_string(i) + "_collision.csv");
+        normalTilemap[i] = LoadMap("data/level" + std::to_string(i) + "_normal.csv");
+        collisionTilemap[i] = LoadMap("data/level" + std::to_string(i) + "_collision.csv");
     }
 }
 

@@ -12,6 +12,7 @@
 #include "../headers/screen/win_screen.h"
 #include "../headers/sound/sounds.h"
 #include "../headers/map/map.h"
+#include "../headers/raylib/resource_dir.h"
 #include <string>
 
 float buffer = 10.0f;
@@ -33,12 +34,12 @@ void LeaveGame()
 
 int main(void)
 { 
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    SetConfigFlags(FLAG_VSYNC_HINT);
-    SetConfigFlags(FLAG_MSAA_4X_HINT);
+    SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI | FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
     
     InitWindow(windowSize.x, windowSize.y, "Blob Game 2");
     InitAudioDevice();
+    
+    SearchAndSetResourceDir("res");
     
     Text::LoadContent();
     Player::LoadContent();
@@ -47,7 +48,7 @@ int main(void)
     
     PlaySound(Sounds::success);
     
-    SetWindowIcon(LoadImage("res/assets/other/icon.png"));
+    SetWindowIcon(LoadImage("assets/other/icon.png"));
     SetExitKey(KEY_NULL);
     
     Player player = {{50, 50}};

@@ -10,7 +10,7 @@ Texture2D Player::textureAtlas;
 
 void Player::LoadContent()
 {
-    textureAtlas = LoadTexture("res/assets/sprite/player_atlas.png");
+    textureAtlas = LoadTexture("assets/sprite/player_atlas.png");
 }
 
 void Player::UnloadContent()
