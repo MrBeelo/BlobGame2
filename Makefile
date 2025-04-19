@@ -16,7 +16,7 @@ FILE_FORMAT = .cpp
 #Defaults to C++, change to c to use the C language.
 TARGET_LANGUAGE ?= c++
 #Defaults to linux, change to win for Windows or web for HTML5.
-TARGET_PLATFORM ?= linux
+TARGET_PLATFORM ?= web
 
 ifeq ($(TARGET_PLATFORM), win)
 	BUILD_DIR = bin/win
@@ -50,7 +50,7 @@ ifeq ($(TARGET_PLATFORM), web)
 	LIBRARIES_DIR = lib/web
 	EXECUTABLE = $(BUILD_DIR)/$(PROGRAM_NAME).html
 	CXXFLAGS += -DPLATFORM_WEB -DGRAPHICS_API_OPENGL_ES2
-	LDFLAGS += -s ASYNCIFY -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s ENVIRONMENT=web --preload-file $(RESOURCES_DIR) -s TOTAL_MEMORY=64MB
+	LDFLAGS += -s ASYNCIFY -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s ENVIRONMENT=web --preload-file $(RESOURCES_DIR) -s TOTAL_MEMORY=64MB --shell-file shell.html
 endif
 
 ifeq ($(TARGET_LANGUAGE), c)
