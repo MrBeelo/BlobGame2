@@ -18,14 +18,14 @@ protected:
     void DrawCenteredTitle(float yOffset = 0) const {
         const std::string title = GetTitleText();
         Vector2 size = Text::MeasureOutfitBoldText(title.c_str(), titleTextFontSize);
-        Vector2 pos = { windowSize.x / 2 - size.x / 2, buffer + yOffset };
+        Vector2 pos = { simulationSize.x / 2 - size.x / 2, buffer + yOffset };
         Text::DrawOutfitBoldText(title.c_str(), pos, titleTextFontSize, BLACK);
     }
 
     Vector2 GetCenteredPosition(Vector2 size, float yOffset = 0) const {
         return {
-            windowSize.x / 2 - size.x / 2,
-            windowSize.y / 2 - size.y / 2 + yOffset
+            simulationSize.x / 2 - size.x / 2,
+            simulationSize.y / 2 - size.y / 2 + yOffset
         };
     }
 

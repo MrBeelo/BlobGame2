@@ -143,15 +143,15 @@ void Player::CameraConfig()
 {
     camera.zoom = 1;
     camera.target = GetPos();
-    camera.offset = {windowSize.x / 2, windowSize.y / 2};
+    camera.offset = {simulationSize.x / 2, simulationSize.y / 2};
 }
 
 void Player::UpdatePlayerCamera()
 {
     camera.target = GetPos();
 
-    float halfX = windowSize.x / 2 / camera.zoom;
-    float halfY = windowSize.y / 2 / camera.zoom;
+    float halfX = simulationSize.x / 2 / camera.zoom;
+    float halfY = simulationSize.y / 2 / camera.zoom;
 
     camera.offset = {halfX, halfY};
 

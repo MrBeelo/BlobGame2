@@ -1,3 +1,4 @@
+#include <algorithm>
 #define RAYGUI_IMPLEMENTATION
 
 #include "../headers/raylib/raylib.h"
@@ -17,10 +18,13 @@
 
 float buffer = 10.0f;
 Vector2 windowSize = {1920, 1031};
+const Vector2 simulationSize = {1920, 1080};
 float simDT = 0;
 bool f3On = false;
 int currentLevel = 0;
 GameState gameState = MAIN_MENU;
+RenderTexture2D target;
+float scale;
 
 void LeaveGame()
 {
@@ -28,6 +32,7 @@ void LeaveGame()
     Player::UnloadContent();
     Map::UnloadContent();
     Sounds::UnloadContent();
+    UnloadRenderTexture(target);
 
     CloseWindow();
 }
@@ -63,10 +68,15 @@ int main(void)
     PassScreen passScreen = {};
     WinScreen winScreen = {};
     
+    target = LoadRenderTexture(simulationSize.x, simulationSize.y);
+    SetTextureFilter(target.texture, TEXTURE_FILTER_BILINEAR);
+    
     while (!WindowShouldClose())
     {
         windowSize = {(float) GetScreenWidth(), (float) GetScreenHeight()};
         simDT = GetFrameTime() * 60;
+        
+        scale = std::min(windowSize.x / simulationSize.x, windowSize.y / simulationSize.y);
         
         if(IsKeyPressed(KEY_F3)) f3On = !f3On;
         if(IsKeyPressed(KEY_ESCAPE) && gameState == PLAYING) gameState = PAUSED;
@@ -81,7 +91,7 @@ int main(void)
             case WIN: winScreen.Update(); break;
         }
         
-        BeginDrawing();
+        BeginTextureMode(target);
         
         ClearBackground(SKYBLUE);
         
@@ -123,6 +133,13 @@ int main(void)
             Text::DrawOutfitBoldText(("Texture Offset: " + std::to_string(player.textureOffset)).c_str(), {10, 340}, 24, BLACK);
         }
             
+        EndTextureMode();
+        
+        BeginDrawing();
+        ClearBackground(BLACK);
+        DrawTexturePro(target.texture, {0, 0, (float)target.texture.width, -(float)target.texture.height}, 
+            {(windowSize.x - simulationSize.x * scale) * 0.5f, (windowSize.y - simulationSize.y * scale) * 0.5f, simulationSize.x * scale, simulationSize.y * scale}, 
+            {0, 0}, 0.0f, WHITE);
         EndDrawing();
     }
 

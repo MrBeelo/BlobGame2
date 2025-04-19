@@ -6,9 +6,12 @@
 
 extern float buffer;
 extern Vector2 windowSize;
+const extern Vector2 simulationSize;
 extern float simDT;
 extern bool f3On;
 extern int currentLevel;
+extern RenderTexture2D target;
+extern float scale;
 
 enum GameState
 {
