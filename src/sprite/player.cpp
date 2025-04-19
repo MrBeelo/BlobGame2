@@ -3,10 +3,13 @@
 #include "../headers/sprite/entity.h"
 #include "../headers/main/globals.hpp"
 #include "../headers/sound/sounds.h"
+#include "../headers/map/map.h"
+#include <algorithm>
 
 using namespace std;
 
 Texture2D Player::textureAtlas;
+Camera2D Player::camera;
 
 void Player::LoadContent()
 {
@@ -30,6 +33,8 @@ void Player::Update()
     EvaluateTextureOffset();
     
     if(IsKeyPressed(KEY_R)) Respawn();
+    
+    UpdatePlayerCamera();
 }
 
 void Player::Draw()
@@ -132,4 +137,26 @@ void Player::EvaluateTextures(float delay)
         textureTickCounter = delay;
         if((GetVelocity().y > -3) && (GetVelocity().y < 3)) texture = JUMP_2; else texture = JUMP_1;
     }
+}
+
+void Player::CameraConfig()
+{
+    camera.zoom = 1;
+    camera.target = GetPos();
+    camera.offset = {windowSize.x / 2, windowSize.y / 2};
+}
+
+void Player::UpdatePlayerCamera()
+{
+    camera.target = GetPos();
+
+    float halfX = windowSize.x / 2 / camera.zoom;
+    float halfY = windowSize.y / 2 / camera.zoom;
+
+    camera.offset = {halfX, halfY};
+
+    float clampX = std::clamp(camera.target.x, 0.0f + halfX, Map::mapSize.x - halfX);
+    float clampY = std::clamp(camera.target.y, 0.0f + halfY, Map::mapSize.y - halfY);
+
+    camera.target = {clampX, clampY};
 }

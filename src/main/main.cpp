@@ -54,6 +54,8 @@ int main(void)
     Player player = {{50, 50}};
     Map::LoadMapSizeAndTiles();
     
+    player.CameraConfig();
+    
     MainMenuScreen mainMenuScreen = {};
     PausedScreen pausedScreen = {};
     ExitScreen exitScreen = {};
@@ -80,10 +82,22 @@ int main(void)
         }
         
         BeginDrawing();
+        
         ClearBackground(SKYBLUE);
+        
+        BeginMode2D(player.camera);
+        
+        if(gameState == PLAYING)
+        {
+            Map::Draw();
+            player.Draw();
+            if(f3On) Map::DrawCollisions();
+        }
+        
+        EndMode2D();
             
         switch (gameState) {
-            case PLAYING: Map::Draw(); player.Draw(); break;
+            case PLAYING: break;
             case MAIN_MENU: mainMenuScreen.Draw(); break;
             case PAUSED: pausedScreen.Draw(); break;
             case EXIT: exitScreen.Draw(); break;
@@ -95,7 +109,6 @@ int main(void)
         //DEBUG
         if(f3On)
         {
-            if(gameState == PLAYING) Map::DrawCollisions();
             Text::DrawOutfitBoldText(("Game State: " + std::to_string(gameState)).c_str(), {10, 10}, 24, BLACK);
             Text::DrawOutfitBoldText(("Map Size: " + Text::Vector2ToString(Map::mapSize)).c_str(), {10, 40}, 24, BLACK);
             Text::DrawOutfitBoldText(("Current Level: " + std::to_string(currentLevel)).c_str(), {10, 70}, 24, BLACK);

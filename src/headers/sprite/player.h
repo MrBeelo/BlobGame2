@@ -10,7 +10,6 @@ class Player : public Entity
     Player(Vector2 pos);
     ~Player();
     static Texture2D textureAtlas;
-    
     static void LoadContent();
     static void UnloadContent();
     void Update();
@@ -28,6 +27,9 @@ class Player : public Entity
     void EvaluateTextureOffset();
     float textureTickCounter = 0;
     void EvaluateTextures(float delay);
+    static Camera2D camera;
+    void CameraConfig();
+    void UpdatePlayerCamera();
 };
 
 #endif
