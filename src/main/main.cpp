@@ -25,7 +25,8 @@ GameState gameState = MAIN_MENU;
 RenderTexture2D target;
 float scale;
 Vector2 vMouse;
-
+const char *version = "ALPHA-1";
+Texture2D raylibLogo;
 void LeaveGame()
 {
     Text::UnloadContent();
@@ -55,6 +56,8 @@ int main(void)
     
     SetWindowIcon(LoadImage("assets/other/icon.png"));
     SetExitKey(KEY_NULL);
+    
+    raylibLogo = LoadTexture("assets/other/raylib_logo.png");
     
     Player player = {{50, 50}};
     Map::LoadMapSizeAndTiles();

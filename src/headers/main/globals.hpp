@@ -13,6 +13,8 @@ extern int currentLevel;
 extern RenderTexture2D target;
 extern float scale;
 extern Vector2 vMouse;
+const extern char *version;
+extern Texture2D raylibLogo;
 
 enum GameState
 {
