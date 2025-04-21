@@ -12,6 +12,7 @@ extern bool f3On;
 extern int currentLevel;
 extern RenderTexture2D target;
 extern float scale;
+extern Vector2 vMouse;
 
 enum GameState
 {

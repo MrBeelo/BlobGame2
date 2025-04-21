@@ -1,5 +1,4 @@
 #include <algorithm>
-#define RAYGUI_IMPLEMENTATION
 
 #include "../headers/raylib/raylib.h"
 #include "../headers/main/text.hpp"
@@ -25,6 +24,7 @@ int currentLevel = 0;
 GameState gameState = MAIN_MENU;
 RenderTexture2D target;
 float scale;
+Vector2 vMouse;
 
 void LeaveGame()
 {
@@ -77,6 +77,10 @@ int main(void)
         simDT = GetFrameTime() * 60;
         
         scale = std::min(windowSize.x / simulationSize.x, windowSize.y / simulationSize.y);
+        
+        vMouse.x = (GetMouseX() - (windowSize.x - (simulationSize.x * scale)) * 0.5f) / scale;
+        vMouse.y = (GetMouseY() - (windowSize.y - (simulationSize.y * scale)) * 0.5f) / scale;
+        vMouse = {std::clamp(vMouse.x, 0.0f, simulationSize.x), std::clamp(vMouse.y, 0.0f, simulationSize.y)};
         
         if(IsKeyPressed(KEY_F3)) f3On = !f3On;
         if(IsKeyPressed(KEY_ESCAPE) && gameState == PLAYING) gameState = PAUSED;

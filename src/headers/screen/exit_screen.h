@@ -12,6 +12,8 @@ class ExitScreen : Screen
     void Update() override;
     void Draw() override;
     std::string GetTitleText() const override { return "EXIT?"; }
+    Button button1 = {GetCenteredPosition(buttonSize), buttonSize, "YES"};
+    Button button2 = {GetCenteredPosition(buttonSize, {0, buffer + buttonSize.y}), buttonSize, "NO"};
 };
 
 #endif

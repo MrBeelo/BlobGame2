@@ -1,16 +1,22 @@
 #include "../headers/screen/paused_screen.h"
 #include "../headers/main/globals.hpp"
-#include "../headers/raylib/raygui.h"
 
 PausedScreen::PausedScreen() {}
 PausedScreen::~PausedScreen() {}
 
-void PausedScreen::Update() {}
+void PausedScreen::Update() 
+{
+    button1.Update();
+    button2.Update(); 
+    
+    if (button1.IsClicked()) gameState = PLAYING;
+    if (button2.IsClicked()) gameState = MAIN_MENU;
+}
 
 void PausedScreen::Draw()
 {
     DrawCenteredTitle();
-
-    if (DrawCenteredButton("CONTINUE")) gameState = PLAYING;
-    if (DrawCenteredButton("BACK TO MAIN MENU", buttonSize.y + buffer)) gameState = MAIN_MENU;
+    
+    button1.Draw();
+    button2.Draw();
 }

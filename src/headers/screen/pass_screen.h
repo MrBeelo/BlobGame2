@@ -12,6 +12,7 @@ class PassScreen : Screen
     void Update() override;
     void Draw() override;
     std::string GetTitleText() const override { return "LEVEL COMPLETE"; }
+    Button button1 = {GetCenteredPosition(buttonSize), buttonSize, "NEXT LEVEL"};
 };
 
 #endif

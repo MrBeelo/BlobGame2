@@ -16,7 +16,7 @@ FILE_FORMAT = .cpp
 #Defaults to C++, change to c to use the C language.
 TARGET_LANGUAGE ?= c++
 #Defaults to linux, change to win for Windows or web for HTML5.
-TARGET_PLATFORM ?= web
+TARGET_PLATFORM ?= linux
 
 ifeq ($(TARGET_PLATFORM), win)
 	BUILD_DIR = bin/win

@@ -3,7 +3,7 @@
 
 #include "../main/text.hpp"
 #include "../main/globals.hpp"
-#include "../raylib/raygui.h"
+#include "button.h"
 
 class Screen {
 public:
@@ -22,15 +22,10 @@ protected:
         Text::DrawOutfitBoldText(title.c_str(), pos, titleTextFontSize, BLACK);
     }
 
-    Vector2 GetCenteredPosition(Vector2 size, float yOffset = 0) const {
+    Vector2 GetCenteredPosition(Vector2 size, Vector2 offset = {0, 0}) const {
         return {
-            simulationSize.x / 2 - size.x / 2,
-            simulationSize.y / 2 - size.y / 2 + yOffset
+            simulationSize.x / 2 - size.x / 2 + offset.x,
+            simulationSize.y / 2 - size.y / 2 + offset.y
         };
-    }
-
-    bool DrawCenteredButton(const char* text, float yOffset = 0) const {
-        Vector2 pos = GetCenteredPosition(buttonSize, yOffset);
-        return GuiButton({pos.x, pos.y, buttonSize.x, buttonSize.y}, text);
     }
 };

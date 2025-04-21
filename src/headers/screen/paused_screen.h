@@ -12,6 +12,8 @@ class PausedScreen : Screen
     void Update() override;
     void Draw() override;
     std::string GetTitleText() const override { return "PAUSED"; }
+    Button button1 = {GetCenteredPosition(buttonSize), buttonSize, "CONTINUE"};
+    Button button2 = {GetCenteredPosition(buttonSize, {0, buffer + buttonSize.y}), buttonSize, "BACK TO MAIN MENU"};
 };
 
 #endif

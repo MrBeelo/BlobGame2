@@ -1,18 +1,22 @@
 #include "../headers/screen/death_screen.h"
 #include "../headers/main/globals.hpp"
-#include "../headers/raylib/raygui.h"
 
 DeathScreen::DeathScreen() {}
 DeathScreen::~DeathScreen() {}
 
-void DeathScreen::Update() {}
+void DeathScreen::Update() 
+{
+    button1.Update();
+    button2.Update(); 
+    
+    if(button1.IsClicked()) gameState = PLAYING;
+    if(button2.IsClicked()) gameState = MAIN_MENU;
+}
 
 void DeathScreen::Draw()
 {
     DrawCenteredTitle();
-
-    if (DrawCenteredButton("RESTART")) {
-        gameState = PLAYING;
-    }
-    if (DrawCenteredButton("LEAVE", buttonSize.y + buffer)) gameState = MAIN_MENU;
+    
+    button1.Draw();
+    button2.Draw();
 }

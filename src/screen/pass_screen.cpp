@@ -1,14 +1,18 @@
 #include "../headers/screen/pass_screen.h"
 #include "../headers/main/globals.hpp"
-#include "../headers/raylib/raygui.h"
 
 PassScreen::PassScreen() {}
 PassScreen::~PassScreen() {}
 
-void PassScreen::Update() {}
+void PassScreen::Update() 
+{
+    button1.Update();
+    
+    if (button1.IsClicked()) gameState = PLAYING;
+}
 
 void PassScreen::Draw() {
     DrawCenteredTitle();
-
-    if (DrawCenteredButton("NEXT LEVEL")) gameState = PLAYING;
+    
+    button1.Draw();
 }

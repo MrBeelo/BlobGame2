@@ -12,6 +12,8 @@ class MainMenuScreen : Screen
     void Update() override;
     void Draw() override;
     std::string GetTitleText() const override { return "BLOB GAME 2"; }
+    Button button1 = {GetCenteredPosition(buttonSize), buttonSize, "START GAME"};
+    Button button2 = {GetCenteredPosition(buttonSize, {0, buffer + buttonSize.y}), buttonSize, "EXIT"};
 };
 
 #endif
