@@ -24,6 +24,7 @@ ifeq ($(TARGET_PLATFORM), win)
 	OBJ_DIR = obj/win
 	LIBRARIES_DIR = lib/win
 	LDFLAGS += -lopengl32 -lgdi32 -lwinmm
+	CXXFLAGS += -DPLATFORM_DESKTOP
 	EXECUTABLE = $(BUILD_DIR)/$(PROGRAM_NAME).exe
 endif
 
@@ -32,6 +33,7 @@ ifeq ($(TARGET_PLATFORM), linux)
 	CXX = g++
 	OBJ_DIR = obj/linux
 	LIBRARIES_DIR = lib/linux
+	CXXFLAGS += -DPLATFORM_DESKTOP
 	EXECUTABLE = $(BUILD_DIR)/$(PROGRAM_NAME)
 endif
 
@@ -40,6 +42,7 @@ ifeq ($(TARGET_PLATFORM), osx)
 	CXX = clang++
 	OBJ_DIR = obj/osx
 	#LIBRARIES_DIR = lib/osx
+	CXXFLAGS += -DPLATFORM_DESKTOP
 	EXECUTABLE = $(BUILD_DIR)/$(PROGRAM_NAME)
 endif
 

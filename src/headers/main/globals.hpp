@@ -1,5 +1,11 @@
 #pragma once
 
+#if defined(PLATFORM_DESKTOP)
+    #define GLSL_VERSION            330
+#else   // PLATFORM_ANDROID, PLATFORM_WEB
+    #define GLSL_VERSION            100
+#endif
+
 #include "../raylib/raylib.h"
 #include <cstdlib>
 #include <functional>
@@ -13,8 +19,9 @@ extern int currentLevel;
 extern RenderTexture2D target;
 extern float scale;
 extern Vector2 vMouse;
-const extern char *version;
+extern const char *version;
 extern Texture2D raylibLogo;
+extern const char *credits;
 
 enum GameState
 {

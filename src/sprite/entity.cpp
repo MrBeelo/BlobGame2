@@ -77,7 +77,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
         {
             switch (tile.GetType()) 
             {
-                case 0:
+                case 0: //SOLID
                 if(horizontal)
                 {
                     if(IsMoving()) this->isCollidingX = true;
@@ -102,7 +102,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 }
                 break;
                 
-                case 1:
+                case 1: //HAZARD
                 if(isPlayer)
                 {
                     Player* player = static_cast<Player*>(this);
@@ -110,7 +110,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 }
                 break;
                 
-                case 2:
+                case 2: //PASS
                 if(horizontal)
                 {
                     if(IsMoving()) this->isCollidingX = true;
@@ -144,7 +144,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 }
                 break;
                 
-                case 3:
+                case 3: //WIN
                 if(horizontal)
                 {
                     if(IsMoving()) this->isCollidingX = true;
@@ -176,6 +176,10 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                         this->SetPosY(tile.GetDest().y - this->GetDest().height);
                     }
                 }
+                break;
+                
+                case 4: //WATER
+                    if(velocity.y > 0) velocity.y = 1;
                 break;
             }
         }

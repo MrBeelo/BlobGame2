@@ -21,5 +21,6 @@ void MainMenuScreen::Draw() {
     button2.Draw();
     
     Text::DrawOutfitBoldText(version, {buffer, simulationSize.y - Text::MeasureOutfitBoldText(version, 24).y - buffer}, 24, BLACK);
-    DrawTexture(raylibLogo, simulationSize.x - raylibLogo.width - buffer, simulationSize.y - raylibLogo.height - buffer, WHITE);
+    Text::DrawOutfitBoldText(credits, {simulationSize.x - Text::MeasureOutfitBoldText(credits, 24).x - buffer, simulationSize.y - Text::MeasureOutfitBoldText(credits, 24).y - buffer}, 24, BLACK);
+    DrawTexture(raylibLogo, simulationSize.x - raylibLogo.width - buffer, buffer, WHITE);
 }
