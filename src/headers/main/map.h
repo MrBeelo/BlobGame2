@@ -6,6 +6,7 @@
 #include "../sprite/sprite.h"
 #include "../sprite/tile.h"
 #include "../sprite/entity.h"
+#include "../sprite/player.h"
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -32,9 +33,11 @@ class Map
     static void CalculateTiles();
     static void Draw();
     static void DrawCollisions();
-    static void AdvanceLevel();
-    static void Win();
+    static void MoveTo(int level, Player *player);
+    static void AdvanceLevel(Player *player);
+    static void Win(Player *player);
     static void LoadMapSizeAndTiles();
+    static void Eval(Player *player);
 };
 
 #endif

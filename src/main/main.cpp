@@ -11,7 +11,7 @@
 #include "../headers/screen/pass_screen.h"
 #include "../headers/screen/win_screen.h"
 #include "../headers/sound/sounds.h"
-#include "../headers/map/map.h"
+#include "../headers/main/map.h"
 #include "../headers/main/shader.h"
 #include "../headers/raylib/resource_dir.h"
 #include "../headers/main/input_manager.h"
@@ -64,7 +64,7 @@ int main(void)
     
     raylibLogo = LoadTexture("assets/other/raylib_logo.png");
     
-    Player player = {{50, 50}};
+    Player player = {};
     Map::LoadMapSizeAndTiles();
     
     player.CameraConfig();
@@ -78,6 +78,8 @@ int main(void)
     
     target = LoadRenderTexture(simulationSize.x, simulationSize.y);
     SetTextureFilter(target.texture, TEXTURE_FILTER_BILINEAR);
+    
+    Map::MoveTo(0, &player);
     
     while (!WindowShouldClose())
     {
@@ -134,18 +136,19 @@ int main(void)
         //DEBUG
         if(f3On)
         {
-            Text::DrawOutfitBoldText(("Game State: " + std::to_string(gameState)).c_str(), {10, 10}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Map Size: " + Text::Vector2ToString(Map::mapSize)).c_str(), {10, 40}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Current Level: " + std::to_string(currentLevel)).c_str(), {10, 70}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Pos: " + Text::Vector2ToString(player.GetPos())).c_str(), {10, 100}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Velocity: " + Text::Vector2ToString(player.GetVelocity())).c_str(), {10, 130}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is on ground: " + std::to_string(player.IsOnGround())).c_str(), {10, 160}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 190}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is Colliding: " + (std::to_string(player.isCollidingX) + ", " + std::to_string(player.isCollidingY))).c_str(), {10, 220}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is Alive: " + std::to_string(player.alive)).c_str(), {10, 250}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is Moving: " + std::to_string(player.IsMoving())).c_str(), {10, 280}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Texture Tick Counter: " + std::to_string(player.textureTickCounter)).c_str(), {10, 310}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Texture Offset: " + std::to_string(player.textureOffset)).c_str(), {10, 340}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Game State: " + std::to_string(gameState)).c_str(), {10, 10 + 30 * 0}, 24, BLACK);
+            Text::DrawOutfitBoldText(("FPS: " + std::to_string(GetFPS())).c_str(), {10, 10 + 30 * 1}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Map Size: " + Text::Vector2ToString(Map::mapSize)).c_str(), {10, 10 + 30 * 2}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Current Level: " + std::to_string(currentLevel)).c_str(), {10, 10 + 30 * 3}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Pos: " + Text::Vector2ToString(player.GetPos())).c_str(), {10, 10 + 30 * 4}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Velocity: " + Text::Vector2ToString(player.GetVelocity())).c_str(), {10, 10 + 30 * 5}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is on ground: " + std::to_string(player.IsOnGround())).c_str(), {10, 10 + 30 * 6}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 10 + 30 * 7}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is Colliding: " + (std::to_string(player.isCollidingX) + ", " + std::to_string(player.isCollidingY))).c_str(), {10, 10 + 30 * 8}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is Alive: " + std::to_string(player.alive)).c_str(), {10, 10 + 30 * 9}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Is Moving: " + std::to_string(player.IsMoving())).c_str(), {10, 10 + 30 * 10}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Texture Tick Counter: " + std::to_string(player.textureTickCounter)).c_str(), {10, 10 + 30 * 11}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Texture Offset: " + std::to_string(player.textureOffset)).c_str(), {10, 10 + 30 * 12}, 24, BLACK);
         }
             
         EndTextureMode();

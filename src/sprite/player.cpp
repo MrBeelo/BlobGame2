@@ -3,7 +3,7 @@
 #include "../headers/sprite/entity.h"
 #include "../headers/main/globals.hpp"
 #include "../headers/sound/sounds.h"
-#include "../headers/map/map.h"
+#include "../headers/main/map.h"
 #include "../headers/main/input_manager.h"
 #include <algorithm>
 
@@ -22,7 +22,7 @@ void Player::UnloadContent()
     UnloadTexture(textureAtlas);
 }
 
-Player::Player(Vector2 pos) : Entity(pos, defSize, textureAtlas, true) {}
+Player::Player() : Entity({0, 0}, defSize, textureAtlas, true) {}
 Player::~Player() {}
 
 void Player::Update()
@@ -45,8 +45,7 @@ void Player::Draw()
 
 void Player::ResetPos()
 {
-    //TEMPORARY
-    SetPos({50, 50});
+    Map::Eval(this);
 }
 
 void Player::ResetState()
@@ -70,7 +69,7 @@ void Player::PlayerMove()
         SetVelocityX(speed);
     }
     
-    if(IsOnGround() && InputManager::IsActionPressed(InputManager::ACTION_JUMP))
+    if((IsOnGround() || isCollidingX) && InputManager::IsActionPressed(InputManager::ACTION_JUMP))
     {
         SetSoundVolume(Sounds::jump, 0.5f);
         PlaySound(Sounds::jump);

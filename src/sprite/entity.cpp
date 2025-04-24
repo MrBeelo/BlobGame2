@@ -2,7 +2,7 @@
 #include "../headers/raylib/raylib.h"
 #include "../headers/sprite/sprite.h"
 #include "../headers/main/globals.hpp"
-#include "../headers/map/map.h"
+#include "../headers/main/map.h"
 #include "../headers/sprite/player.h"
 #include <algorithm>
 #include <cmath>
@@ -67,9 +67,12 @@ void Entity::AddVelocity(Vector2 velocity)
 
 void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
 {
-    this->isCollidingX = false;
-    this->isCollidingY = false;
-    this->isCollidingDown = false;
+    if (horizontal)
+        this->isCollidingX = false;
+    else {
+        this->isCollidingY = false;
+        this->isCollidingDown = false;
+    }
     
     for(Tile tile : collisionTiles)
     {
@@ -132,7 +135,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                         {
                             Player* player = static_cast<Player*>(this);
                             gameState = PASS;
-                            Map::AdvanceLevel();
+                            Map::AdvanceLevel(player);
                             player->Respawn();
                         }
                         
@@ -166,7 +169,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                         {
                             Player* player = static_cast<Player*>(this);
                             gameState = WIN;
-                            Map::Win();
+                            Map::Win(player);
                             player->Respawn();
                         }
                         
@@ -212,4 +215,9 @@ void Entity::Kill()
 bool Entity::IsMoving()
 {
     return GetVelocity().x != 0;
+}
+
+void Entity::Teleport(Vector2 pos)
+{
+    SetPos(pos);
 }

@@ -33,6 +33,7 @@ class Entity : public Sprite
     void Kill();
     bool alive = true;
     bool IsMoving();
+    void Teleport(Vector2 pos);
 };
 
 #endif

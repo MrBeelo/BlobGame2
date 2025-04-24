@@ -7,7 +7,7 @@
 class Player : public Entity
 {
     public:
-    Player(Vector2 pos);
+    Player();
     ~Player();
     static Texture2D textureAtlas;
     static void LoadContent();

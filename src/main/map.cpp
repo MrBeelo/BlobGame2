@@ -1,4 +1,4 @@
-#include "../headers/map/map.h"
+#include "../headers/main/map.h"
 #include "../headers/raylib/raylib.h"
 #include "../headers/main/globals.hpp"
 #include "../headers/sprite/tile.h"
@@ -227,20 +227,33 @@ void Map::DrawCollisions()
     }
 }
 
-void Map::AdvanceLevel()
+void Map::MoveTo(int level, Player *player)
 {
-    currentLevel++;
+    currentLevel = level;
     LoadMapSizeAndTiles();
+    Eval(player);
 }
 
-void Map::Win()
-{
-    currentLevel = 0;
-    LoadMapSizeAndTiles();
-}
+void Map::AdvanceLevel(Player *player)
+{ MoveTo(currentLevel + 1, player); }
+
+void Map::Win(Player *player)
+{ MoveTo(0, player); }
 
 void Map::LoadMapSizeAndTiles()
 {
     Map::GetCurrentMapSize();
     Map::CalculateTiles();
+}
+
+void Map::Eval(Player *player)
+{
+    for(Tile tile : collisionTiles)
+    {
+        switch (tile.GetType()) {
+            case 16:
+                player->Teleport(tile.GetPos());
+            break;
+        }
+    }
 }
