@@ -1,12 +1,20 @@
 #include "../headers/screen/button.h"
 #include "../headers/main/text.hpp"
 #include "../headers/main/globals.hpp"
+#include "../headers/screen/screen.h"
 
 Button::Button(Vector2 pos, Vector2 size, const char *text)
 {
-    this->pos = pos;
     this->size = size;
     this->text = text;
+    this->pos = pos;
+}
+
+Button::Button(float yIndex, const char *text)
+{
+    this->size = CalculateSizeDefault(text);
+    this->text = text;
+    this->pos = Screen::GetCenteredPosition(size, {0, (buffer + size.y) * yIndex});
 }
 
 Button::~Button() {}
@@ -44,5 +52,5 @@ Vector2 Button::CalculateSize(const char *text, float fontSize)
 { return {Text::MeasureOutfitBoldText(text, fontSize).x + buffer * 2, Text::MeasureOutfitBoldText(text, fontSize).y + buffer * 2}; }
 
 Vector2 Button::CalculateSizeDefault(const char *text)
-{ return {Text::MeasureOutfitBoldText(text, textFontSize).x + buffer * 2, Text::MeasureOutfitBoldText(text, textFontSize).y + buffer * 2}; }
+{ return {CalculateSize(text, textFontSize)}; }
 

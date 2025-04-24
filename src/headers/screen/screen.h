@@ -14,7 +14,6 @@ public:
     int titleTextFontSize = 64;
     //Vector2 buttonSize = {150, 35};
 
-protected:
     void DrawCenteredTitle(float yOffset = 0) const {
         const std::string title = GetTitleText();
         Vector2 size = Text::MeasureOutfitBoldText(title.c_str(), titleTextFontSize);
@@ -22,7 +21,7 @@ protected:
         Text::DrawOutfitBoldText(title.c_str(), pos, titleTextFontSize, BLACK);
     }
 
-    Vector2 GetCenteredPosition(Vector2 size, Vector2 offset = {0, 0}) const {
+    const static Vector2 GetCenteredPosition(Vector2 size, Vector2 offset = {0, 0}) {
         return {
             simulationSize.x / 2 - size.x / 2 + offset.x,
             simulationSize.y / 2 - size.y / 2 + offset.y
