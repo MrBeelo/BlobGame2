@@ -4,6 +4,7 @@
 #include "../headers/main/globals.hpp"
 #include "../headers/sound/sounds.h"
 #include "../headers/map/map.h"
+#include "../headers/main/input_manager.h"
 #include <algorithm>
 
 using namespace std;
@@ -60,17 +61,18 @@ void Player::PlayerMove()
 {
     SetVelocityX(0);
     
-    if(IsKeyDown(KEY_A))
+    if(InputManager::IsActionHeld(InputManager::ACTION_MOVE_LEFT))
     {
         SetVelocityX(-speed);
     }
-    else if(IsKeyDown(KEY_D))
+    else if(InputManager::IsActionHeld(InputManager::ACTION_MOVE_RIGHT))
     {
         SetVelocityX(speed);
     }
     
-    if(IsOnGround() && IsKeyPressed(KEY_SPACE))
+    if(IsOnGround() && InputManager::IsActionPressed(InputManager::ACTION_JUMP))
     {
+        SetSoundVolume(Sounds::jump, 0.5f);
         PlaySound(Sounds::jump);
         SetVelocityY(-15);
     }

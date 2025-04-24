@@ -14,6 +14,7 @@
 #include "../headers/map/map.h"
 #include "../headers/main/shader.h"
 #include "../headers/raylib/resource_dir.h"
+#include "../headers/main/input_manager.h"
 #include <string>
 
 float buffer = 10.0f;
@@ -89,8 +90,11 @@ int main(void)
         vMouse.y = (GetMouseY() - (windowSize.y - (simulationSize.y * scale)) * 0.5f) / scale;
         vMouse = {std::clamp(vMouse.x, 0.0f, simulationSize.x), std::clamp(vMouse.y, 0.0f, simulationSize.y)};
         
-        if(IsKeyPressed(KEY_F3)) f3On = !f3On;
-        if(IsKeyPressed(KEY_ESCAPE) && gameState == PLAYING) gameState = PAUSED;
+        if(InputManager::IsActionPressed(InputManager::ACTION_F3)) f3On = !f3On;
+        if(InputManager::IsActionPressed(InputManager::ACTION_ESC)) {
+            if(gameState == PLAYING) gameState = PAUSED;
+            if(gameState == MAIN_MENU) gameState = EXIT;
+        }
         
         switch (gameState) {
             case PLAYING: player.Update(); break;  

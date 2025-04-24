@@ -20,7 +20,7 @@ void Button::Update()
 void Button::Draw()
 {
     DrawRectangleRoundedLinesEx(dest, 0.5f, 2, 2, buttonColor);
-    Text::DrawOutfitBoldText(text, {pos.x + size.x / 2 - Text::MeasureOutfitBoldText(text, 20).x / 2, pos.y + size.y / 2 - Text::MeasureOutfitBoldText(text, 20).y / 2}, 20, textColor);
+    Text::DrawOutfitBoldText(text, {pos.x + size.x / 2 - Text::MeasureOutfitBoldText(text, textFontSize).x / 2, pos.y + size.y / 2 - Text::MeasureOutfitBoldText(text, textFontSize).y / 2}, textFontSize, textColor);
 }
 
 bool Button::IsHovered()
@@ -39,4 +39,10 @@ void Button::UpdateDest()
 {
     dest = {pos.x, pos.y, size.x, size.y};
 }
+
+Vector2 Button::CalculateSize(const char *text, float fontSize)
+{ return {Text::MeasureOutfitBoldText(text, fontSize).x + buffer * 2, Text::MeasureOutfitBoldText(text, fontSize).y + buffer * 2}; }
+
+Vector2 Button::CalculateSizeDefault(const char *text)
+{ return {Text::MeasureOutfitBoldText(text, textFontSize).x + buffer * 2, Text::MeasureOutfitBoldText(text, textFontSize).y + buffer * 2}; }
 

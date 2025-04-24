@@ -19,6 +19,9 @@ class Button
     void UpdateDest();
     Color buttonColor = WHITE;
     Color textColor = BLACK;
+    static Vector2 CalculateSize(const char *text, float fontSize);
+    static Vector2 CalculateSizeDefault(const char *text);
+    const static int textFontSize = 20;
 };
 
 #endif
