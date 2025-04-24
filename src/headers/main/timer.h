@@ -17,6 +17,7 @@ class Timer
     std::function<void()> method;
     void Activate();
     void Deactivate();
+    void ForceDeactivate();
     void Update();
 };
 

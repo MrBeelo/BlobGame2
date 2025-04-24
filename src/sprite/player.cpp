@@ -20,7 +20,10 @@ void Player::UnloadContent()
     UnloadTexture(textureAtlas);
 }
 
-Player::Player() : Entity({0, 0}, defSize, textureAtlas, true) {}
+Player::Player() : Entity({0, 0}, defSize, textureAtlas, true) {
+    animationTimer = {0.5f, true, true, [this]() { this->CalculateAnimations(); }};
+}
+
 Player::~Player() {}
 
 void Player::Update()
@@ -28,7 +31,8 @@ void Player::Update()
     PlayerMove();
     Entity::Update();
     
-    EvaluateTextures(29);
+    animationTimer.Update();
+    EvaluateTextures();
     EvaluateTextureOffset();
     
     if(IsKeyPressed(KEY_R)) Respawn();
@@ -100,40 +104,20 @@ void Player::EvaluateTextureOffset()
     }
 }
 
-void Player::EvaluateTextures(float delay)
+void Player::EvaluateTextures()
 {
-    textureTickCounter += simDT;
-    
-    if(textureTickCounter > delay)
-    {
-        if(IsOnGround() && IsMoving()) //MOVING
-        {
-            if(texture == DEFAULT)
-            {
-                if(doWalk1)
-                {
-                    texture = WALK_1;
-                    doWalk1 = false;
-                } else if(!doWalk1)
-                {
-                    texture = WALK_2;
-                    doWalk1 = true;
-                }
-            } else {
-                texture = DEFAULT;
-            }
-        } else if(IsOnGround() && !IsMoving()) //IDLE
-        {
-            if(texture == DEFAULT) texture = IDLE_1; else texture = DEFAULT;
-        }
-        
-        textureTickCounter = 0;
-    }
-    
     if(!IsOnGround()) //JUMPING
     {
-        textureTickCounter = delay;
+        if(animationTimer.active) 
+        {
+            animationTimer.ForceDeactivate();
+            //animationTimer.startTime += 0.5f;
+        }
+        
         if((GetVelocity().y > -3) && (GetVelocity().y < 3)) texture = JUMP_2; else texture = JUMP_1;
+    } else if(IsOnGround())
+    {
+        if(!animationTimer.active) animationTimer.Activate();
     }
 }
 
@@ -157,4 +141,28 @@ void Player::UpdatePlayerCamera()
     float clampY = std::clamp(camera.target.y, 0.0f + halfY, Map::mapSize.y - halfY);
 
     camera.target = {clampX, clampY};
+}
+
+void Player::CalculateAnimations()
+{
+    if(IsOnGround() && IsMoving()) //MOVING
+    {
+        if(texture == DEFAULT)
+        {
+            if(doWalk1)
+            {
+                texture = WALK_1;
+                doWalk1 = false;
+            } else if(!doWalk1)
+            {
+                texture = WALK_2;
+                doWalk1 = true;
+            }
+        } else {
+            texture = DEFAULT;
+        }
+    } else if(IsOnGround() && !IsMoving()) //IDLE
+    {
+        if(texture == DEFAULT) texture = IDLE_1; else texture = DEFAULT;
+    }
 }

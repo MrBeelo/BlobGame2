@@ -15,7 +15,6 @@
 #include "../headers/main/shaders.h"
 #include "../headers/raylib/resource_dir.h"
 #include "../headers/main/input_manager.h"
-#include "../headers/main/timer.h"
 #include <string>
 
 float buffer = 10.0f;
@@ -148,8 +147,9 @@ int main(void)
             Text::DrawOutfitBoldText(("Is Colliding: " + (std::to_string(player.isCollidingX) + ", " + std::to_string(player.isCollidingY))).c_str(), {10, 10 + 30 * 8}, 24, BLACK);
             Text::DrawOutfitBoldText(("Is Alive: " + std::to_string(player.alive)).c_str(), {10, 10 + 30 * 9}, 24, BLACK);
             Text::DrawOutfitBoldText(("Is Moving: " + std::to_string(player.IsMoving())).c_str(), {10, 10 + 30 * 10}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Texture Tick Counter: " + std::to_string(player.textureTickCounter)).c_str(), {10, 10 + 30 * 11}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Animation Active: " + std::to_string(player.animationTimer.active)).c_str(), {10, 10 + 30 * 11}, 24, BLACK);
             Text::DrawOutfitBoldText(("Texture Offset: " + std::to_string(player.textureOffset)).c_str(), {10, 10 + 30 * 12}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Timer time passed: " + std::to_string(GetTime() - player.animationTimer.startTime)).c_str(), {10, 10 + 30 * 13}, 24, BLACK);
         }
             
         EndTextureMode();

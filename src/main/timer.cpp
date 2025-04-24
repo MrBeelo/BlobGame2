@@ -20,9 +20,14 @@ void Timer::Activate()
 
 void Timer::Deactivate()
 {
+    ForceDeactivate();
+    if(this->repeat) Activate();
+}
+
+void Timer::ForceDeactivate()
+{
     this->active = false;
     this->startTime = 0;
-    if(this->repeat) Activate();
 }
 
 void Timer::Update()
@@ -35,6 +40,7 @@ void Timer::Update()
             {
                 method();
             }
+            
             Deactivate();
         }
     }

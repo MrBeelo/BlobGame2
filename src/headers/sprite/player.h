@@ -31,12 +31,13 @@ class Player : public Entity
     void Respawn();
     void EvaluateTextureOffset();
     float textureTickCounter = 0;
-    void EvaluateTextures(float delay);
+    void EvaluateTextures();
     static Camera2D camera;
     void CameraConfig();
     void UpdatePlayerCamera();
     void CalculateAnimations();
     bool doWalk1 = true;
+    Timer animationTimer = {0};
 };
 
 #endif
