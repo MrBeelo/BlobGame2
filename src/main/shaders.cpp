@@ -1,4 +1,4 @@
-#include "../headers/main/shader.h"
+#include "../headers/main/shaders.h"
 #include "../headers/main/globals.hpp"
 
 Shader Shaders::fsShaders[13] = {0};

@@ -2,12 +2,17 @@
 #define PLAYER_H
 
 #include "../raylib/raylib.h"
+#include "../main/timer.h"
 #include "entity.h"
 
 class Player : public Entity
 {
     public:
     Player();
+    Player(const Player &) = default;
+    Player(Player &&) = delete;
+    Player &operator=(const Player &) = default;
+    Player &operator=(Player &&) = delete;
     ~Player();
     static Texture2D textureAtlas;
     static void LoadContent();
@@ -30,6 +35,8 @@ class Player : public Entity
     static Camera2D camera;
     void CameraConfig();
     void UpdatePlayerCamera();
+    void CalculateAnimations();
+    bool doWalk1 = true;
 };
 
 #endif

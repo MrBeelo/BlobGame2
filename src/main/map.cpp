@@ -251,7 +251,7 @@ void Map::Eval(Player *player)
     for(Tile tile : collisionTiles)
     {
         switch (tile.GetType()) {
-            case 16:
+            case Map::CollisionTileType::SPAWN_PLAYER:
                 player->Teleport(tile.GetPos());
             break;
         }

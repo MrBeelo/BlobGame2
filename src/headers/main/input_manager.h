@@ -7,8 +7,8 @@
 class InputManager
 {
     public:
-    typedef enum {ACTION_MOVE_LEFT, ACTION_MOVE_RIGHT, ACTION_MOVE_UP, ACTION_MOVE_DOWN,
-                    ACTION_JUMP, ACTION_CONFIRM, ACTION_ESC, ACTION_F3, ACTION_COUNT } InputAction;
+    enum InputAction {ACTION_MOVE_LEFT, ACTION_MOVE_RIGHT, ACTION_MOVE_UP, ACTION_MOVE_DOWN,
+        ACTION_JUMP, ACTION_CONFIRM, ACTION_ESC, ACTION_F3, ACTION_COUNT };
     static bool IsActionPressed(InputAction action);
     static bool IsActionHeld(InputAction action);
 

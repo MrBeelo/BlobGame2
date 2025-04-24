@@ -2,12 +2,10 @@
 #include "../headers/raylib/raylib.h"
 #include "../headers/sprite/entity.h"
 #include "../headers/main/globals.hpp"
-#include "../headers/sound/sounds.h"
+#include "../headers/main/sounds.h"
 #include "../headers/main/map.h"
 #include "../headers/main/input_manager.h"
 #include <algorithm>
-
-using namespace std;
 
 Texture2D Player::textureAtlas;
 Camera2D Player::camera;
@@ -110,7 +108,6 @@ void Player::EvaluateTextures(float delay)
     {
         if(IsOnGround() && IsMoving()) //MOVING
         {
-            bool doWalk1 = true;
             if(texture == DEFAULT)
             {
                 if(doWalk1)

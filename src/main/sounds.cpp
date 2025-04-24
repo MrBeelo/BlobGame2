@@ -1,4 +1,4 @@
-#include "../headers/sound/sounds.h"
+#include "../headers/main/sounds.h"
 
 Sounds::Sounds() {}
 Sounds::~Sounds() {}

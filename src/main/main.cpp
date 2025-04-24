@@ -10,11 +10,12 @@
 #include "../headers/screen/death_screen.h"
 #include "../headers/screen/pass_screen.h"
 #include "../headers/screen/win_screen.h"
-#include "../headers/sound/sounds.h"
+#include "../headers/main/sounds.h"
 #include "../headers/main/map.h"
-#include "../headers/main/shader.h"
+#include "../headers/main/shaders.h"
 #include "../headers/raylib/resource_dir.h"
 #include "../headers/main/input_manager.h"
+#include "../headers/main/timer.h"
 #include <string>
 
 float buffer = 10.0f;
@@ -27,7 +28,7 @@ GameState gameState = MAIN_MENU;
 RenderTexture2D target;
 float scale;
 Vector2 vMouse;
-const char *version = "ALPHA-1";
+const char *version = "PRE-ALPHA";
 Texture2D raylibLogo;
 const char *credits = "Made By MrBeelo";
 void LeaveGame()
@@ -82,7 +83,7 @@ int main(void)
     Map::MoveTo(0, &player);
     
     while (!WindowShouldClose())
-    {
+    {  
         windowSize = {(float) GetScreenWidth(), (float) GetScreenHeight()};
         simDT = GetFrameTime() * 60;
         
