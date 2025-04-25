@@ -16,6 +16,8 @@
 #include "../headers/raylib/resource_dir.h"
 #include "../headers/main/input_manager.h"
 #include <string>
+#include <sstream>
+#include <iomanip>
 
 float buffer = 10.0f;
 Vector2 windowSize = {1920, 1031};
@@ -30,6 +32,15 @@ Vector2 vMouse;
 const char *version = "PRE-ALPHA";
 Texture2D raylibLogo;
 const char *credits = "Made By MrBeelo";
+Stopwatch speedrunTimer = {false};
+
+std::string ToStringWithDecimalPoints(float value, int decimalPoints) {
+    std::ostringstream out;
+    out << std::fixed << std::setprecision(decimalPoints) << value;
+    return out.str();
+}
+
+
 void LeaveGame()
 {
     Text::UnloadContent();
@@ -86,6 +97,8 @@ int main(void)
         windowSize = {(float) GetScreenWidth(), (float) GetScreenHeight()};
         simDT = GetFrameTime() * 60;
         
+        speedrunTimer.Update();
+        
         scale = std::min(windowSize.x / simulationSize.x, windowSize.y / simulationSize.y);
         
         vMouse.x = (GetMouseX() - (windowSize.x - (simulationSize.x * scale)) * 0.5f) / scale;
@@ -124,7 +137,7 @@ int main(void)
         EndMode2D();
             
         switch (gameState) {
-            case PLAYING: break;
+            case PLAYING: Text::DrawOutfitBoldText((ToStringWithDecimalPoints(speedrunTimer.GetStopwatchTime(), 1)).c_str(), {simulationSize.x - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(speedrunTimer.GetStopwatchTime(), 1).c_str(), 42).x - buffer, buffer}, 42, BLACK); break;
             case MAIN_MENU: mainMenuScreen.Draw(); break;
             case PAUSED: pausedScreen.Draw(); break;
             case EXIT: exitScreen.Draw(); break;

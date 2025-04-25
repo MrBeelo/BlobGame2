@@ -16,6 +16,7 @@ class Timer
     bool repeat;
     std::function<void()> method;
     void Activate();
+    void ActivateImmediately();
     void Deactivate();
     void ForceDeactivate();
     void Update();

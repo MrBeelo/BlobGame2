@@ -10,7 +10,10 @@ void WinScreen::Update()
     button2.Update(); 
     
     if (button1.IsClicked()) gameState = MAIN_MENU;
-    if (button2.IsClicked()) gameState = PLAYING;
+    if (button2.IsClicked()) {
+        gameState = PLAYING;
+        speedrunTimer.Start();
+    }
 }
 
 void WinScreen::Draw() {

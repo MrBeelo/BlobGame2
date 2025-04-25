@@ -9,7 +9,11 @@ void DeathScreen::Update()
     button1.Update();
     button2.Update(); 
     
-    if(button1.IsClicked()) gameState = PLAYING;
+    if(button1.IsClicked()) {
+        gameState = PLAYING;
+        speedrunTimer.Start();
+    }
+    
     if(button2.IsClicked()) gameState = MAIN_MENU;
 }
 

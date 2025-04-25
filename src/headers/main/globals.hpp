@@ -7,6 +7,7 @@
 #endif
 
 #include "../raylib/raylib.h"
+#include "../main/stopwatch.h"
 #include <cstdlib>
 #include <functional>
 
@@ -22,6 +23,8 @@ extern Vector2 vMouse;
 extern const char *version;
 extern Texture2D raylibLogo;
 extern const char *credits;
+extern Stopwatch speedrunTimer;
+extern std::string ToStringWithDecimalPoints(float value, int decimalPoints);
 
 enum GameState
 {

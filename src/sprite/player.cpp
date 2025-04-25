@@ -111,13 +111,16 @@ void Player::EvaluateTextures()
         if(animationTimer.active) 
         {
             animationTimer.ForceDeactivate();
-            //animationTimer.startTime += 0.5f;
+            shouldResetAnimation = true;
         }
         
         if((GetVelocity().y > -3) && (GetVelocity().y < 3)) texture = JUMP_2; else texture = JUMP_1;
     } else if(IsOnGround())
     {
-        if(!animationTimer.active) animationTimer.Activate();
+        if(!animationTimer.active && shouldResetAnimation) {
+            animationTimer.ActivateImmediately();
+            shouldResetAnimation = false;
+        }
     }
 }
 

@@ -232,6 +232,7 @@ void Map::MoveTo(int level, Player *player)
     currentLevel = level;
     LoadMapSizeAndTiles();
     Eval(player);
+    speedrunTimer.Stop();
 }
 
 void Map::AdvanceLevel(Player *player)

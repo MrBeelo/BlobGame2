@@ -38,6 +38,7 @@ class Player : public Entity
     void CalculateAnimations();
     bool doWalk1 = true;
     Timer animationTimer = {0};
+    bool shouldResetAnimation = false;
 };
 
 #endif

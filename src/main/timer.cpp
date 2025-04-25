@@ -18,6 +18,12 @@ void Timer::Activate()
     this->startTime = GetTime();
 }
 
+void Timer::ActivateImmediately()
+{
+    this->active = true;
+    this->startTime = GetTime() - duration;
+}
+
 void Timer::Deactivate()
 {
     ForceDeactivate();
