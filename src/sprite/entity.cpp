@@ -67,12 +67,14 @@ void Entity::AddVelocity(Vector2 velocity)
 
 void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
 {
-    if (horizontal)
+    if (horizontal) {
         this->isCollidingX = false;
-    else {
+    } else {
         this->isCollidingY = false;
         this->isCollidingDown = false;
     }
+    
+    this->isCollidingWithDoubleJumpCrystal = false;
     
     for(Tile tile : collisionTiles)
     {
@@ -80,10 +82,10 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
         {
             switch (tile.GetType()) 
             {
-                case Map::CollisionTileType::SOLID: //SOLID
+                case Map::CollisionTileType::SOLID:
                 if(horizontal)
                 {
-                    if(IsMoving()) this->isCollidingX = true;
+                    this->isCollidingX = true;
                     if(this->GetVelocity().x > 0) //MOVING RIGHT
                     {
                         this->SetPosX(tile.GetDest().x - this->GetDest().width);
@@ -105,7 +107,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 }
                 break;
                 
-                case Map::CollisionTileType::HAZARD: //HAZARD
+                case Map::CollisionTileType::HAZARD:
                 if(isPlayer)
                 {
                     Player* player = static_cast<Player*>(this);
@@ -113,10 +115,10 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 }
                 break;
                 
-                case Map::CollisionTileType::PASS: //PASS
+                case Map::CollisionTileType::PASS:
                 if(horizontal)
                 {
-                    if(IsMoving()) this->isCollidingX = true;
+                    this->isCollidingX = true;
                     if(this->GetVelocity().x > 0) //MOVING RIGHT
                     {
                         this->SetPosX(tile.GetDest().x - this->GetDest().width);
@@ -147,10 +149,10 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 }
                 break;
                 
-                case Map::CollisionTileType::WIN: //WIN
+                case Map::CollisionTileType::WIN:
                 if(horizontal)
                 {
-                    if(IsMoving()) this->isCollidingX = true;
+                    this->isCollidingX = true;
                     if(this->GetVelocity().x > 0) //MOVING RIGHT
                     {
                         this->SetPosX(tile.GetDest().x - this->GetDest().width);
@@ -181,8 +183,12 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 }
                 break;
                 
-                case Map::CollisionTileType::WATER: //WATER
+                case Map::CollisionTileType::WATER:
                     if(velocity.y > 0) velocity.y = 1;
+                break;
+                
+                case Map::CollisionTileType::DOUBLE_JUMP:
+                    isCollidingWithDoubleJumpCrystal = true;
                 break;
             }
         }

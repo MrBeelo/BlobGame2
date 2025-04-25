@@ -42,6 +42,8 @@ class Player : public Entity
     Timer cameraTimer = {0};
     bool cameraGoingLeft = false;
     void RotateCameraAndUpdateBGColor();
+    void HandleXBufferedCollisions(std::vector<Tile> &collisionTiles);
+    bool isCollidingXWithBuffer = false;
 };
 
 #endif

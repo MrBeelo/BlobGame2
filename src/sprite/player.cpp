@@ -32,6 +32,7 @@ void Player::Update()
 {
     PlayerMove();
     Entity::Update();
+    HandleXBufferedCollisions(Map::collisionTiles);
     
     animationTimer.Update();
     EvaluateTextures();
@@ -74,7 +75,7 @@ void Player::PlayerMove()
         SetVelocityX(speed);
     }
     
-    if((IsOnGround() || isCollidingX) && InputManager::IsActionPressed(InputManager::ACTION_JUMP))
+    if((IsOnGround() || isCollidingXWithBuffer || isCollidingWithDoubleJumpCrystal) && InputManager::IsActionPressed(InputManager::ACTION_JUMP))
     {
         SetSoundVolume(Sounds::jump, 0.5f);
         PlaySound(Sounds::jump);
@@ -189,5 +190,29 @@ void Player::RotateCameraAndUpdateBGColor()
         case 4: backgroundColor = SKYBLUE; break;
         case 5: backgroundColor = BLUE; break;
         case 6: backgroundColor = PURPLE; break;
+    }
+}
+
+void Player::HandleXBufferedCollisions(std::vector<Tile> &collisionTiles)
+{
+    isCollidingXWithBuffer = false;
+    
+    for(Tile tile : collisionTiles)
+    {
+        Rectangle bufferedRect = GetDest();
+        bufferedRect.x += (!isLeft) ? 0 : -5;
+        bufferedRect.width += 5;
+        
+        if(CheckCollisionRecs(tile.GetDest(), bufferedRect))
+        {
+            switch(tile.GetType())
+            {
+                case Map::CollisionTileType::SOLID:
+                case Map::CollisionTileType::PASS:
+                case Map::CollisionTileType::WIN:
+                this->isCollidingXWithBuffer = true;
+                break;
+            }
+        }
     }
 }

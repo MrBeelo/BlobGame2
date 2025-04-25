@@ -229,10 +229,17 @@ void Map::DrawCollisions()
 
 void Map::MoveTo(int level, Player *player)
 {
-    currentLevel = level;
-    LoadMapSizeAndTiles();
-    Eval(player);
-    speedrunTimer.Stop();
+    if(level < levelAmount) {
+        currentLevel = level;
+        LoadMapSizeAndTiles();
+        Eval(player);
+        speedrunTimer.Stop();
+    } else {
+        currentLevel = 0;
+        LoadMapSizeAndTiles();
+        Eval(player);
+        speedrunTimer.Stop();
+    }
 }
 
 void Map::AdvanceLevel(Player *player)
