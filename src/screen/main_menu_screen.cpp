@@ -8,14 +8,16 @@ MainMenuScreen::~MainMenuScreen() {}
 void MainMenuScreen::Update() 
 {
     button1.Update();
-    button2.Update(); 
+    button2.Update();
+    button3.Update();
     
     if (button1.IsClicked()) {
         gameState = PLAYING;
         speedrunTimer.Start();
     }
     
-    if (button2.IsClicked()) gameState = EXIT;
+    if (button2.IsClicked()) gameState = INFO;
+    if (button3.IsClicked()) gameState = EXIT;
 }
 
 void MainMenuScreen::Draw() {
@@ -23,6 +25,7 @@ void MainMenuScreen::Draw() {
     
     button1.Draw();
     button2.Draw();
+    button3.Draw();
     
     Text::DrawOutfitBoldText(version, {buffer, simulationSize.y - Text::MeasureOutfitBoldText(version, 24).y - buffer}, 24, BLACK);
     Text::DrawOutfitBoldText(credits, {simulationSize.x - Text::MeasureOutfitBoldText(credits, 24).x - buffer, simulationSize.y - Text::MeasureOutfitBoldText(credits, 24).y - buffer}, 24, BLACK);

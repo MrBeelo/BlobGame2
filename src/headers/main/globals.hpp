@@ -34,7 +34,8 @@ enum GameState
     EXIT,
     DIED,
     PASS,
-    WIN
+    WIN,
+    INFO
 };
 
 extern GameState gameState;

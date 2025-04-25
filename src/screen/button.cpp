@@ -10,6 +10,13 @@ Button::Button(Vector2 pos, Vector2 size, const char *text)
     this->pos = pos;
 }
 
+Button::Button(Vector2 pos, const char *text)
+{
+    this->size = CalculateSizeDefault(text);
+    this->text = text;
+    this->pos = pos;
+}
+
 Button::Button(float yIndex, const char *text)
 {
     this->size = CalculateSizeDefault(text);

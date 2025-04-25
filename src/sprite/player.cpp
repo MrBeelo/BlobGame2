@@ -22,6 +22,7 @@ void Player::UnloadContent()
 
 Player::Player() : Entity({0, 0}, defSize, textureAtlas, true) {
     animationTimer = {0.5f, true, true, [this]() { this->CalculateAnimations(); }};
+    cameraTimer = {0.33f, true, true, [this]() { this->RotateCamera(); }};
 }
 
 Player::~Player() {}
@@ -37,6 +38,7 @@ void Player::Update()
     
     if(IsKeyPressed(KEY_R)) Respawn();
     
+    cameraTimer.Update();
     UpdatePlayerCamera();
 }
 
@@ -142,6 +144,9 @@ void Player::UpdatePlayerCamera()
 
     float clampX = std::clamp(camera.target.x, 0.0f + halfX, Map::mapSize.x - halfX);
     float clampY = std::clamp(camera.target.y, 0.0f + halfY, Map::mapSize.y - halfY);
+    
+    if(camera.rotation < 0) camera.rotation += simDT;
+    if(camera.rotation > 0) camera.rotation -= simDT;
 
     camera.target = {clampX, clampY};
 }
@@ -168,4 +173,10 @@ void Player::CalculateAnimations()
     {
         if(texture == DEFAULT) texture = IDLE_1; else texture = DEFAULT;
     }
+}
+
+void Player::RotateCamera()
+{
+    if(cameraGoingLeft) camera.rotation -= 3; else camera.rotation += 3;
+    cameraGoingLeft = !cameraGoingLeft;
 }

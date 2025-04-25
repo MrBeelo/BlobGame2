@@ -12,8 +12,6 @@ class PausedScreen : Screen
     void Update() override;
     void Draw() override;
     std::string GetTitleText() const override { return "PAUSED"; }
-    const char *buttonText1 = "CONTINUE";
-    const char *buttonText2 = "BACK TO MAIN MENU";
     Button button1 = {0, "CONTINUE"};
     Button button2 = {1, "BACK TO MAIN MENU"};
 };

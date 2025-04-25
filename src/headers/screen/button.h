@@ -11,6 +11,7 @@ class Button
     Rectangle dest;
     const char *text;
     Button(float yIndex, const char *text);
+    Button(Vector2 pos, const char *text);
     Button(Vector2 pos, Vector2 size, const char *text);
     ~Button();
     void Update();

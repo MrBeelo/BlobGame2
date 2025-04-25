@@ -19,7 +19,7 @@ class Player : public Entity
     static void UnloadContent();
     void Update();
     void Draw();
-    float speed = 5;
+    float speed = 7;
     constexpr static Vector2 defSize = {40, 60};
     enum Animation { DEFAULT, IDLE_1, WALK_1, WALK_2, JUMP_1, JUMP_2 };
     Animation texture = DEFAULT;
@@ -39,6 +39,9 @@ class Player : public Entity
     bool doWalk1 = true;
     Timer animationTimer = {0};
     bool shouldResetAnimation = false;
+    Timer cameraTimer = {0};
+    bool cameraGoingLeft = false;
+    void RotateCamera();
 };
 
 #endif

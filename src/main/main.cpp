@@ -10,6 +10,7 @@
 #include "../headers/screen/death_screen.h"
 #include "../headers/screen/pass_screen.h"
 #include "../headers/screen/win_screen.h"
+#include "../headers/screen/info_screen.h"
 #include "../headers/main/sounds.h"
 #include "../headers/main/map.h"
 #include "../headers/main/shaders.h"
@@ -86,6 +87,7 @@ int main(void)
     DeathScreen deathScreen = {};
     PassScreen passScreen = {};
     WinScreen winScreen = {};
+    InfoScreen infoScreen = {};
     
     target = LoadRenderTexture(simulationSize.x, simulationSize.y);
     SetTextureFilter(target.texture, TEXTURE_FILTER_BILINEAR);
@@ -112,13 +114,23 @@ int main(void)
         }
         
         switch (gameState) {
-            case PLAYING: player.Update(); break;  
+            case PLAYING: 
+                player.Update(); 
+            break;  
             case MAIN_MENU: mainMenuScreen.Update(); break;
             case PAUSED: pausedScreen.Update(); break;
             case EXIT: exitScreen.Update(); break;
             case DIED: deathScreen.Update(); break;
             case PASS: passScreen.Update(); break;
             case WIN: winScreen.Update(); break;
+            case INFO: infoScreen.Update(); break;
+        }
+        
+        if(gameState == PLAYING || gameState == PAUSED || gameState == PASS || gameState == WIN) {
+            UpdateMusicStream(Sounds::itsPizzaTime);
+            if(!IsMusicStreamPlaying(Sounds::itsPizzaTime)) PlayMusicStream(Sounds::itsPizzaTime);
+        } else {
+            if(IsMusicStreamPlaying(Sounds::itsPizzaTime)) StopMusicStream(Sounds::itsPizzaTime);
         }
         
         BeginTextureMode(target);
@@ -137,13 +149,14 @@ int main(void)
         EndMode2D();
             
         switch (gameState) {
-            case PLAYING: Text::DrawOutfitBoldText((ToStringWithDecimalPoints(speedrunTimer.GetStopwatchTime(), 1)).c_str(), {simulationSize.x - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(speedrunTimer.GetStopwatchTime(), 1).c_str(), 42).x - buffer, buffer}, 42, BLACK); break;
+            case PLAYING: Text::DrawOutfitBoldText((ToStringWithDecimalPoints(speedrunTimer.GetStopwatchTime(), 1)).c_str(), {buffer, simulationSize.y - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(speedrunTimer.GetStopwatchTime(), 1).c_str(), 100).y - buffer}, 100, BLACK); break;
             case MAIN_MENU: mainMenuScreen.Draw(); break;
             case PAUSED: pausedScreen.Draw(); break;
             case EXIT: exitScreen.Draw(); break;
             case DIED: deathScreen.Draw(); break;
             case PASS: passScreen.Draw(); break;
             case WIN: winScreen.Draw(); break;
+            case INFO: infoScreen.Draw(); break;
         }
         
         //DEBUG

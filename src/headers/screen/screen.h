@@ -12,7 +12,6 @@ public:
     virtual std::string GetTitleText() const { return "Screen"; }
     virtual ~Screen() = default;
     int titleTextFontSize = 64;
-    //Vector2 buttonSize = {150, 35};
 
     void DrawCenteredTitle(float yOffset = 0) const {
         const std::string title = GetTitleText();

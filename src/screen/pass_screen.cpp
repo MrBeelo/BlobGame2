@@ -1,7 +1,5 @@
 #include "../headers/screen/pass_screen.h"
 #include "../headers/main/globals.hpp"
-#include <iomanip>
-#include <sstream>
 #include <string>
 
 PassScreen::PassScreen() {}
