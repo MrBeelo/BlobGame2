@@ -34,6 +34,7 @@ const char *version = "PRE-ALPHA";
 Texture2D raylibLogo;
 const char *credits = "Made By MrBeelo";
 Stopwatch speedrunTimer = {false};
+Color backgroundColor = WHITE;
 
 std::string ToStringWithDecimalPoints(float value, int decimalPoints) {
     std::ostringstream out;
@@ -60,6 +61,7 @@ int main(void)
     
     InitWindow(windowSize.x, windowSize.y, "Blob Game 2");
     InitAudioDevice();
+    SetRandomSeed(1923742355);
     
     SearchAndSetResourceDir("res");
     
@@ -126,16 +128,17 @@ int main(void)
             case INFO: infoScreen.Update(); break;
         }
         
-        if(gameState == PLAYING || gameState == PAUSED || gameState == PASS || gameState == WIN) {
+        if(gameState == PLAYING || gameState == PAUSED || gameState == PASS || gameState == WIN || gameState == DIED) {
             UpdateMusicStream(Sounds::itsPizzaTime);
             if(!IsMusicStreamPlaying(Sounds::itsPizzaTime)) PlayMusicStream(Sounds::itsPizzaTime);
         } else {
             if(IsMusicStreamPlaying(Sounds::itsPizzaTime)) StopMusicStream(Sounds::itsPizzaTime);
+            backgroundColor = SKYBLUE;
         }
         
         BeginTextureMode(target);
         
-        ClearBackground(SKYBLUE);
+        ClearBackground(backgroundColor);
         
         BeginMode2D(player.camera);
         

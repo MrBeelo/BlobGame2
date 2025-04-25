@@ -41,7 +41,7 @@ class Player : public Entity
     bool shouldResetAnimation = false;
     Timer cameraTimer = {0};
     bool cameraGoingLeft = false;
-    void RotateCamera();
+    void RotateCameraAndUpdateBGColor();
 };
 
 #endif

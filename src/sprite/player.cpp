@@ -6,6 +6,7 @@
 #include "../headers/main/map.h"
 #include "../headers/main/input_manager.h"
 #include <algorithm>
+#include <cstdlib>
 
 Texture2D Player::textureAtlas;
 Camera2D Player::camera;
@@ -22,7 +23,7 @@ void Player::UnloadContent()
 
 Player::Player() : Entity({0, 0}, defSize, textureAtlas, true) {
     animationTimer = {0.5f, true, true, [this]() { this->CalculateAnimations(); }};
-    cameraTimer = {0.33f, true, true, [this]() { this->RotateCamera(); }};
+    cameraTimer = {0.33f, true, true, [this]() { this->RotateCameraAndUpdateBGColor(); }};
 }
 
 Player::~Player() {}
@@ -175,8 +176,18 @@ void Player::CalculateAnimations()
     }
 }
 
-void Player::RotateCamera()
+void Player::RotateCameraAndUpdateBGColor()
 {
     if(cameraGoingLeft) camera.rotation -= 3; else camera.rotation += 3;
     cameraGoingLeft = !cameraGoingLeft;
+    int color = GetRandomValue(0, 6);
+    switch (color) {
+        case 0: backgroundColor = RED; break;
+        case 1: backgroundColor = ORANGE; break;
+        case 2: backgroundColor = YELLOW; break;
+        case 3: backgroundColor = GREEN; break;
+        case 4: backgroundColor = SKYBLUE; break;
+        case 5: backgroundColor = BLUE; break;
+        case 6: backgroundColor = PURPLE; break;
+    }
 }
