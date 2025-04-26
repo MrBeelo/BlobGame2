@@ -116,9 +116,7 @@ int main(void)
         }
         
         switch (gameState) {
-            case PLAYING: 
-                player.Update(); 
-            break;  
+            case PLAYING: player.Update(); break;  
             case MAIN_MENU: mainMenuScreen.Update(); break;
             case PAUSED: pausedScreen.Update(); break;
             case EXIT: exitScreen.Update(); break;
@@ -131,6 +129,7 @@ int main(void)
         if(gameState == PLAYING || gameState == PAUSED || gameState == PASS || gameState == WIN || gameState == DIED) {
             UpdateMusicStream(Sounds::itsPizzaTime);
             if(!IsMusicStreamPlaying(Sounds::itsPizzaTime)) PlayMusicStream(Sounds::itsPizzaTime);
+            player.cameraTimer.Update(); 
         } else {
             if(IsMusicStreamPlaying(Sounds::itsPizzaTime)) StopMusicStream(Sounds::itsPizzaTime);
             backgroundColor = SKYBLUE;

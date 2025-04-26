@@ -19,6 +19,8 @@ std::vector<Tile> Map::normalTiles;
 std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> Map::collisionTilemap[levelAmount];
 std::vector<Tile> Map::collisionTiles;
 
+std::vector<Rectangle> Map::spikes;
+
 Vector2 Map::mapSize;
 
 std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> Map::LoadMap(std::string filepath)
@@ -229,17 +231,11 @@ void Map::DrawCollisions()
 
 void Map::MoveTo(int level, Player *player)
 {
-    if(level < levelAmount) {
-        currentLevel = level;
-        LoadMapSizeAndTiles();
-        Eval(player);
-        speedrunTimer.Stop();
-    } else {
-        currentLevel = 0;
-        LoadMapSizeAndTiles();
-        Eval(player);
-        speedrunTimer.Stop();
-    }
+    if(level < levelAmount) currentLevel = level; else currentLevel = 0;
+    LoadMapSizeAndTiles();
+    spikes.clear();
+    Eval(player);
+    speedrunTimer.Stop();
 }
 
 void Map::AdvanceLevel(Player *player)
@@ -259,6 +255,22 @@ void Map::Eval(Player *player)
     for(Tile tile : collisionTiles)
     {
         switch (tile.GetType()) {
+            case Map::CollisionTileType::SPIKE_DOWN:
+                spikes.push_back({tile.GetPos().x + 8, tile.GetPos().y + 12, 16, 20});
+            break;
+            
+            case Map::CollisionTileType::SPIKE_LEFT:
+                spikes.push_back({tile.GetPos().x, tile.GetPos().y + 8, 20, 16});
+            break;
+            
+            case Map::CollisionTileType::SPIKE_UP:
+                spikes.push_back({tile.GetPos().x + 8, tile.GetPos().y, 16, 20});
+            break;
+            
+            case Map::CollisionTileType::SPIKE_RIGHT:
+                spikes.push_back({tile.GetPos().x + 12, tile.GetPos().y + 8, 20, 16});
+            break;
+            
             case Map::CollisionTileType::SPAWN_PLAYER:
                 player->Teleport(tile.GetPos());
             break;

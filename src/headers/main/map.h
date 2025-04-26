@@ -24,6 +24,7 @@ class Map
     static std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> collisionTilemap[levelAmount];
     static std::vector<Tile> normalTiles;
     static std::vector<Tile> collisionTiles;
+    static std::vector<Rectangle> spikes;
     static std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> LoadMap(std::string filepath);
     static Vector2 mapSize;
     static void GetMapSize(std::string filepath);

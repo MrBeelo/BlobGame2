@@ -40,7 +40,6 @@ void Player::Update()
     
     if(IsKeyPressed(KEY_R)) Respawn();
     
-    cameraTimer.Update();
     UpdatePlayerCamera();
 }
 
@@ -58,7 +57,7 @@ void Player::ResetState()
 {
     SetVelocity({0, 0.5f});
     isLeft = false;
-    speed = 5;
+    speed = 7;
     alive = true;
 }
 
@@ -179,17 +178,16 @@ void Player::CalculateAnimations()
 
 void Player::RotateCameraAndUpdateBGColor()
 {
-    if(cameraGoingLeft) camera.rotation -= 3; else camera.rotation += 3;
+    if(cameraGoingLeft) camera.rotation -= 4; else camera.rotation += 4;
     cameraGoingLeft = !cameraGoingLeft;
-    int color = GetRandomValue(0, 6);
+    int color = GetRandomValue(0, 5);
     switch (color) {
         case 0: backgroundColor = RED; break;
         case 1: backgroundColor = ORANGE; break;
         case 2: backgroundColor = YELLOW; break;
         case 3: backgroundColor = GREEN; break;
-        case 4: backgroundColor = SKYBLUE; break;
-        case 5: backgroundColor = BLUE; break;
-        case 6: backgroundColor = PURPLE; break;
+        case 4: backgroundColor = BLUE; break;
+        case 5: backgroundColor = PURPLE; break;
     }
 }
 

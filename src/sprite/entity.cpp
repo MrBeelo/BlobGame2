@@ -193,6 +193,15 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
             }
         }
     }
+    
+    for(Rectangle spike : Map::spikes)
+    {
+        if(CheckCollisionRecs(this->GetDest(), spike))
+        {
+            Player* player = static_cast<Player*>(this);
+            if((horizontal && !isCollidingX) || (!horizontal && !isCollidingY)) player->Kill();
+        }
+    }
 }
 
 bool Entity::IsTouchingMapFloor()
