@@ -6,16 +6,20 @@ Sounds::~Sounds() {}
 Sound Sounds::success;
 Sound Sounds::jump;
 Music Sounds::itsPizzaTime;
+Music Sounds::menuMusic;
 
 void Sounds::LoadContent()
 {
     success = LoadSound("assets/sound/success.wav");
     jump = LoadSound("assets/sound/jump.wav");
     itsPizzaTime = LoadMusicStream("assets/sound/itsPizzaTime.mp3");
+    menuMusic = LoadMusicStream("assets/sound/menuMusic.mp3");
 }
 
 void Sounds::UnloadContent()
 {
     UnloadSound(success);
     UnloadSound(jump);
+    UnloadMusicStream(itsPizzaTime);
+    UnloadMusicStream(menuMusic);
 }

@@ -129,8 +129,11 @@ int main(void)
         if(gameState == PLAYING || gameState == PAUSED || gameState == PASS || gameState == WIN || gameState == DIED) {
             UpdateMusicStream(Sounds::itsPizzaTime);
             if(!IsMusicStreamPlaying(Sounds::itsPizzaTime)) PlayMusicStream(Sounds::itsPizzaTime);
+            if(IsMusicStreamPlaying(Sounds::menuMusic)) StopMusicStream(Sounds::menuMusic);
             player.cameraTimer.Update(); 
         } else {
+            UpdateMusicStream(Sounds::menuMusic);
+            if(!IsMusicStreamPlaying(Sounds::menuMusic)) PlayMusicStream(Sounds::menuMusic);
             if(IsMusicStreamPlaying(Sounds::itsPizzaTime)) StopMusicStream(Sounds::itsPizzaTime);
             backgroundColor = SKYBLUE;
         }
