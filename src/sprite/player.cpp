@@ -5,8 +5,10 @@
 #include "../headers/main/sounds.h"
 #include "../headers/main/map.h"
 #include "../headers/main/input_manager.h"
+#include "../headers/screen/death_screen.h"
 #include <algorithm>
 #include <cstdlib>
+#include <string>
 
 Texture2D Player::textureAtlas;
 Camera2D Player::camera;
@@ -39,7 +41,7 @@ void Player::Update()
     EvaluateTextureOffset();
     
     if(IsKeyPressed(KEY_R)) Respawn();
-    if(speedrunTimer.GetStopwatchTime() > 30) Kill();
+    if(speedrunTimer.GetStopwatchTime() > 30) KillWithMessage("Died to time.");
     
     UpdatePlayerCamera();
 }
@@ -85,8 +87,14 @@ void Player::PlayerMove()
 
 void Player::Kill()
 {
+    KillWithMessage("");
+}
+
+void Player::KillWithMessage(std::string text)
+{
     Entity::Kill();
     Respawn();
+    DeathScreen::deathMessage = text;
     gameState = DIED;
 }
 

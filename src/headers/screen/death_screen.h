@@ -3,6 +3,7 @@
 
 #include "../raylib/raylib.h"
 #include "screen.h"
+#include <string>
 
 class DeathScreen : Screen
 {
@@ -14,6 +15,7 @@ class DeathScreen : Screen
     std::string GetTitleText() const override { return "YOU DIED"; }
     Button button1 = {0, "RESTART"};
     Button button2 = {1, "LEAVE"};
+    static std::string deathMessage;
 };
 
 #endif

@@ -35,6 +35,7 @@ Texture2D raylibLogo;
 const char *credits = "Made By MrBeelo";
 Stopwatch speedrunTimer = {false};
 Color backgroundColor = WHITE;
+Image windowIcon;
 
 std::string ToStringWithDecimalPoints(float value, int decimalPoints) {
     std::ostringstream out;
@@ -51,6 +52,8 @@ void LeaveGame()
     Sounds::UnloadContent();
     Shaders::UnloadContent();
     UnloadRenderTexture(target);
+    UnloadTexture(raylibLogo);
+    UnloadImage(windowIcon);
 
     CloseWindow();
 }
@@ -73,7 +76,8 @@ int main(void)
     
     PlaySound(Sounds::success);
     
-    SetWindowIcon(LoadImage("assets/other/icon.png"));
+    windowIcon = LoadImage("assets/other/icon.png");
+    SetWindowIcon(windowIcon);
     SetExitKey(KEY_NULL);
     
     raylibLogo = LoadTexture("assets/other/raylib_logo.png");
@@ -189,7 +193,7 @@ int main(void)
         EndTextureMode();
         
         BeginDrawing();
-        ClearBackground(BLACK);
+        ClearBackground({25, 25, 25, 255});
         
         if(Shaders::useShader) BeginShaderMode(Shaders::fsShaders[Shaders::shader]);
             DrawTexturePro(target.texture, {0, 0, (float)target.texture.width, -(float)target.texture.height}, 

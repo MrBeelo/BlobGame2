@@ -4,6 +4,7 @@
 #include "../raylib/raylib.h"
 #include "../main/timer.h"
 #include "entity.h"
+#include <string>
 
 class Player : public Entity
 {
@@ -28,6 +29,7 @@ class Player : public Entity
     void ResetState();
     void PlayerMove();
     void Kill();
+    void KillWithMessage(std::string text);
     void Respawn();
     void EvaluateTextureOffset();
     float textureTickCounter = 0;

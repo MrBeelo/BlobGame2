@@ -25,6 +25,7 @@ extern Texture2D raylibLogo;
 extern const char *credits;
 extern Stopwatch speedrunTimer;
 extern Color backgroundColor;
+extern Image windowIcon;
 extern std::string ToStringWithDecimalPoints(float value, int decimalPoints);
 
 enum GameState
