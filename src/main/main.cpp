@@ -145,13 +145,16 @@ int main(void)
         {
             Map::Draw();
             player.Draw();
-            if(f3On) Map::DrawCollisions();
+            if(f3On) {
+                Map::DrawCollisions();
+                DrawRectangleLinesEx(player.GetDest(), 4, RED);
+            }
         }
         
         EndMode2D();
             
         switch (gameState) {
-            case PLAYING: Text::DrawOutfitBoldText((ToStringWithDecimalPoints(speedrunTimer.GetStopwatchTime(), 1)).c_str(), {buffer, simulationSize.y - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(speedrunTimer.GetStopwatchTime(), 1).c_str(), 100).y - buffer}, 100, BLACK); break;
+            case PLAYING: Text::DrawOutfitBoldText((ToStringWithDecimalPoints(30 - speedrunTimer.GetStopwatchTime(), 1)).c_str(), {buffer, simulationSize.y - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(30 - speedrunTimer.GetStopwatchTime(), 1).c_str(), 100).y - buffer}, 100, BLACK); break;
             case MAIN_MENU: mainMenuScreen.Draw(); break;
             case PAUSED: pausedScreen.Draw(); break;
             case EXIT: exitScreen.Draw(); break;

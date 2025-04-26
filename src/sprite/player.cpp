@@ -39,6 +39,7 @@ void Player::Update()
     EvaluateTextureOffset();
     
     if(IsKeyPressed(KEY_R)) Respawn();
+    if(speedrunTimer.GetStopwatchTime() > 30) Kill();
     
     UpdatePlayerCamera();
 }
@@ -198,8 +199,8 @@ void Player::HandleXBufferedCollisions(std::vector<Tile> &collisionTiles)
     for(Tile tile : collisionTiles)
     {
         Rectangle bufferedRect = GetDest();
-        bufferedRect.x += (!isLeft) ? 0 : -5;
-        bufferedRect.width += 5;
+        bufferedRect.x += (!isLeft) ? 0 : -8;
+        bufferedRect.width += 8;
         
         if(CheckCollisionRecs(tile.GetDest(), bufferedRect))
         {
