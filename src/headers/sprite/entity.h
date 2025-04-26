@@ -27,6 +27,7 @@ class Entity : public Sprite
     bool isCollidingX = false;
     bool isCollidingY = false;
     bool isCollidingDown = false;
+    bool isCollidingWithHazard = false;
     bool isCollidingWithDoubleJumpCrystal = false;
     void ApplyGravity();
     bool IsOnGround();

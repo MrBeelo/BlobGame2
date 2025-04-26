@@ -7,6 +7,7 @@ Sound Sounds::success;
 Sound Sounds::jump;
 Music Sounds::itsPizzaTime;
 Music Sounds::menuMusic;
+Music Sounds::tutorialMusic;
 
 void Sounds::LoadContent()
 {
@@ -14,6 +15,7 @@ void Sounds::LoadContent()
     jump = LoadSound("assets/sound/jump.wav");
     itsPizzaTime = LoadMusicStream("assets/sound/itsPizzaTime.mp3");
     menuMusic = LoadMusicStream("assets/sound/menuMusic.mp3");
+    tutorialMusic = LoadMusicStream("assets/sound/tutorialMusic.mp3");
 }
 
 void Sounds::UnloadContent()
@@ -22,4 +24,5 @@ void Sounds::UnloadContent()
     UnloadSound(jump);
     UnloadMusicStream(itsPizzaTime);
     UnloadMusicStream(menuMusic);
+    UnloadMusicStream(tutorialMusic);
 }

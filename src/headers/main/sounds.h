@@ -15,6 +15,7 @@ class Sounds
     static Sound success;
     static Music itsPizzaTime;
     static Music menuMusic;
+    static Music tutorialMusic;
 };
 
 #endif

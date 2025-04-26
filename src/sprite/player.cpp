@@ -206,9 +206,10 @@ void Player::HandleXBufferedCollisions(std::vector<Tile> &collisionTiles)
     
     for(Tile tile : collisionTiles)
     {
+        float rectBuffer = 8;
         Rectangle bufferedRect = GetDest();
-        bufferedRect.x += (!isLeft) ? 0 : -8;
-        bufferedRect.width += 8;
+        bufferedRect.x -= rectBuffer;
+        bufferedRect.width += rectBuffer * 2;
         
         if(CheckCollisionRecs(tile.GetDest(), bufferedRect))
         {

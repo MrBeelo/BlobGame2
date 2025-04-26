@@ -74,6 +74,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
         this->isCollidingDown = false;
     }
     
+    this->isCollidingWithHazard = false;
     this->isCollidingWithDoubleJumpCrystal = false;
     
     for(Tile tile : collisionTiles)
@@ -110,8 +111,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 case Map::CollisionTileType::HAZARD:
                 if(isPlayer)
                 {
-                    Player* player = static_cast<Player*>(this);
-                    if((horizontal && !isCollidingX) || (!horizontal && !isCollidingY)) player->KillWithMessage("Died to hazard.");
+                    this->isCollidingWithHazard = true;
                 }
                 break;
                 
@@ -200,6 +200,15 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
         {
             Player* player = static_cast<Player*>(this);
             if((horizontal && !isCollidingX) || (!horizontal && !isCollidingY)) player->KillWithMessage("Died to spike.");
+        }
+    }
+    
+    if(isCollidingWithHazard && isPlayer)
+    {
+        Player* player = static_cast<Player*>(this);
+        if((horizontal && !isCollidingX) || (!horizontal && !isCollidingY)) 
+        {
+            player->KillWithMessage("Died to hazard.");
         }
     }
 }

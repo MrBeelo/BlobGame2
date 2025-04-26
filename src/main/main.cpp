@@ -105,7 +105,7 @@ int main(void)
         windowSize = {(float) GetScreenWidth(), (float) GetScreenHeight()};
         simDT = GetFrameTime() * 60;
         
-        speedrunTimer.Update();
+        if(currentLevel > 0) speedrunTimer.Update();
         
         scale = std::min(windowSize.x / simulationSize.x, windowSize.y / simulationSize.y);
         
@@ -131,14 +131,25 @@ int main(void)
         }
         
         if(gameState == PLAYING || gameState == PAUSED || gameState == PASS || gameState == WIN || gameState == DIED) {
-            UpdateMusicStream(Sounds::itsPizzaTime);
-            if(!IsMusicStreamPlaying(Sounds::itsPizzaTime)) PlayMusicStream(Sounds::itsPizzaTime);
-            if(IsMusicStreamPlaying(Sounds::menuMusic)) StopMusicStream(Sounds::menuMusic);
+            if(currentLevel > 0)
+            {
+                UpdateMusicStream(Sounds::itsPizzaTime);
+                if(!IsMusicStreamPlaying(Sounds::itsPizzaTime)) PlayMusicStream(Sounds::itsPizzaTime);
+                if(IsMusicStreamPlaying(Sounds::menuMusic)) StopMusicStream(Sounds::menuMusic);
+                if(IsMusicStreamPlaying(Sounds::tutorialMusic)) StopMusicStream(Sounds::tutorialMusic);
+            } else {
+                UpdateMusicStream(Sounds::tutorialMusic);
+                if(!IsMusicStreamPlaying(Sounds::tutorialMusic)) PlayMusicStream(Sounds::tutorialMusic);
+                if(IsMusicStreamPlaying(Sounds::menuMusic)) StopMusicStream(Sounds::menuMusic);
+                if(IsMusicStreamPlaying(Sounds::itsPizzaTime)) StopMusicStream(Sounds::itsPizzaTime);
+            }
+            
             player.cameraTimer.Update(); 
         } else {
             UpdateMusicStream(Sounds::menuMusic);
             if(!IsMusicStreamPlaying(Sounds::menuMusic)) PlayMusicStream(Sounds::menuMusic);
             if(IsMusicStreamPlaying(Sounds::itsPizzaTime)) StopMusicStream(Sounds::itsPizzaTime);
+            if(IsMusicStreamPlaying(Sounds::tutorialMusic)) StopMusicStream(Sounds::tutorialMusic);
             backgroundColor = SKYBLUE;
         }
         
@@ -161,7 +172,38 @@ int main(void)
         EndMode2D();
             
         switch (gameState) {
-            case PLAYING: Text::DrawOutfitBoldText((ToStringWithDecimalPoints(30 - speedrunTimer.GetStopwatchTime(), 1)).c_str(), {buffer, simulationSize.y - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(30 - speedrunTimer.GetStopwatchTime(), 1).c_str(), 100).y - buffer}, 100, BLACK); break;
+            case PLAYING: 
+                Text::DrawOutfitBoldText((ToStringWithDecimalPoints(30 - speedrunTimer.GetStopwatchTime(), 1)).c_str(), {buffer, simulationSize.y - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(30 - speedrunTimer.GetStopwatchTime(), 1).c_str(), 100).y - buffer}, 100, BLACK); 
+                if(currentLevel == 0)
+                {
+                    if(player.GetPos().x <= 200) {
+                        Text::DrawOutfitBoldText("AD to move, space to jump.", 
+                            {simulationSize.x / 2 - Text::MeasureOutfitBoldText("AD to move, space to jump.", 42).x / 2,
+                                simulationSize.y / 4}, 
+                            42, BLACK);
+                    } else if(player.GetPos().x > 200 && player.GetPos().x <= 700) {
+                        Text::DrawOutfitBoldText("Spikes kill.", 
+                            {simulationSize.x / 2 - Text::MeasureOutfitBoldText("Spikes kill.", 42).x / 2,
+                                simulationSize.y / 4}, 
+                            42, BLACK);
+                    } else if(player.GetPos().x > 700 && player.GetPos().x <= 959) {
+                        Text::DrawOutfitBoldText("Walljump on walls.", 
+                            {simulationSize.x / 2 - Text::MeasureOutfitBoldText("Walljump on walls.", 42).x / 2,
+                                simulationSize.y / 4}, 
+                            42, BLACK);
+                    } else if(player.GetPos().x > 959 && player.GetPos().x <= 1250) {
+                        Text::DrawOutfitBoldText("Double jump on orange crystals.", 
+                            {simulationSize.x / 2 - Text::MeasureOutfitBoldText("Double jump on orange crystals.", 42).x / 2,
+                                simulationSize.y / 4}, 
+                            42, BLACK);
+                    } else if(player.GetPos().x > 1250) {
+                        Text::DrawOutfitBoldText("Get to the end in time.", 
+                            {simulationSize.x / 2 - Text::MeasureOutfitBoldText("Get to the end in time.", 42).x / 2,
+                                simulationSize.y / 4}, 
+                            42, BLACK);
+                    }
+                }
+            break;
             case MAIN_MENU: mainMenuScreen.Draw(); break;
             case PAUSED: pausedScreen.Draw(); break;
             case EXIT: exitScreen.Draw(); break;
