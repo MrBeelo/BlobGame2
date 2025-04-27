@@ -100,6 +100,8 @@ int main(void)
     
     Map::MoveTo(0, &player);
     
+    const char *tutorialText = "PLACEHOLDER";
+    
     while (!WindowShouldClose())
     {  
         windowSize = {(float) GetScreenWidth(), (float) GetScreenHeight()};
@@ -120,7 +122,14 @@ int main(void)
         }
         
         switch (gameState) {
-            case PLAYING: player.Update(); break;  
+            case PLAYING: 
+                player.Update();
+                if(player.GetPos().x <= 200) tutorialText = "AD to move, space to jump.";
+                else if (player.GetPos().x > 200 && player.GetPos().x <= 700) tutorialText = "Spikes kill.";
+                else if (player.GetPos().x > 700 && player.GetPos().x <= 959) tutorialText = "Walljump on walls.";
+                else if (player.GetPos().x > 959 && player.GetPos().x <= 1250) tutorialText = "Double jump on orange crystals.";
+                else if (player.GetPos().x > 1250) tutorialText = "Get to the end in time.";
+            break;  
             case MAIN_MENU: mainMenuScreen.Update(); break;
             case PAUSED: pausedScreen.Update(); break;
             case EXIT: exitScreen.Update(); break;
@@ -150,7 +159,7 @@ int main(void)
             if(!IsMusicStreamPlaying(Sounds::menuMusic)) PlayMusicStream(Sounds::menuMusic);
             if(IsMusicStreamPlaying(Sounds::itsPizzaTime)) StopMusicStream(Sounds::itsPizzaTime);
             if(IsMusicStreamPlaying(Sounds::tutorialMusic)) StopMusicStream(Sounds::tutorialMusic);
-            backgroundColor = SKYBLUE;
+            backgroundColor = {35, 35, 35, 255};
         }
         
         BeginTextureMode(target);
@@ -173,35 +182,13 @@ int main(void)
             
         switch (gameState) {
             case PLAYING: 
-                Text::DrawOutfitBoldText((ToStringWithDecimalPoints(30 - speedrunTimer.GetStopwatchTime(), 1)).c_str(), {buffer, simulationSize.y - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(30 - speedrunTimer.GetStopwatchTime(), 1).c_str(), 100).y - buffer}, 100, BLACK); 
+                Text::DrawOutfitBoldShakyText((ToStringWithDecimalPoints(30 - speedrunTimer.GetStopwatchTime(), 1)).c_str(), {buffer, simulationSize.y - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(30 - speedrunTimer.GetStopwatchTime(), 1).c_str(), 100).y - buffer}, 100, BLACK); 
                 if(currentLevel == 0)
                 {
-                    if(player.GetPos().x <= 200) {
-                        Text::DrawOutfitBoldText("AD to move, space to jump.", 
-                            {simulationSize.x / 2 - Text::MeasureOutfitBoldText("AD to move, space to jump.", 42).x / 2,
-                                simulationSize.y / 4}, 
-                            42, BLACK);
-                    } else if(player.GetPos().x > 200 && player.GetPos().x <= 700) {
-                        Text::DrawOutfitBoldText("Spikes kill.", 
-                            {simulationSize.x / 2 - Text::MeasureOutfitBoldText("Spikes kill.", 42).x / 2,
-                                simulationSize.y / 4}, 
-                            42, BLACK);
-                    } else if(player.GetPos().x > 700 && player.GetPos().x <= 959) {
-                        Text::DrawOutfitBoldText("Walljump on walls.", 
-                            {simulationSize.x / 2 - Text::MeasureOutfitBoldText("Walljump on walls.", 42).x / 2,
-                                simulationSize.y / 4}, 
-                            42, BLACK);
-                    } else if(player.GetPos().x > 959 && player.GetPos().x <= 1250) {
-                        Text::DrawOutfitBoldText("Double jump on orange crystals.", 
-                            {simulationSize.x / 2 - Text::MeasureOutfitBoldText("Double jump on orange crystals.", 42).x / 2,
-                                simulationSize.y / 4}, 
-                            42, BLACK);
-                    } else if(player.GetPos().x > 1250) {
-                        Text::DrawOutfitBoldText("Get to the end in time.", 
-                            {simulationSize.x / 2 - Text::MeasureOutfitBoldText("Get to the end in time.", 42).x / 2,
-                                simulationSize.y / 4}, 
-                            42, BLACK);
-                    }
+                    Text::DrawOutfitBoldShakyText(tutorialText, 
+                        {simulationSize.x / 2 - Text::MeasureOutfitBoldText(tutorialText, 42).x / 2,
+                            simulationSize.y / 4}, 
+                        42, BLACK);
                 }
             break;
             case MAIN_MENU: mainMenuScreen.Draw(); break;
@@ -235,7 +222,7 @@ int main(void)
         EndTextureMode();
         
         BeginDrawing();
-        ClearBackground({25, 25, 25, 255});
+        ClearBackground({20, 20, 20, 255});
         
         if(Shaders::useShader) BeginShaderMode(Shaders::fsShaders[Shaders::shader]);
             DrawTexturePro(target.texture, {0, 0, (float)target.texture.width, -(float)target.texture.height}, 

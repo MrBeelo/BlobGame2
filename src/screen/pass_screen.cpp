@@ -22,7 +22,7 @@ void PassScreen::Draw() {
     
     std::string speedrunText = "Clocked in at " + ToStringWithDecimalPoints(speedrunTimer.GetStopwatchTime(), 1);
     
-    Text::DrawOutfitBoldText(speedrunText.c_str(), 
+    Text::DrawOutfitBoldShakyText(speedrunText.c_str(), 
         {simulationSize.x / 2 - Text::MeasureOutfitBoldText(speedrunText.c_str(), 42).x / 2,
             simulationSize.y / 4}, 
         42, BLACK);

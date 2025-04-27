@@ -13,7 +13,7 @@ void InfoScreen::Update()
 
 void InfoScreen::Draw()
 {
-    DrawCenteredTitle();
+    DrawCenteredTitle(0, WHITE);
     
     button1.Draw();
     
@@ -45,6 +45,6 @@ void InfoScreen::Draw()
                     
     for(int i = 0; i < sizeof(lines) / sizeof(lines[0]); i++)
     {
-        Text::DrawOutfitBoldText(lines[i].c_str(), {simulationSize.x / 2 - (Text::MeasureOutfitBoldText(lines[i].c_str(), 30).x / 2), static_cast<float>(i * 30 + i * 5 + 80)}, 30, BLACK);
+        Text::DrawOutfitBoldText(lines[i].c_str(), {simulationSize.x / 2 - (Text::MeasureOutfitBoldText(lines[i].c_str(), 30).x / 2), static_cast<float>(i * 30 + i * 5 + 80)}, 30, WHITE);
     }
 }

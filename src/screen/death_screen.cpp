@@ -27,7 +27,7 @@ void DeathScreen::Draw()
     button1.Draw();
     button2.Draw();
     
-    Text::DrawOutfitBoldText(deathMessage.c_str(), 
+    Text::DrawOutfitBoldShakyText(deathMessage.c_str(), 
         {simulationSize.x / 2 - Text::MeasureOutfitBoldText(deathMessage.c_str(), 42).x / 2,
             simulationSize.y / 4}, 
         42, BLACK);

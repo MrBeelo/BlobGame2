@@ -24,7 +24,7 @@ void Player::UnloadContent()
 }
 
 Player::Player() : Entity({0, 0}, defSize, textureAtlas, true) {
-    animationTimer = {0.5f, true, true, [this]() { this->CalculateAnimations(); }};
+    animationTimer = {0.3f, true, true, [this]() { this->CalculateAnimations(); }};
     cameraTimer = {0.33f, true, true, [this]() { this->RotateCameraAndUpdateBGColor(); }};
 }
 

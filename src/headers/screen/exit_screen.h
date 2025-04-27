@@ -12,8 +12,8 @@ class ExitScreen : Screen
     void Update() override;
     void Draw() override;
     std::string GetTitleText() const override { return "EXIT?"; }
-    Button button1 = {0, "YES"};
-    Button button2 = {1, "NO"};
+    Button button1 = {0, "YES", GOLD, WHITE, WHITE};
+    Button button2 = {1, "NO", GOLD, WHITE, WHITE};
 };
 
 #endif

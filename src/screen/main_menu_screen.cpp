@@ -21,13 +21,13 @@ void MainMenuScreen::Update()
 }
 
 void MainMenuScreen::Draw() {
-    DrawCenteredTitle();
+    DrawCenteredTitle(0, WHITE);
     
     button1.Draw();
     button2.Draw();
     button3.Draw();
     
-    Text::DrawOutfitBoldText(version, {buffer, simulationSize.y - Text::MeasureOutfitBoldText(version, 24).y - buffer}, 24, BLACK);
-    Text::DrawOutfitBoldText(credits, {simulationSize.x - Text::MeasureOutfitBoldText(credits, 24).x - buffer, simulationSize.y - Text::MeasureOutfitBoldText(credits, 24).y - buffer}, 24, BLACK);
+    Text::DrawOutfitBoldText(version, {buffer, simulationSize.y - Text::MeasureOutfitBoldText(version, 24).y - buffer}, 24, WHITE);
+    Text::DrawOutfitBoldText(credits, {simulationSize.x - Text::MeasureOutfitBoldText(credits, 24).x - buffer, simulationSize.y - Text::MeasureOutfitBoldText(credits, 24).y - buffer}, 24, WHITE);
     DrawTexture(raylibLogo, simulationSize.x - raylibLogo.width - buffer, buffer, WHITE);
 }

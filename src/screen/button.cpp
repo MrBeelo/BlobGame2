@@ -3,32 +3,41 @@
 #include "../headers/main/globals.hpp"
 #include "../headers/screen/screen.h"
 
-Button::Button(Vector2 pos, Vector2 size, const char *text)
+Button::Button(Vector2 pos, Vector2 size, const char *text, Color hovColor, Color defColor, Color textColor)
 {
     this->size = size;
     this->text = text;
     this->pos = pos;
+    this->hovColor = hovColor;
+    this->defColor = defColor;
+    this->textColor = textColor;
 }
 
-Button::Button(Vector2 pos, const char *text)
+Button::Button(Vector2 pos, const char *text, Color hovColor, Color defColor, Color textColor)
 {
     this->size = CalculateSizeDefault(text);
     this->text = text;
     this->pos = pos;
+    this->hovColor = hovColor;
+    this->defColor = defColor;
+    this->textColor = textColor;
 }
 
-Button::Button(float yIndex, const char *text)
+Button::Button(float yIndex, const char *text, Color hovColor, Color defColor, Color textColor)
 {
     this->size = CalculateSizeDefault(text);
     this->text = text;
     this->pos = Screen::GetCenteredPosition(size, {0, (buffer + size.y) * yIndex});
+    this->hovColor = hovColor;
+    this->defColor = defColor;
+    this->textColor = textColor;
 }
 
 Button::~Button() {}
 
 void Button::Update()
 {
-    if(IsHovered()) buttonColor = BLACK; else buttonColor = WHITE;
+    if(IsHovered()) buttonColor = hovColor; else buttonColor = defColor;
     UpdateDest();
 }
 

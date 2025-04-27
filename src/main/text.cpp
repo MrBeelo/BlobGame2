@@ -25,6 +25,11 @@ void Text::DrawOutfitBoldText(const char *text, Vector2 position, float fontSize
     DrawTextPro(OutfitBold, text, position, {0, 0}, 0.0f, fontSize, 0.5f, color);
 }
 
+void Text::DrawOutfitBoldShakyText(const char *text, Vector2 position, float fontSize, Color color)
+{
+    DrawTextPro(OutfitBold, text, {position.x += GetRandomValue(-3, 3), position.y += GetRandomValue(-2, 2)}, {0, 0}, 0.0f, fontSize, 0.5f, color);
+}
+
 Vector2 Text::MeasureOutfitBoldText(const char *text, float fontSize)
 {
     return MeasureTextEx(OutfitBold, text, fontSize, 0.5f);

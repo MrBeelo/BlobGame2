@@ -12,7 +12,7 @@ class InfoScreen : Screen
     void Update() override;
     void Draw() override;
     std::string GetTitleText() const override { return "INFO / CREDITS"; }
-    Button button1 = {8,  "BACK"};
+    Button button1 = {8,  "BACK", GOLD, WHITE, WHITE};
 };
 
 #endif
