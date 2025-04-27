@@ -1,1 +1,1 @@
-Simple raylib template for raylib 5.5
+Remake of Blob Game made in C++.
