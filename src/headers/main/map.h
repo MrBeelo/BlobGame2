@@ -17,7 +17,7 @@ class Map
     Map();
     ~Map();
     const static int tilesize = 32;
-    const static int levelAmount = 2;
+    const static int levelAmount = 3;
     static Texture2D normalAtlas;
     static Texture2D collisionAtlas;
     static std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> normalTilemap[levelAmount];
