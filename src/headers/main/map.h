@@ -41,6 +41,7 @@ class Map
     static void Eval(Player *player);
     enum CollisionTileType {SOLID = 0, HAZARD, PASS, WIN, WATER, DOUBLE_JUMP, 
         SPIKE_DOWN = 8, SPIKE_LEFT, SPIKE_UP, SPIKE_RIGHT, SPAWN_PLAYER = 16};
+    static Vector2 currentSpawnPoint;
 };
 
 #endif

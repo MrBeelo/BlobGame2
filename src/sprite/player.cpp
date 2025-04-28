@@ -53,7 +53,7 @@ void Player::Draw()
 
 void Player::ResetPos()
 {
-    Map::Eval(this);
+    SetPos(Map::currentSpawnPoint);
 }
 
 void Player::ResetState()

@@ -2,6 +2,7 @@
 #include "../headers/raylib/raylib.h"
 #include "../headers/main/globals.hpp"
 #include "../headers/sprite/tile.h"
+#include "../headers/main/text.hpp"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -22,6 +23,7 @@ std::vector<Tile> Map::collisionTiles;
 std::vector<Rectangle> Map::spikes;
 
 Vector2 Map::mapSize;
+Vector2 Map::currentSpawnPoint;
 
 std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> Map::LoadMap(std::string filepath)
 {
@@ -233,8 +235,9 @@ void Map::MoveTo(int level, Player *player)
 {
     if(level < levelAmount) currentLevel = level; else currentLevel = 0;
     LoadMapSizeAndTiles();
-    spikes.clear();
     Eval(player);
+    //std::cout << "NEW SPAWNPOINT: " + Text::Vector2ToString(currentSpawnPoint) << std::endl;
+    player->ResetPos();
     speedrunTimer.Stop();
 }
 
@@ -252,6 +255,8 @@ void Map::LoadMapSizeAndTiles()
 
 void Map::Eval(Player *player)
 {
+    spikes.clear();
+    
     for(Tile tile : collisionTiles)
     {
         switch (tile.GetType()) {
@@ -272,7 +277,7 @@ void Map::Eval(Player *player)
             break;
             
             case Map::CollisionTileType::SPAWN_PLAYER:
-                player->Teleport(tile.GetPos());
+                currentSpawnPoint = tile.GetPos();
             break;
         }
     }
