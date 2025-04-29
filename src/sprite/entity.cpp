@@ -128,23 +128,23 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 } else
                 {
                     this->isCollidingY = true;
-                    if(this->GetVelocity().y < 0) //MOVING UP
+                    if(!isPlayer)
                     {
-                        this->SetVelocityY(-0.1f);
-                        this->SetPosY(tile.GetDest().y + tile.GetDest().height);
-                    } else if (this->GetVelocity().y > 0) { //MOVING DOWN
-                        if(isPlayer)
+                        if(this->GetVelocity().y < 0) //MOVING UP
                         {
-                            Player* player = static_cast<Player*>(this);
-                            gameState = PASS;
-                            Map::AdvanceLevel(player);
-                            player->Respawn();
+                            this->SetVelocityY(-0.1f);
+                            this->SetPosY(tile.GetDest().y + tile.GetDest().height);
+                        } else if (this->GetVelocity().y > 0) { //MOVING DOWN
+                            this->isCollidingDown = true;
+                            this->SetVelocityY(0.1f);
+                            this->SetPosY(tile.GetDest().y - this->GetDest().height);
                         }
-                        
-                        
-                        this->isCollidingDown = true;
-                        this->SetVelocityY(0.1f);
-                        this->SetPosY(tile.GetDest().y - this->GetDest().height);
+                    } else if(isPlayer && this->GetVelocity().y > 0)
+                    {
+                        Player* player = static_cast<Player*>(this);
+                        gameState = PASS;
+                        Map::AdvanceLevel(player);
+                        player->Respawn();
                     }
                 }
                 break;

@@ -2,7 +2,6 @@
 #include "../headers/raylib/raylib.h"
 #include "../headers/main/globals.hpp"
 #include "../headers/sprite/tile.h"
-#include "../headers/main/text.hpp"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -236,9 +235,8 @@ void Map::MoveTo(int level, Player *player)
     if(level < levelAmount) currentLevel = level; else currentLevel = 0;
     LoadMapSizeAndTiles();
     Eval(player);
-    //std::cout << "NEW SPAWNPOINT: " + Text::Vector2ToString(currentSpawnPoint) << std::endl;
-    player->ResetPos();
     speedrunTimer.Stop();
+    player->ResetPos();
 }
 
 void Map::AdvanceLevel(Player *player)
