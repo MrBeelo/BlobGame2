@@ -1,4 +1,6 @@
 #include "../headers/main/input_manager.h"
+#include <cctype>
+#include <cstddef>
 
 bool InputManager::IsActionPressed(InputAction action) {
     switch (action) {
@@ -32,6 +34,9 @@ bool InputManager::IsActionPressed(InputAction action) {
                 
         case ACTION_F3:
             return IsKeyPressed(KEY_F3);
+            
+        case ACTION_TERMINAL:
+            return IsKeyPressed(KEY_GRAVE);
 
         default:
             return false;
@@ -59,4 +64,42 @@ bool InputManager::IsActionHeld(InputAction action) {
         default:
             return false;
     }
+}
+
+char InputManager::KeyToChar(KeyboardKey key, bool shift)
+{
+
+    // Handle A-Z
+    if (key >= KEY_A && key <= KEY_Z)
+    {
+        char base = shift ? 'A' : 'a';
+        return base + (key - KEY_A); // map KEY_A to 'a' or 'A'
+    }
+
+    switch (key)
+    {
+        case KEY_ONE: return shift ? '!' : '1';
+        case KEY_TWO: return shift ? '@' : '2';
+        case KEY_THREE: return shift ? '#' : '3';
+        case KEY_FOUR: return shift ? '$' : '4';
+        case KEY_FIVE: return shift ? '%' : '5';
+        case KEY_SIX: return shift ? '^' : '6';
+        case KEY_SEVEN: return shift ? '&' : '7';
+        case KEY_EIGHT: return shift ? '*' : '8';
+        case KEY_NINE: return shift ? '(' : '9';
+        case KEY_ZERO: return shift ? ')' : '0';
+        case KEY_SPACE: return ' ';
+        case KEY_COMMA: return shift ? '<' : ','; // Comma or Less-than
+        case KEY_PERIOD: return shift ? '>' : '.'; // Period or Greater-than
+        case KEY_SLASH: return shift ? '?' : '/'; // Slash or Question Mark
+        case KEY_SEMICOLON: return shift ? ':' : ';'; // Semicolon or Colon
+        case KEY_APOSTROPHE: return shift ? '"' : '\''; // Quote or Double Quote
+        case KEY_LEFT_BRACKET: return shift ? '{' : '['; // Open Bracket or Curly Brace
+        case KEY_RIGHT_BRACKET: return shift ? '}' : ']'; // Close Bracket or Curly Brace
+        case KEY_BACKSLASH: return shift ? '|' : '\\'; // Pipe or Backslash
+        case KEY_EQUAL: return shift ? '+' : '='; // Plus or Equal
+        case KEY_MINUS: return shift ? '_' : '-'; // Underscore or Hyphen
+    };
+    
+    return '\0';
 }

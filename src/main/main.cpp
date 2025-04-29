@@ -16,6 +16,7 @@
 #include "../headers/main/shaders.h"
 #include "../headers/raylib/resource_dir.h"
 #include "../headers/main/input_manager.h"
+#include "../headers/main/terminal.h"
 #include <string>
 #include <sstream>
 #include <iomanip>
@@ -36,6 +37,7 @@ const char *credits = "Made By MrBeelo";
 Stopwatch speedrunTimer = {false};
 Color backgroundColor = WHITE;
 Image windowIcon;
+bool isTerminalOpen = false;
 
 std::string ToStringWithDecimalPoints(float value, int decimalPoints) {
     std::ostringstream out;
@@ -98,9 +100,11 @@ int main(void)
     target = LoadRenderTexture(simulationSize.x, simulationSize.y);
     SetTextureFilter(target.texture, TEXTURE_FILTER_BILINEAR);
     
+    Terminal terminal = {};
+    
     Map::MoveTo(0, &player);
     
-    const char *tutorialText = "PLACEHOLDER";
+    const char *tutorialText = "";
     
     while (!WindowShouldClose())
     {  
@@ -120,6 +124,7 @@ int main(void)
             if(gameState == PLAYING) gameState = PAUSED;
             if(gameState == MAIN_MENU) gameState = EXIT;
         }
+        if(InputManager::IsActionPressed(InputManager::ACTION_TERMINAL)) isTerminalOpen = !isTerminalOpen;
         
         switch (gameState) {
             case PLAYING: 
@@ -162,6 +167,9 @@ int main(void)
             backgroundColor = {35, 35, 35, 255};
         }
         
+        terminal.Update();
+        Shaders::Update();
+        
         BeginTextureMode(target);
         
         ClearBackground(backgroundColor);
@@ -200,6 +208,8 @@ int main(void)
             case INFO: infoScreen.Draw(); break;
         }
         
+        terminal.Draw();
+        
         //DEBUG
         if(f3On)
         {
@@ -224,7 +234,7 @@ int main(void)
         BeginDrawing();
         ClearBackground({20, 20, 20, 255});
         
-        if(Shaders::useShader) BeginShaderMode(Shaders::fsShaders[Shaders::shader]);
+        if(Shaders::useShader) BeginShaderMode(Shaders::fsShaders[Shaders::FX_CRT_CURVE]);
             DrawTexturePro(target.texture, {0, 0, (float)target.texture.width, -(float)target.texture.height}, 
                 {(windowSize.x - simulationSize.x * scale) * 0.5f, (windowSize.y - simulationSize.y * scale) * 0.5f, simulationSize.x * scale, simulationSize.y * scale}, 
                 {0, 0}, 0.0f, WHITE);
