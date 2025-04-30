@@ -1,5 +1,5 @@
-#ifndef SHADER_H
-#define SHADER_H
+#ifndef SHADERS_H
+#define SHADERS_H
 
 #include "../raylib/raylib.h"
 #include <string>

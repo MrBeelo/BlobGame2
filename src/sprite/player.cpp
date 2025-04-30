@@ -32,7 +32,7 @@ Player::~Player() {}
 
 void Player::Update()
 {
-    PlayerMove();
+    if(!isTerminalOpen) PlayerMove();
     Entity::Update();
     HandleXBufferedCollisions(Map::collisionTiles);
     
@@ -40,7 +40,6 @@ void Player::Update()
     EvaluateTextures();
     EvaluateTextureOffset();
     
-    if(IsKeyPressed(KEY_R)) Respawn();
     if(speedrunTimer.GetStopwatchTime() > 30) KillWithMessage("Died to time.");
     
     UpdatePlayerCamera();

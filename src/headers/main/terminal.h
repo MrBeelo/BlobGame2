@@ -3,6 +3,7 @@
 
 #include "../raylib/raylib.h"
 #include "../main/globals.hpp"
+#include "../sprite/player.h"
 #include <string>
 
 class Terminal
@@ -10,7 +11,7 @@ class Terminal
     public:
     Terminal();
     ~Terminal();
-    void Update();
+    void Update(Player *player);
     void Draw();
     std::string text = "";
     void HandleText();

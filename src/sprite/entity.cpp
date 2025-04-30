@@ -4,6 +4,7 @@
 #include "../headers/main/globals.hpp"
 #include "../headers/main/map.h"
 #include "../headers/sprite/player.h"
+#include "../headers/main/modifiers.h"
 #include <algorithm>
 #include <cmath>
 
@@ -109,10 +110,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 break;
                 
                 case Map::CollisionTileType::HAZARD:
-                if(isPlayer)
-                {
-                    this->isCollidingWithHazard = true;
-                }
+                if(isPlayer) this->isCollidingWithHazard = true;
                 break;
                 
                 case Map::CollisionTileType::PASS:
@@ -199,17 +197,14 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
         if(CheckCollisionRecs(this->GetDest(), spike))
         {
             Player* player = static_cast<Player*>(this);
-            if((horizontal && !isCollidingX) || (!horizontal && !isCollidingY)) player->KillWithMessage("Died to spike.");
+            if(((horizontal && !isCollidingX) || (!horizontal && !isCollidingY)) && !Modifiers::immunityMod) player->KillWithMessage("Died to spike.");
         }
     }
     
     if(isCollidingWithHazard && isPlayer)
     {
         Player* player = static_cast<Player*>(this);
-        if((horizontal && !isCollidingX) || (!horizontal && !isCollidingY)) 
-        {
-            player->KillWithMessage("Died to hazard.");
-        }
+        if(((horizontal && !isCollidingX) || (!horizontal && !isCollidingY)) && !Modifiers::immunityMod) player->KillWithMessage("Died to hazard.");
     }
 }
 

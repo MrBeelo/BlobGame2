@@ -17,6 +17,7 @@
 #include "../headers/raylib/resource_dir.h"
 #include "../headers/main/input_manager.h"
 #include "../headers/main/terminal.h"
+#include "../headers/main/modifiers.h"
 #include <string>
 #include <sstream>
 #include <iomanip>
@@ -119,13 +120,6 @@ int main(void)
         vMouse.y = (GetMouseY() - (windowSize.y - (simulationSize.y * scale)) * 0.5f) / scale;
         vMouse = {std::clamp(vMouse.x, 0.0f, simulationSize.x), std::clamp(vMouse.y, 0.0f, simulationSize.y)};
         
-        if(InputManager::IsActionPressed(InputManager::ACTION_F3)) f3On = !f3On;
-        if(InputManager::IsActionPressed(InputManager::ACTION_ESC)) {
-            if(gameState == PLAYING) gameState = PAUSED;
-            if(gameState == MAIN_MENU) gameState = EXIT;
-        }
-        if(InputManager::IsActionPressed(InputManager::ACTION_TERMINAL)) isTerminalOpen = !isTerminalOpen;
-        
         switch (gameState) {
             case PLAYING: 
                 player.Update();
@@ -167,8 +161,18 @@ int main(void)
             backgroundColor = {35, 35, 35, 255};
         }
         
-        terminal.Update();
+        terminal.Update(&player);
         Shaders::Update();
+        
+        if(InputManager::IsActionPressed(InputManager::ACTION_F3)) f3On = !f3On;
+        if(InputManager::IsActionPressed(InputManager::ACTION_ESC)) {
+            if(gameState == PLAYING) gameState = PAUSED;
+            if(gameState == MAIN_MENU) gameState = EXIT;
+        }
+        if(InputManager::IsActionPressed(InputManager::ACTION_TERMINAL)) {
+            isTerminalOpen = !isTerminalOpen;
+            if(!terminal.text.empty()) terminal.text.pop_back();
+        }
         
         BeginTextureMode(target);
         
@@ -227,6 +231,7 @@ int main(void)
             Text::DrawOutfitBoldText(("Animation Active: " + std::to_string(player.animationTimer.active)).c_str(), {10, 10 + 30 * 11}, 24, BLACK);
             Text::DrawOutfitBoldText(("Texture Offset: " + std::to_string(player.textureOffset)).c_str(), {10, 10 + 30 * 12}, 24, BLACK);
             Text::DrawOutfitBoldText(("Timer time passed: " + std::to_string(GetTime() - player.animationTimer.startTime)).c_str(), {10, 10 + 30 * 13}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Immunity Mod: " + std::to_string(Modifiers::immunityMod)).c_str(), {10, 10 + 30 * 14}, 24, BLACK);
         }
             
         EndTextureMode();
