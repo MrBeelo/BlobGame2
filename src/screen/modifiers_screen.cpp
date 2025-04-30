@@ -11,9 +11,9 @@ void ModifiersScreen::Update()
     button3.Update();
     button4.Update();
     
-    label1 = std::string("NEED MORE SPEED") + (Modifiers::speedMod ? " (true)" : " (false)");
-    label2 = std::string("INVERSE") + (Modifiers::inverseMod ? " (true)" : " (false)");
-    label3 = std::string("TICK TOCK") + (Modifiers::tickTockMod ? " (true)" : " (false)");
+    label1 = std::string("NEED MORE SPEED") + (Modifiers::speedMod ? " (TRUE)" : " (FALSE)");
+    label2 = std::string("INVERSE") + (Modifiers::inverseMod ? " (TRUE)" : " (FALSE)");
+    label3 = std::string("TICK TOCK") + (Modifiers::tickTockMod ? " (TRUE)" : " (FALSE)");
     
     button1.text = label1.c_str();
     button2.text = label2.c_str();
