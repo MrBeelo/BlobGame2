@@ -13,8 +13,9 @@ class MainMenuScreen : Screen
     void Draw() override;
     std::string GetTitleText() const override { return "BLOB GAME 2"; }
     Button button1 = {0, "START GAME", GOLD, WHITE, WHITE};
-    Button button2 = {1, "INFO/CREDITS", GOLD, WHITE, WHITE};
-    Button button3 = {2, "EXIT", GOLD, WHITE, WHITE};
+    Button button2 = {1, "MODIFIERS", GOLD, WHITE, WHITE};
+    Button button3 = {2, "INFO/CREDITS", GOLD, WHITE, WHITE};
+    Button button4 = {3, "EXIT", GOLD, WHITE, WHITE};
 };
 
 #endif

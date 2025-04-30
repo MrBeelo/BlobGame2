@@ -28,6 +28,7 @@ Button::Button(float yIndex, const char *text, Color hovColor, Color defColor, C
     this->size = CalculateSizeDefault(text);
     this->text = text;
     this->pos = Screen::GetCenteredPosition(size, {0, (buffer + size.y) * yIndex});
+    this->yIndex = yIndex;
     this->hovColor = hovColor;
     this->defColor = defColor;
     this->textColor = textColor;

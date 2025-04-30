@@ -10,6 +10,7 @@ class Button
     Vector2 size;
     Rectangle dest;
     const char *text;
+    int yIndex = -1;
     Color hovColor;
     Color defColor;
     Button(float yIndex, const char *text, Color hovColor = WHITE, Color defColor = BLACK, Color textColor = BLACK);

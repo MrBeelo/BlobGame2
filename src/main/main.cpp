@@ -11,6 +11,7 @@
 #include "../headers/screen/pass_screen.h"
 #include "../headers/screen/win_screen.h"
 #include "../headers/screen/info_screen.h"
+#include "../headers/screen/modifiers_screen.h"
 #include "../headers/main/sounds.h"
 #include "../headers/main/map.h"
 #include "../headers/main/shaders.h"
@@ -98,6 +99,7 @@ int main(void)
     PassScreen passScreen = {};
     WinScreen winScreen = {};
     InfoScreen infoScreen = {};
+    ModifiersScreen modifiersScreen = {};
     
     target = LoadRenderTexture(simulationSize.x, simulationSize.y);
     SetTextureFilter(target.texture, TEXTURE_FILTER_BILINEAR);
@@ -137,6 +139,7 @@ int main(void)
             case PASS: passScreen.Update(); break;
             case WIN: winScreen.Update(); break;
             case INFO: infoScreen.Update(); break;
+            case MODIFIERS: modifiersScreen.Update(); break;
         }
         
         if(gameState == PLAYING || gameState == PAUSED || gameState == PASS || gameState == WIN || gameState == DIED) {
@@ -213,6 +216,7 @@ int main(void)
             case PASS: passScreen.Draw(); break;
             case WIN: winScreen.Draw(); break;
             case INFO: infoScreen.Draw(); break;
+            case MODIFIERS: modifiersScreen.Draw(); break;
         }
         
         terminal.Draw();
