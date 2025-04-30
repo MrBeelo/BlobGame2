@@ -6,6 +6,7 @@
 #include "../headers/main/map.h"
 #include "../headers/main/input_manager.h"
 #include "../headers/screen/death_screen.h"
+#include "../headers/main/modifiers.h"
 #include <algorithm>
 #include <cstdlib>
 #include <string>
@@ -40,7 +41,8 @@ void Player::Update()
     EvaluateTextures();
     EvaluateTextureOffset();
     
-    if(speedrunTimer.GetStopwatchTime() > 30) KillWithMessage("Died to time.");
+    if(speedrunTimer.GetStopwatchTime() > timeLimit) KillWithMessage("Died to time.");
+    if(Modifiers::speedMod) speed = 12; else speed = 7;
     
     UpdatePlayerCamera();
 }
@@ -69,11 +71,11 @@ void Player::PlayerMove()
     
     if(InputManager::IsActionHeld(InputManager::ACTION_MOVE_LEFT))
     {
-        SetVelocityX(-speed);
+        SetVelocityX(!Modifiers::inverseMod ? -speed : speed);
     }
     else if(InputManager::IsActionHeld(InputManager::ACTION_MOVE_RIGHT))
     {
-        SetVelocityX(speed);
+        SetVelocityX(!Modifiers::inverseMod ? speed : -speed);
     }
     
     if((IsOnGround() || isCollidingXWithBuffer || isCollidingWithDoubleJumpCrystal) && InputManager::IsActionPressed(InputManager::ACTION_JUMP))

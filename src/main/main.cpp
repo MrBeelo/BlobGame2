@@ -39,6 +39,7 @@ Stopwatch speedrunTimer = {false};
 Color backgroundColor = WHITE;
 Image windowIcon;
 bool isTerminalOpen = false;
+float timeLimit = 40;
 
 std::string ToStringWithDecimalPoints(float value, int decimalPoints) {
     std::ostringstream out;
@@ -63,7 +64,7 @@ void LeaveGame()
 
 int main(void)
 { 
-    SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI | FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
+    SetConfigFlags(FLAG_WINDOW_HIGHDPI | FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
     
     InitWindow(windowSize.x, windowSize.y, "Blob Game 2");
     InitAudioDevice();
@@ -112,7 +113,7 @@ int main(void)
         windowSize = {(float) GetScreenWidth(), (float) GetScreenHeight()};
         simDT = GetFrameTime() * 60;
         
-        if(currentLevel > 0) speedrunTimer.Update();
+        if(currentLevel > 0 && !Modifiers::immunityMod) speedrunTimer.Update();
         
         scale = std::min(windowSize.x / simulationSize.x, windowSize.y / simulationSize.y);
         
@@ -164,6 +165,8 @@ int main(void)
         terminal.Update(&player);
         Shaders::Update();
         
+        if(Modifiers::tickTockMod) timeLimit = 25; else timeLimit = 40;
+        
         if(InputManager::IsActionPressed(InputManager::ACTION_F3)) f3On = !f3On;
         if(InputManager::IsActionPressed(InputManager::ACTION_ESC)) {
             if(gameState == PLAYING) gameState = PAUSED;
@@ -194,7 +197,7 @@ int main(void)
             
         switch (gameState) {
             case PLAYING: 
-                Text::DrawOutfitBoldShakyText((ToStringWithDecimalPoints(30 - speedrunTimer.GetStopwatchTime(), 1)).c_str(), {buffer, simulationSize.y - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(30 - speedrunTimer.GetStopwatchTime(), 1).c_str(), 100).y - buffer}, 100, BLACK); 
+                Text::DrawOutfitBoldShakyText((ToStringWithDecimalPoints(timeLimit - speedrunTimer.GetStopwatchTime(), 1)).c_str(), {buffer, simulationSize.y - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(timeLimit - speedrunTimer.GetStopwatchTime(), 1).c_str(), 100).y - buffer}, 100, BLACK); 
                 if(currentLevel == 0)
                 {
                     Text::DrawOutfitBoldShakyText(tutorialText, 
@@ -249,6 +252,5 @@ int main(void)
     }
 
     LeaveGame();
-    
     return 0;
 }

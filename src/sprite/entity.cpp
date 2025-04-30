@@ -99,7 +99,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                     this->isCollidingY = true;
                     if(this->GetVelocity().y < 0) //MOVING UP
                     {
-                        this->SetVelocityY(-0.1f);
+                        this->SetVelocityY(0.1f);
                         this->SetPosY(tile.GetDest().y + tile.GetDest().height);
                     } else if (this->GetVelocity().y > 0) { //MOVING DOWN
                         this->isCollidingDown = true;

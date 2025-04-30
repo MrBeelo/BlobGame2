@@ -30,6 +30,7 @@ void Terminal::Update(Player *player)
             if(text == "/resetPos") player->ResetPos();
             if(text == "/resetState") player->ResetState();
             if(text == "/respawn") player->Respawn();
+            if(text == "/kill") player->KillWithMessage("Died to terminal.");
             if(text == "/yipee") PlaySound(Sounds::success);
             if(text == "/speedMod") Modifiers::speedMod = !Modifiers::speedMod;
             if(text == "/inverseMod") Modifiers::inverseMod = !Modifiers::inverseMod;
