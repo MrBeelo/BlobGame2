@@ -65,7 +65,7 @@ void LeaveGame()
 
 int main(void)
 { 
-    SetConfigFlags(FLAG_WINDOW_HIGHDPI | FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
+    SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI | FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
     
     InitWindow(windowSize.x, windowSize.y, "Blob Game 2");
     InitAudioDevice();
