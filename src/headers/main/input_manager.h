@@ -11,6 +11,7 @@ class InputManager
         ACTION_JUMP, ACTION_CONFIRM, ACTION_ESC, ACTION_F3, ACTION_TERMINAL };
     static bool IsActionPressed(InputAction action);
     static bool IsActionHeld(InputAction action);
+    static bool IsAnyGamepadAvailable(int gamepads);
 
 };
 

@@ -8,7 +8,6 @@
 #include "../headers/screen/death_screen.h"
 #include "../headers/main/modifiers.h"
 #include <algorithm>
-#include <cstdlib>
 #include <string>
 
 Texture2D Player::textureAtlas;

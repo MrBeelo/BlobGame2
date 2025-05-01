@@ -6,7 +6,6 @@
 #include "../headers/sprite/player.h"
 #include "../headers/main/modifiers.h"
 #include <algorithm>
-#include <cmath>
 
 Entity::Entity(Vector2 pos, Vector2 size, Texture2D texture) : Sprite(pos, size, texture) {
     this->isPlayer = false;
