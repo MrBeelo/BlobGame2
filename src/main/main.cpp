@@ -107,8 +107,8 @@ int main(void)
     
     Terminal terminal = {};
     
-    SaveFile saveFile = {};
-    currentLevel = saveFile.GetCurrentLevel();
+    SaveFile::Load();
+    currentLevel = SaveFile::GetCurrentLevel();
     
     Map::MoveTo(currentLevel, &player);
     

@@ -8,13 +8,12 @@
 
 class SaveFile {
     public:
-    nlohmann::json saveData;
-    std::string savePath = "data/savefile.json";
-    SaveFile();
-    ~SaveFile();
-    int GetCurrentLevel() const;
-    void SetCurrentLevel(int level);
-    void Write() const;
+    static inline nlohmann::json saveData;
+    static inline std::string savePath = "data/savefile.json";
+    static void Load();
+    static int GetCurrentLevel();
+    static void SetCurrentLevel(int level);
+    static void Write();
 };
 
 #endif

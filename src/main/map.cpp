@@ -2,6 +2,7 @@
 #include "../headers/raylib/raylib.h"
 #include "../headers/main/globals.hpp"
 #include "../headers/sprite/tile.h"
+#include "../headers/main/savefile.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -237,7 +238,7 @@ void Map::MoveTo(int level, Player *player)
     Eval(player);
     speedrunTimer.Stop();
     player->ResetPos();
-    //saveFile.SetCurrentLevel(level);
+    SaveFile::SetCurrentLevel(currentLevel);
 }
 
 void Map::AdvanceLevel(Player *player)

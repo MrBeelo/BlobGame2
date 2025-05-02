@@ -1,19 +1,18 @@
 #include "../headers/main/savefile.h"
 
-SaveFile::SaveFile() {
+void SaveFile::Load() {
     std::filesystem::create_directories("data");
     std::ifstream inFile(savePath);
     if (inFile.is_open()) {
         inFile >> saveData;
         inFile.close();
     } else {
-        saveData["current_level"] = 3;
+        saveData["current_level"] = 0;
+        Write();
     }
 }
 
-SaveFile::~SaveFile() {}
-
-int SaveFile::GetCurrentLevel() const {
+int SaveFile::GetCurrentLevel() {
     if (saveData.contains("current_level") && saveData["current_level"].is_number()) {
         return saveData["current_level"];
     }
@@ -25,7 +24,7 @@ void SaveFile::SetCurrentLevel(int level) {
     Write();
 }
 
-void SaveFile::Write() const {
+void SaveFile::Write() {
     std::ofstream outFile(savePath);
     if (outFile.is_open()) {
         outFile << saveData.dump(4); // Pretty print
