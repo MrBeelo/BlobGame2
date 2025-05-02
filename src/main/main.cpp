@@ -19,14 +19,11 @@
 #include "../headers/main/input_manager.h"
 #include "../headers/main/terminal.h"
 #include "../headers/main/modifiers.h"
-#include "../headers/raylib/json.hpp"
-#include <fstream>
+#include "../headers/main/savefile.h"
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <iomanip>
-
-using json = nlohmann::json;
 
 float buffer = 10.0f;
 Vector2 windowSize = {1920, 1031};
@@ -93,7 +90,6 @@ int main(void)
     raylibLogo = LoadTexture("assets/other/raylib_logo.png");
     
     Player player = {};
-    Map::LoadMapSizeAndTiles();
     
     player.CameraConfig();
     
@@ -111,18 +107,12 @@ int main(void)
     
     Terminal terminal = {};
     
-    Map::MoveTo(0, &player);
+    SaveFile saveFile = {};
+    currentLevel = saveFile.GetCurrentLevel();
+    
+    Map::MoveTo(currentLevel, &player);
     
     const char *tutorialText = "";
-    
-    json saveFile;
-    saveFile["current_level"] = 0;
-    
-    std::ofstream outFile("data/savefile.json");
-    if (outFile.is_open()) {
-        outFile << saveFile.dump(4);
-        outFile.close();
-    }
     
     while (!WindowShouldClose())
     {  

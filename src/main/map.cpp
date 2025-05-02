@@ -237,6 +237,7 @@ void Map::MoveTo(int level, Player *player)
     Eval(player);
     speedrunTimer.Stop();
     player->ResetPos();
+    //saveFile.SetCurrentLevel(level);
 }
 
 void Map::AdvanceLevel(Player *player)
