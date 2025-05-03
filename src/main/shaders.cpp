@@ -1,7 +1,7 @@
 #include "../headers/main/shaders.h"
 #include "../headers/main/globals.hpp"
 
-Shader Shaders::fsShaders[14] = {0};
+Shader Shaders::fsShaders[shaderCount] = {0};
 bool Shaders::useShader = true;
 
 void Shaders::LoadContent()
@@ -12,25 +12,37 @@ void Shaders::LoadContent()
     fsShaders[FX_SOBEL] = LoadShader(0, TextFormat("assets/shader/glsl%i/sobel.fs", GLSL_VERSION));
     fsShaders[FX_CRT_CURVE] = LoadShader(0, TextFormat("assets/shader/glsl%i/crt_curve.fs", GLSL_VERSION));
     fsShaders[FX_RADIAL_LIGHT] = LoadShader(0, TextFormat("assets/shader/glsl%i/radial_light.fs", GLSL_VERSION));
+    fsShaders[FX_CRT_FADED] = LoadShader(0, TextFormat("assets/shader/glsl%i/crt_faded.fs", GLSL_VERSION));
 }
 
 void Shaders::UnloadContent()
 {
-    for (int i = 0; i < 13; i++) UnloadShader(fsShaders[i]);
+    for (int i = 0; i < shaderCount; i++) UnloadShader(fsShaders[i]);
 }
 
-void Shaders::Update()
+void Shaders::Update(Player *player)
 {
-    int centerLoc = GetShaderLocation(fsShaders[FX_RADIAL_LIGHT], "screenCenter");
-    int radiusLoc = GetShaderLocation(fsShaders[FX_RADIAL_LIGHT], "radius");
-    int intensityLoc = GetShaderLocation(fsShaders[FX_RADIAL_LIGHT], "intensity");
+    int centerLoc = GetShaderLocation(fsShaders[FX_CRT_FADED], "screenCenter");
+    int radiusLoc = GetShaderLocation(fsShaders[FX_CRT_FADED], "radius");
+    int intensityLoc = GetShaderLocation(fsShaders[FX_CRT_FADED], "intensity");
+    float screenCenter[2];
+    float radius;
+    float intensity;
     
-    float screenCenter[2] = { 0.5f, 0.5f }; // normalized coords
-    float radius = 0.5f; // 0.0 to 1.0
-    float intensity = 0.4f; // higher = sharper falloff
+    if(gameState == PLAYING)
+    {
+        screenCenter[0] = player->screenPos.x / simulationSize.x;
+        screenCenter[1] = 1.0f - (player->screenPos.y / simulationSize.y);
+        radius = 1.5f;
+        intensity = 1.2f;
+    } else {
+        screenCenter[0] = 0.5f;
+        screenCenter[1] = 0.5f;
+        radius = 1.6f;
+        intensity = 1.2f;
+    }
     
-    SetShaderValue(fsShaders[FX_RADIAL_LIGHT], centerLoc, screenCenter, SHADER_UNIFORM_VEC2);
-    SetShaderValue(fsShaders[FX_RADIAL_LIGHT], radiusLoc, &radius, SHADER_UNIFORM_FLOAT);
-    SetShaderValue(fsShaders[FX_RADIAL_LIGHT], intensityLoc, &intensity, SHADER_UNIFORM_FLOAT);
-
+    SetShaderValue(fsShaders[FX_CRT_FADED], centerLoc, screenCenter, SHADER_UNIFORM_VEC2);
+    SetShaderValue(fsShaders[FX_CRT_FADED], radiusLoc, &radius, SHADER_UNIFORM_FLOAT);
+    SetShaderValue(fsShaders[FX_CRT_FADED], intensityLoc, &intensity, SHADER_UNIFORM_FLOAT);
 }

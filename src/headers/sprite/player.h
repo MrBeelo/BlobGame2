@@ -46,6 +46,7 @@ class Player : public Entity
     void RotateCameraAndUpdateBGColor();
     void HandleXBufferedCollisions(std::vector<Tile> &collisionTiles);
     bool isCollidingXWithBuffer = false;
+    Vector2 screenPos = GetWorldToScreen2D(GetPos(), Player::camera);
 };
 
 #endif

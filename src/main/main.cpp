@@ -170,7 +170,7 @@ int main(void)
         }
         
         terminal.Update(&player);
-        Shaders::Update();
+        Shaders::Update(&player);
         
         if(Modifiers::tickTockMod) timeLimit = 25; else timeLimit = 40;
         
@@ -250,7 +250,7 @@ int main(void)
         BeginDrawing();
         ClearBackground({20, 20, 20, 255});
         
-        if(Shaders::useShader) BeginShaderMode(Shaders::fsShaders[Shaders::FX_CRT_CURVE]);
+        if(Shaders::useShader) BeginShaderMode(Shaders::fsShaders[Shaders::FX_CRT_FADED]);
             DrawTexturePro(target.texture, {0, 0, (float)target.texture.width, -(float)target.texture.height}, 
                 {(windowSize.x - simulationSize.x * scale) * 0.5f, (windowSize.y - simulationSize.y * scale) * 0.5f, simulationSize.x * scale, simulationSize.y * scale}, 
                 {0, 0}, 0.0f, WHITE);

@@ -44,6 +44,9 @@ void Player::Update()
     if(Modifiers::speedMod) speed = 12; else speed = 7;
     
     UpdatePlayerCamera();
+    screenPos = GetWorldToScreen2D(GetPos(), Player::camera);
+    screenPos.x = std::clamp(screenPos.x, 0.0f, simulationSize.x);
+    screenPos.y = std::clamp(screenPos.y, 0.0f, simulationSize.y);
 }
 
 void Player::Draw()

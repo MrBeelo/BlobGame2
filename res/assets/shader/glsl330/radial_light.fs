@@ -16,9 +16,8 @@ void main()
     float dist = distance(fragTexCoord, screenCenter);
 
     // Compute light falloff (soft circular gradient)
-    float fade = clamp(1.0 - (dist / radius), 0.0, 1.0);
-    fade = pow(fade, intensity); // Makes edge falloff sharper
+    float darkness = clamp((dist / radius), 0.0, 1.0);
+    darkness = pow(darkness, intensity); // Makes edge falloff sharper
 
-    float minBrightness = 0.3; // tweak this: 0 = full dark, 1 = fully lit
-    finalColor = texColor * (minBrightness + (1.0 - minBrightness) * fade);
+    finalColor = texColor * (1.0 - darkness);
 }
