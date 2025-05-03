@@ -93,15 +93,6 @@ int main(void)
     
     player.CameraConfig();
     
-    MainMenuScreen mainMenuScreen = {};
-    PausedScreen pausedScreen = {};
-    ExitScreen exitScreen = {};
-    DeathScreen deathScreen = {};
-    PassScreen passScreen = {};
-    WinScreen winScreen = {};
-    InfoScreen infoScreen = {};
-    ModifiersScreen modifiersScreen = {};
-    
     target = LoadRenderTexture(simulationSize.x, simulationSize.y);
     SetTextureFilter(target.texture, TEXTURE_FILTER_BILINEAR);
     
@@ -111,6 +102,15 @@ int main(void)
     currentLevel = SaveFile::GetCurrentLevel();
     
     Map::MoveTo(currentLevel, &player);
+    
+    MainMenuScreen mainMenuScreen = {};
+    PausedScreen pausedScreen = {};
+    ExitScreen exitScreen = {};
+    DeathScreen deathScreen = {};
+    PassScreen passScreen = {};
+    WinScreen winScreen = {};
+    InfoScreen infoScreen = {};
+    ModifiersScreen modifiersScreen = {};
     
     const char *tutorialText = "";
     
