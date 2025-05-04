@@ -1,5 +1,6 @@
 #include "../headers/main/shaders.h"
 #include "../headers/main/globals.hpp"
+#include "../headers/main/modifiers.h"
 
 Shader Shaders::fsShaders[shaderCount] = {0};
 bool Shaders::useShader = true;
@@ -31,10 +32,10 @@ void Shaders::Update(Player *player)
     
     if(gameState == PLAYING)
     {
-        screenCenter[0] = player->screenPos.x / simulationSize.x;
-        screenCenter[1] = 1.0f - (player->screenPos.y / simulationSize.y);
+        screenCenter[0] = (player->screenPos.x + player->GetSize().x / 2) / simulationSize.x;
+        screenCenter[1] = 1.0f - ((player->screenPos.y + player->GetSize().y / 2) / simulationSize.y);
         radius = 1.5f;
-        intensity = 1.2f;
+        if(Modifiers::lightsOutMod) intensity = 0.2f; else intensity = 1.2f;
     } else {
         screenCenter[0] = 0.5f;
         screenCenter[1] = 0.5f;

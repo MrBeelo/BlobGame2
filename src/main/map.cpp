@@ -235,7 +235,7 @@ void Map::MoveTo(int level, Player *player)
 {
     if(level < levelAmount) currentLevel = level; else currentLevel = 0;
     LoadMapSizeAndTiles();
-    Eval(player);
+    Eval();
     speedrunTimer.Stop();
     player->ResetPos();
     SaveFile::SetCurrentLevel(currentLevel);
@@ -253,7 +253,7 @@ void Map::LoadMapSizeAndTiles()
     Map::CalculateTiles();
 }
 
-void Map::Eval(Player *player)
+void Map::Eval()
 {
     spikes.clear();
     
