@@ -10,10 +10,6 @@ class Player : public Entity
 {
     public:
     Player();
-    Player(const Player &) = default;
-    Player(Player &&) = delete;
-    Player &operator=(const Player &) = default;
-    Player &operator=(Player &&) = delete;
     ~Player();
     static Texture2D textureAtlas;
     static void LoadContent();
