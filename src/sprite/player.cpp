@@ -25,7 +25,7 @@ void Player::UnloadContent()
 
 Player::Player() : Entity({0, 0}, defSize, textureAtlas, true) {
     animationTimer = {0.3f, true, true, [this]() { this->CalculateAnimations(); }};
-    cameraTimer = {0.33f, true, true, [this]() { this->RotateCameraAndUpdateBGColor(); }};
+    cameraTimer = {60 / songBPM, true, true, [this]() { this->RotateCameraAndUpdateBGColor(); }};
 }
 
 Player::~Player() {}
@@ -63,7 +63,7 @@ void Player::ResetState()
 {
     SetVelocity({0, 0.5f});
     isLeft = false;
-    speed = 7;
+    if(Modifiers::speedMod) speed = 12; else speed = 7;
     alive = true;
 }
 

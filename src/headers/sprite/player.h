@@ -43,6 +43,7 @@ class Player : public Entity
     void HandleXBufferedCollisions(std::vector<Tile> &collisionTiles);
     bool isCollidingXWithBuffer = false;
     Vector2 screenPos = GetWorldToScreen2D(GetPos(), Player::camera);
+    float songBPM = 180;
 };
 
 #endif
