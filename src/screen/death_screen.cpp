@@ -30,5 +30,5 @@ void DeathScreen::Draw()
     Text::DrawOutfitBoldShakyText(deathMessage.c_str(), 
         {simulationSize.x / 2 - Text::MeasureOutfitBoldText(deathMessage.c_str(), 42).x / 2,
             simulationSize.y / 4}, 
-        42, BLACK);
+        42, WHITE);
 }

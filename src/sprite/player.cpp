@@ -194,12 +194,12 @@ void Player::RotateCameraAndUpdateBGColor()
     cameraGoingLeft = !cameraGoingLeft;
     int color = GetRandomValue(0, 5);
     switch (color) {
-        case 0: backgroundColor = RED; break;
-        case 1: backgroundColor = ORANGE; break;
-        case 2: backgroundColor = YELLOW; break;
-        case 3: backgroundColor = GREEN; break;
-        case 4: backgroundColor = BLUE; break;
-        case 5: backgroundColor = PURPLE; break;
+        case 0: backgroundColor = {36, 22, 22, 255}; break; //RED
+        case 1: backgroundColor = {36, 28, 22, 255}; break; //ORANGE
+        case 2: backgroundColor = {36, 36, 22, 255}; break; //YELLOW
+        case 3: backgroundColor = {22, 36, 22, 255}; break; //GREEN
+        case 4: backgroundColor = {22, 36, 36, 255}; break; //BLUE
+        case 5: backgroundColor = {36, 22, 36, 255}; break; //PURPLE
     }
 }
 

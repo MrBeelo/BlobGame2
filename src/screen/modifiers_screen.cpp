@@ -41,7 +41,7 @@ void ModifiersScreen::Update()
 
 void ModifiersScreen::Draw()
 {
-    DrawCenteredTitle(0, WHITE);
+    DrawCenteredTitle();
     
     button1.Draw();
     button2.Draw();

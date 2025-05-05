@@ -15,7 +15,7 @@ void ExitScreen::Update()
 
 void ExitScreen::Draw()
 {
-    DrawCenteredTitle(0, WHITE);
+    DrawCenteredTitle();
 
     button1.Draw();
     button2.Draw();

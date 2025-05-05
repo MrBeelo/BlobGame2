@@ -13,7 +13,7 @@ void InfoScreen::Update()
 
 void InfoScreen::Draw()
 {
-    DrawCenteredTitle(0, WHITE);
+    DrawCenteredTitle();
     
     button1.Draw();
     

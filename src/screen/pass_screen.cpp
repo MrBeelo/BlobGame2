@@ -25,5 +25,5 @@ void PassScreen::Draw() {
     Text::DrawOutfitBoldShakyText(speedrunText.c_str(), 
         {simulationSize.x / 2 - Text::MeasureOutfitBoldText(speedrunText.c_str(), 42).x / 2,
             simulationSize.y / 4}, 
-        42, BLACK);
+        42, WHITE);
 }

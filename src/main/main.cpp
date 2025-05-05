@@ -204,13 +204,13 @@ int main(void)
             
         switch (gameState) {
             case PLAYING: 
-                Text::DrawOutfitBoldShakyText((ToStringWithDecimalPoints(timeLimit - speedrunTimer.GetStopwatchTime(), 1)).c_str(), {buffer, simulationSize.y - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(timeLimit - speedrunTimer.GetStopwatchTime(), 1).c_str(), 100).y - buffer}, 100, BLACK); 
+                Text::DrawOutfitBoldShakyText((ToStringWithDecimalPoints(timeLimit - speedrunTimer.GetStopwatchTime(), 1)).c_str(), {buffer, simulationSize.y - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(timeLimit - speedrunTimer.GetStopwatchTime(), 1).c_str(), 100).y - buffer}, 100, WHITE); 
                 if(currentLevel == 0)
                 {
                     Text::DrawOutfitBoldShakyText(tutorialText, 
                         {simulationSize.x / 2 - Text::MeasureOutfitBoldText(tutorialText, 42).x / 2,
                             simulationSize.y / 4}, 
-                        42, BLACK);
+                        42, WHITE);
                 }
             break;
             case MAIN_MENU: mainMenuScreen.Draw(); break;
@@ -228,21 +228,21 @@ int main(void)
         //DEBUG
         if(f3On)
         {
-            Text::DrawOutfitBoldText(("Game State: " + std::to_string(gameState)).c_str(), {10, 10 + 30 * 0}, 24, BLACK);
-            Text::DrawOutfitBoldText(("FPS: " + std::to_string(GetFPS())).c_str(), {10, 10 + 30 * 1}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Map Size: " + Text::Vector2ToString(Map::mapSize)).c_str(), {10, 10 + 30 * 2}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Current Level: " + std::to_string(currentLevel)).c_str(), {10, 10 + 30 * 3}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Pos: " + Text::Vector2ToString(player.GetPos())).c_str(), {10, 10 + 30 * 4}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Velocity: " + Text::Vector2ToString(player.GetVelocity())).c_str(), {10, 10 + 30 * 5}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is on ground: " + std::to_string(player.IsOnGround())).c_str(), {10, 10 + 30 * 6}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 10 + 30 * 7}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is Colliding: " + (std::to_string(player.isCollidingX) + ", " + std::to_string(player.isCollidingY))).c_str(), {10, 10 + 30 * 8}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is Alive: " + std::to_string(player.alive)).c_str(), {10, 10 + 30 * 9}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Is Moving: " + std::to_string(player.IsMoving())).c_str(), {10, 10 + 30 * 10}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Animation Active: " + std::to_string(player.animationTimer.active)).c_str(), {10, 10 + 30 * 11}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Texture Offset: " + std::to_string(player.textureOffset)).c_str(), {10, 10 + 30 * 12}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Timer time passed: " + std::to_string(GetTime() - player.animationTimer.startTime)).c_str(), {10, 10 + 30 * 13}, 24, BLACK);
-            Text::DrawOutfitBoldText(("Immunity Mod: " + std::to_string(Modifiers::immunityMod)).c_str(), {10, 10 + 30 * 14}, 24, BLACK);
+            Text::DrawOutfitBoldText(("Game State: " + std::to_string(gameState)).c_str(), {10, 10 + 30 * 0}, 24, WHITE);
+            Text::DrawOutfitBoldText(("FPS: " + std::to_string(GetFPS())).c_str(), {10, 10 + 30 * 1}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Map Size: " + Text::Vector2ToString(Map::mapSize)).c_str(), {10, 10 + 30 * 2}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Current Level: " + std::to_string(currentLevel)).c_str(), {10, 10 + 30 * 3}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Pos: " + Text::Vector2ToString(player.GetPos())).c_str(), {10, 10 + 30 * 4}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Velocity: " + Text::Vector2ToString(player.GetVelocity())).c_str(), {10, 10 + 30 * 5}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Is on ground: " + std::to_string(player.IsOnGround())).c_str(), {10, 10 + 30 * 6}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Is Left: " + std::to_string(player.isLeft)).c_str(), {10, 10 + 30 * 7}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Is Colliding: " + (std::to_string(player.isCollidingX) + ", " + std::to_string(player.isCollidingY))).c_str(), {10, 10 + 30 * 8}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Is Alive: " + std::to_string(player.alive)).c_str(), {10, 10 + 30 * 9}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Is Moving: " + std::to_string(player.IsMoving())).c_str(), {10, 10 + 30 * 10}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Animation Active: " + std::to_string(player.animationTimer.active)).c_str(), {10, 10 + 30 * 11}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Texture Offset: " + std::to_string(player.textureOffset)).c_str(), {10, 10 + 30 * 12}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Timer time passed: " + std::to_string(GetTime() - player.animationTimer.startTime)).c_str(), {10, 10 + 30 * 13}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Immunity Mod: " + std::to_string(Modifiers::immunityMod)).c_str(), {10, 10 + 30 * 14}, 24, WHITE);
         }
             
         EndTextureMode();

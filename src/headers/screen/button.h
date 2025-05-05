@@ -13,9 +13,9 @@ class Button
     int yIndex = -1;
     Color hovColor;
     Color defColor;
-    Button(float yIndex, const char *text, Color hovColor = WHITE, Color defColor = BLACK, Color textColor = BLACK);
-    Button(Vector2 pos, const char *text, Color hovColor = WHITE, Color defColor = BLACK, Color textColor = BLACK);
-    Button(Vector2 pos, Vector2 size, const char *text, Color hovColor = WHITE, Color defColor = BLACK, Color textColor = BLACK);
+    Button(float yIndex, const char *text, Color hovColor = GOLD, Color defColor = WHITE, Color textColor = WHITE);
+    Button(Vector2 pos, const char *text, Color hovColor = GOLD, Color defColor = WHITE, Color textColor = WHITE);
+    Button(Vector2 pos, Vector2 size, const char *text, Color hovColor = GOLD, Color defColor = WHITE, Color textColor = WHITE);
     ~Button();
     void Update();
     void Draw();

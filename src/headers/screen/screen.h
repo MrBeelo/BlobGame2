@@ -13,7 +13,7 @@ public:
     virtual ~Screen() = default;
     int titleTextFontSize = 64;
 
-    void DrawCenteredTitle(float yOffset = 0, Color color = BLACK) const {
+    void DrawCenteredTitle(float yOffset = 0, Color color = WHITE) const {
         const std::string title = GetTitleText();
         Vector2 size = Text::MeasureOutfitBoldText(title.c_str(), titleTextFontSize);
         Vector2 pos = { simulationSize.x / 2 - size.x / 2, buffer + yOffset };

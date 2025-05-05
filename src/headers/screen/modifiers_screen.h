@@ -18,11 +18,11 @@ class ModifiersScreen : Screen
     std::string label3;
     std::string label4;
     
-    Button button1 = {0, "NEED MORE SPEED", GOLD, WHITE, WHITE};
-    Button button2 = {1, "INVERSE", GOLD, WHITE, WHITE};
-    Button button3 = {2, "TICK TOCK", GOLD, WHITE, WHITE};
-    Button button4 = {3, "LIGHTS OUT", GOLD, WHITE, WHITE};
-    Button button5 = {4, "BACK", GOLD, WHITE, WHITE};
+    Button button1 = {0, "NEED MORE SPEED"};
+    Button button2 = {1, "INVERSE"};
+    Button button3 = {2, "TICK TOCK"};
+    Button button4 = {3, "LIGHTS OUT"};
+    Button button5 = {4, "BACK"};
 };
 
 #endif
