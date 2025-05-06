@@ -35,12 +35,12 @@ void Shaders::Update(Player *player)
         screenCenter[0] = (player->screenPos.x + player->GetSize().x / 2) / simulationSize.x;
         screenCenter[1] = 1.0f - ((player->screenPos.y + player->GetSize().y / 2) / simulationSize.y);
         radius = 1.5f;
-        if(Modifiers::lightsOutMod) intensity = 0.2f; else intensity = 1.2f;
+        if(Modifiers::lightsOutMod) intensity = 0.2f; else intensity = 1.4f;
     } else {
         screenCenter[0] = 0.5f;
         screenCenter[1] = 0.5f;
         radius = 1.6f;
-        intensity = 1.2f;
+        intensity = 1.4f;
     }
     
     SetShaderValue(fsShaders[FX_CRT_FADED], centerLoc, screenCenter, SHADER_UNIFORM_VEC2);

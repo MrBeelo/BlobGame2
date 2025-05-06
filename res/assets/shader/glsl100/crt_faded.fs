@@ -51,19 +51,22 @@ void main()
     vec4 sum = vec4(0);
     vec2 sizeFactor = vec2(1)/size*quality;
     
-    // Texel color fetching from texture sampler
-    vec4 source = texture(texture0, distortedUV);
-    
     const int range = 2;            // should be = (samples - 1)/2;
     
     for (int x = -range; x <= range; x++)
     {
         for (int y = -range; y <= range; y++)
         {
-            sum += texture(texture0, distortedUV + vec2(x, y)*sizeFactor);
+            vec2 sampleCoord = distortedUV + vec2(x, y) * sizeFactor;
+            float sampleDist = distance(sampleCoord, screenCenter);
+            float sampleDarkness = pow(clamp(sampleDist / radius, 0.0, 1.0), intensity);
+        
+            vec4 sampleColor = texture(texture0, sampleCoord) * (1.0 - sampleDarkness);
+            sum += sampleColor;
         }
     }
-    vec4 bloom = ((sum/(samples*samples)) + source)*colDiffuse;
+    
+    vec4 bloom = ((sum/(samples*samples)))*colDiffuse;
 
     gl_FragColor = baseColor + bloom * 0.2;
 }
