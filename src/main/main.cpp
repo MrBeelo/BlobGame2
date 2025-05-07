@@ -196,6 +196,7 @@ int main(void)
             player.Draw();
             if(f3On) {
                 Map::DrawCollisions();
+                DrawRectangleLinesEx(player.bufferedRect, 4, BLUE);
                 DrawRectangleLinesEx(player.GetDest(), 4, RED);
             }
         }

@@ -210,7 +210,7 @@ void Player::HandleXBufferedCollisions(std::vector<Tile> &collisionTiles)
     for(Tile tile : collisionTiles)
     {
         float rectBuffer = 8;
-        Rectangle bufferedRect = GetDest();
+        bufferedRect = GetDest();
         bufferedRect.x -= rectBuffer;
         bufferedRect.width += rectBuffer * 2;
         
