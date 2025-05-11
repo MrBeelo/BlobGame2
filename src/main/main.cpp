@@ -244,6 +244,7 @@ int main(void)
             Text::DrawOutfitBoldText(("Texture Offset: " + std::to_string(player.textureOffset)).c_str(), {10, 10 + 30 * 12}, 24, WHITE);
             Text::DrawOutfitBoldText(("Timer time passed: " + std::to_string(GetTime() - player.animationTimer.startTime)).c_str(), {10, 10 + 30 * 13}, 24, WHITE);
             Text::DrawOutfitBoldText(("Immunity Mod: " + std::to_string(Modifiers::immunityMod)).c_str(), {10, 10 + 30 * 14}, 24, WHITE);
+            Text::DrawOutfitBoldText(("Switch Blocks On: " + std::to_string(Map::switchBlocksOn)).c_str(), {10, 10 + 30 * 15}, 24, WHITE);
         }
             
         EndTextureMode();

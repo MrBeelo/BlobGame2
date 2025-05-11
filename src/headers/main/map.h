@@ -39,9 +39,10 @@ class Map
     static void Win(Player *player);
     static void LoadMapSizeAndTiles();
     static void Eval();
-    enum CollisionTileType {SOLID = 0, HAZARD, PASS, WIN, WATER, DOUBLE_JUMP, 
+    enum CollisionTileType {SOLID = 0, HAZARD, PASS, WIN, WATER, DOUBLE_JUMP, CASETTE,
         SPIKE_DOWN = 8, SPIKE_LEFT, SPIKE_UP, SPIKE_RIGHT, SPAWN_PLAYER = 16};
     static Vector2 currentSpawnPoint;
+    static bool switchBlocksOn;
 };
 
 #endif

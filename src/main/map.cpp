@@ -25,6 +25,8 @@ std::vector<Rectangle> Map::spikes;
 Vector2 Map::mapSize;
 Vector2 Map::currentSpawnPoint;
 
+bool Map::switchBlocksOn;
+
 std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> Map::LoadMap(std::string filepath)
 {
     std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> result;
@@ -192,6 +194,7 @@ void Map::Draw()
         int x = item.second % tpr;
         int y = item.second / tpr;
         
+	    
         Rectangle src = {
             (float) x * p_tilesize,
             (float) y * p_tilesize,
@@ -199,6 +202,7 @@ void Map::Draw()
             (float) p_tilesize
         };
         
+        if(item.second >= 16 && item.second <= 31 && !switchBlocksOn) src.y += (float) tilesize * 2;
         DrawTexturePro(normalAtlas, src, dest, {0, 0}, 0.0f, WHITE);
     }
 }

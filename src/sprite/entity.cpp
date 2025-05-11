@@ -187,6 +187,34 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 case Map::CollisionTileType::DOUBLE_JUMP:
                     isCollidingWithDoubleJumpCrystal = true;
                 break;
+                
+                case Map::CollisionTileType::CASETTE:
+                if(Map::switchBlocksOn)
+                {
+                    if(horizontal)
+                    {
+                        this->isCollidingX = true;
+                        if(this->GetVelocity().x > 0) //MOVING RIGHT
+                        {
+                            this->SetPosX(tile.GetDest().x - this->GetDest().width);
+                        } else if(this->GetVelocity().x < 0) { //MOVING LEFT
+                            this->SetPosX(tile.GetDest().x + tile.GetDest().width);
+                        }
+                    } else
+                    {
+                        this->isCollidingY = true;
+                        if(this->GetVelocity().y < 0) //MOVING UP
+                        {
+                            this->SetVelocityY(0.1f);
+                            this->SetPosY(tile.GetDest().y + tile.GetDest().height);
+                        } else if (this->GetVelocity().y > 0) { //MOVING DOWN
+                            this->isCollidingDown = true;
+                            this->SetVelocityY(0.1f);
+                            this->SetPosY(tile.GetDest().y - this->GetDest().height);
+                        }
+                    }
+                }
+                break;
             }
         }
     }

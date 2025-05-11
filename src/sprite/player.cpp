@@ -201,6 +201,14 @@ void Player::RotateCameraAndUpdateBGColor()
         case 4: backgroundColor = {22, 36, 36, 255}; break; //BLUE
         case 5: backgroundColor = {36, 22, 36, 255}; break; //PURPLE
     }
+    
+    if(!offbeat)
+    {
+        offbeat = true;
+        Map::switchBlocksOn = !Map::switchBlocksOn;
+    } else {
+        offbeat = false;
+    }
 }
 
 void Player::HandleXBufferedCollisions(std::vector<Tile> &collisionTiles)

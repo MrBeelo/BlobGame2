@@ -44,6 +44,7 @@ class Player : public Entity
     bool isCollidingXWithBuffer = false;
     Vector2 screenPos = GetWorldToScreen2D(GetPos(), Player::camera);
     float songBPM = 180;
+    bool offbeat = false;
     Rectangle bufferedRect;
 };
 
