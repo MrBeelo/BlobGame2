@@ -202,8 +202,10 @@ void Map::Draw()
             (float) p_tilesize
         };
         
-        if(item.second >= 16 && item.second <= 31 && !switchBlocksOn) src.y += (float) tilesize * 2;
-        DrawTexturePro(normalAtlas, src, dest, {0, 0}, 0.0f, WHITE);
+        //if(item.second >= 16 && item.second <= 31 && !switchBlocksOn) src.y += (float) tilesize * 2;
+        Color color = WHITE;
+        if(item.second >= 16 && item.second <= 31 && !switchBlocksOn) color.a -= 200;
+        DrawTexturePro(normalAtlas, src, dest, {0, 0}, 0.0f, color);
     }
 }
 
