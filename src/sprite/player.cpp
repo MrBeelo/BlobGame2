@@ -25,7 +25,7 @@ void Player::UnloadContent()
 
 Player::Player() : Entity({0, 0}, defSize, textureAtlas, true) {
     animationTimer = {0.3f, true, true, [this]() { this->CalculateAnimations(); }};
-    cameraTimer = {60 / songBPM, true, true, [this]() { this->RotateCameraAndUpdateBGColor(); }};
+    cameraTimer = {0.33333333333f, true, false, [this]() { this->RotateCameraAndUpdateBGColor(); }};
 }
 
 Player::~Player() {}
@@ -192,6 +192,16 @@ void Player::RotateCameraAndUpdateBGColor()
 {
     if(cameraGoingLeft) camera.rotation -= 4; else camera.rotation += 4;
     cameraGoingLeft = !cameraGoingLeft;
+
+    if(!offbeat)
+    {
+	offbeat = true;
+  	Map::switchBlocksOn = !Map::switchBlocksOn;
+  	if(Map::mapHasSwitchBlocks) PlaySound(Sounds::lSwitch);
+    } else {
+ 	offbeat = false;
+    }
+
     int color = GetRandomValue(0, 5);
     switch (color) {
         case 0: backgroundColor = {36, 22, 22, 255}; break; //RED
@@ -200,14 +210,6 @@ void Player::RotateCameraAndUpdateBGColor()
         case 3: backgroundColor = {22, 36, 22, 255}; break; //GREEN
         case 4: backgroundColor = {22, 36, 36, 255}; break; //BLUE
         case 5: backgroundColor = {36, 22, 36, 255}; break; //PURPLE
-    }
-    
-    if(!offbeat)
-    {
-        offbeat = true;
-        Map::switchBlocksOn = !Map::switchBlocksOn;
-    } else {
-        offbeat = false;
     }
 }
 

@@ -13,7 +13,7 @@ class Shaders
     static void LoadContent();
     static void UnloadContent();
     static void Update(Player *player);
-    enum PostproShader {FX_GRAYSCALE = 0, FX_PIXELIZER, FX_FISHEYE, FX_SOBEL, FX_CRT_CURVE, FX_RADIAL_LIGHT, FX_CRT_FADED};
+    enum PostproShader {FX_GRAYSCALE = 0, FX_PIXELIZER, FX_FISHEYE, FX_SOBEL, FX_CRT_CURVE, FX_CRT_FADED};
     static bool useShader;
 };
 

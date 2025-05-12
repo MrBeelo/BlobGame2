@@ -13,6 +13,7 @@ class Sounds
     static void UnloadContent();
     static Sound jump;
     static Sound success;
+    static Sound lSwitch;
     static Music itsPizzaTime;
     static Music menuMusic;
     static Music tutorialMusic;

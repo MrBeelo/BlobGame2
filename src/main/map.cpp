@@ -26,6 +26,7 @@ Vector2 Map::mapSize;
 Vector2 Map::currentSpawnPoint;
 
 bool Map::switchBlocksOn;
+bool Map::mapHasSwitchBlocks;
 
 std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> Map::LoadMap(std::string filepath)
 {
@@ -241,6 +242,7 @@ void Map::MoveTo(int level, Player *player)
 {
     if(level < levelAmount) currentLevel = level; else currentLevel = 0;
     LoadMapSizeAndTiles();
+    mapHasSwitchBlocks = false;
     Eval();
     speedrunTimer.Stop();
     player->ResetPos();
@@ -285,6 +287,10 @@ void Map::Eval()
             case Map::CollisionTileType::SPAWN_PLAYER:
                 currentSpawnPoint = tile.GetPos();
             break;
+
+	    case Map::CollisionTileType::CASETTE:
+	    	mapHasSwitchBlocks = true;
+	    break;
         }
     }
 }

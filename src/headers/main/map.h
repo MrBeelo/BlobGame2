@@ -43,6 +43,7 @@ class Map
         SPIKE_DOWN = 8, SPIKE_LEFT, SPIKE_UP, SPIKE_RIGHT, SPAWN_PLAYER = 16};
     static Vector2 currentSpawnPoint;
     static bool switchBlocksOn;
+    static bool mapHasSwitchBlocks;
 };
 
 #endif

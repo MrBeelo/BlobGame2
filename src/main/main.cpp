@@ -150,12 +150,18 @@ int main(void)
             if(currentLevel > 0)
             {
                 UpdateMusicStream(Sounds::itsPizzaTime);
-                if(!IsMusicStreamPlaying(Sounds::itsPizzaTime)) PlayMusicStream(Sounds::itsPizzaTime);
+                if(!IsMusicStreamPlaying(Sounds::itsPizzaTime)) {
+		       	PlayMusicStream(Sounds::itsPizzaTime);
+			player.cameraTimer.Activate();
+		}
                 if(IsMusicStreamPlaying(Sounds::menuMusic)) StopMusicStream(Sounds::menuMusic);
                 if(IsMusicStreamPlaying(Sounds::tutorialMusic)) StopMusicStream(Sounds::tutorialMusic);
             } else {
                 UpdateMusicStream(Sounds::tutorialMusic);
-                if(!IsMusicStreamPlaying(Sounds::tutorialMusic)) PlayMusicStream(Sounds::tutorialMusic);
+                if(!IsMusicStreamPlaying(Sounds::tutorialMusic)) {
+			PlayMusicStream(Sounds::tutorialMusic);
+		       	player.cameraTimer.Activate();
+		}
                 if(IsMusicStreamPlaying(Sounds::menuMusic)) StopMusicStream(Sounds::menuMusic);
                 if(IsMusicStreamPlaying(Sounds::itsPizzaTime)) StopMusicStream(Sounds::itsPizzaTime);
             }

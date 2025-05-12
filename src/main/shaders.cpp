@@ -12,7 +12,6 @@ void Shaders::LoadContent()
     fsShaders[FX_GRAYSCALE] = LoadShader(0, TextFormat("assets/shader/glsl%i/grayscale.fs", GLSL_VERSION));
     fsShaders[FX_SOBEL] = LoadShader(0, TextFormat("assets/shader/glsl%i/sobel.fs", GLSL_VERSION));
     fsShaders[FX_CRT_CURVE] = LoadShader(0, TextFormat("assets/shader/glsl%i/crt_curve.fs", GLSL_VERSION));
-    fsShaders[FX_RADIAL_LIGHT] = LoadShader(0, TextFormat("assets/shader/glsl%i/radial_light.fs", GLSL_VERSION));
     fsShaders[FX_CRT_FADED] = LoadShader(0, TextFormat("assets/shader/glsl%i/crt_faded.fs", GLSL_VERSION));
 }
 
