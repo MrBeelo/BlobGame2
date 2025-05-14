@@ -3,6 +3,8 @@
 #include "../headers/main/text.hpp"
 #include "../headers/main/sounds.h"
 #include "../headers/main/modifiers.h"
+#include "../headers/main/map.h"
+#include <sstream>
 
 Terminal::Terminal() {}
 Terminal::~Terminal() {}
@@ -37,6 +39,8 @@ void Terminal::Update(Player *player)
             if(text == "/lightsOutMod") Modifiers::lightsOutMod = !Modifiers::lightsOutMod;
             if(text == "/tickTockMod") Modifiers::tickTockMod = !Modifiers::tickTockMod;
             if(text == "/immunityMod") Modifiers::immunityMod = !Modifiers::immunityMod;
+            std::string moveToPrefix = "/moveTo ";
+            if(text.rfind(moveToPrefix, 0) == 0) if(int x; std::istringstream(text.substr(moveToPrefix.size())) >> x) Map::MoveTo(x, player);
             
             text = "";
             isTerminalOpen = false;
