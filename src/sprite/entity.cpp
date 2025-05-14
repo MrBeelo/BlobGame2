@@ -74,6 +74,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
         this->isCollidingDown = false;
     }
     
+    this->isCollidingWithSwitch = false;
     this->isCollidingWithHazard = false;
     this->isCollidingWithDoubleJumpCrystal = false;
     
@@ -189,6 +190,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 break;
                 
                 case Map::CollisionTileType::CASETTE:
+                isCollidingWithSwitch = true;
                 if(Map::switchBlocksOn)
                 {
                     if(horizontal)

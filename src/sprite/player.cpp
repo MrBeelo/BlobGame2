@@ -25,7 +25,7 @@ void Player::UnloadContent()
 
 Player::Player() : Entity({0, 0}, defSize, textureAtlas, true) {
     animationTimer = {0.3f, true, true, [this]() { this->CalculateAnimations(); }};
-    cameraTimer = {0.33333333333f, true, false, [this]() { this->RotateCameraAndUpdateBGColor(); }};
+    cameraTimer = {60 / (songBPM + 2), true, false, [this]() { this->RotateCameraAndUpdateBGColor(); }};
 }
 
 Player::~Player() {}
@@ -195,11 +195,19 @@ void Player::RotateCameraAndUpdateBGColor()
 
     if(!offbeat)
     {
-	offbeat = true;
-  	Map::switchBlocksOn = !Map::switchBlocksOn;
-  	if(Map::mapHasSwitchBlocks) PlaySound(Sounds::lSwitch);
+        offbeat = true;
+        
+        if(!Map::switchBlocksOn && !this->isCollidingWithSwitch)
+        {
+            Map::switchBlocksOn = true;
+        } else if(Map::switchBlocksOn)
+        {
+            Map::switchBlocksOn = false;
+        }
+        
+        if(Map::mapHasSwitchBlocks) PlaySound(Sounds::lSwitch);
     } else {
- 	offbeat = false;
+        offbeat = false;
     }
 
     int color = GetRandomValue(0, 5);
@@ -232,6 +240,10 @@ void Player::HandleXBufferedCollisions(std::vector<Tile> &collisionTiles)
                 case Map::CollisionTileType::PASS:
                 case Map::CollisionTileType::WIN:
                 this->isCollidingXWithBuffer = true;
+                break;
+                
+                case Map::CollisionTileType::CASETTE:
+                if(Map::switchBlocksOn) this->isCollidingXWithBuffer = true;
                 break;
             }
         }
