@@ -22,8 +22,10 @@ class Map
     static Texture2D collisionAtlas;
     static std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> normalTilemap[levelAmount];
     static std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> collisionTilemap[levelAmount];
+    static std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> backTilemap[levelAmount]; 
     static std::vector<Tile> normalTiles;
     static std::vector<Tile> collisionTiles;
+    static std::vector<Tile> backTiles;
     static std::vector<Rectangle> spikes;
     static std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> LoadMap(std::string filepath);
     static Vector2 mapSize;

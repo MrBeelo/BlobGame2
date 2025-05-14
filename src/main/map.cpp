@@ -20,6 +20,9 @@ std::vector<Tile> Map::normalTiles;
 std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> Map::collisionTilemap[levelAmount];
 std::vector<Tile> Map::collisionTiles;
 
+std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> Map::backTilemap[levelAmount];
+std::vector<Tile> Map::backTiles;
+
 std::vector<Rectangle> Map::spikes;
 
 Vector2 Map::mapSize;
@@ -116,6 +119,7 @@ void Map::LoadContent()
     {
         normalTilemap[i] = LoadMap("data/level" + std::to_string(i) + "_normal.csv");
         collisionTilemap[i] = LoadMap("data/level" + std::to_string(i) + "_collision.csv");
+	backTilemap[i] = LoadMap("data/level" + std::to_string(i) + "_back.csv"); 
     }
 }
 
@@ -129,6 +133,7 @@ void Map::CalculateTiles()
 {
     normalTiles.clear();
     collisionTiles.clear();
+    backTiles.clear();
 
     int tpr = 8; //Tiles per row
     int p_tilesize = 32; //Pixel Tilesize
@@ -176,12 +181,57 @@ void Map::CalculateTiles()
         
         collisionTiles.push_back({dest, collisionAtlas, item.second}); //TEXTURE WON'T BE NEEDED HERE, JUST TEMPORARY
     }
+
+    for(std::pair<Vector2, int> item : backTilemap[currentLevel])
+    {
+        Rectangle dest = {
+            .x=item.first.x * tilesize,
+            .y=item.first.y * tilesize,
+            .width=tilesize,
+            .height=tilesize
+        };
+
+        int x = item.second % tpr;
+        int y = item.second / tpr;
+
+        Rectangle src = {
+            .x=(float) x * p_tilesize,
+            .y=(float) y * p_tilesize,
+            .width=(float) p_tilesize,
+            .height=(float) p_tilesize
+        };
+
+        backTiles.push_back({dest, normalAtlas, item.second}); //TEXTURE WON'T BE NEEDED HERE, JUST TEMPORARY
+    }
 }
 
 void Map::Draw()
 {
     int tpr = 8; //Tiles per row
     int p_tilesize = 32; //Pixel Tilesize
+    
+    for(std::pair<Vector2, int> item : backTilemap[currentLevel])
+    {
+        Rectangle dest = {
+            item.first.x * tilesize,
+            item.first.y * tilesize,
+            tilesize,
+            tilesize
+        };
+        
+        int x = item.second % tpr;
+        int y = item.second / tpr;
+        
+	    
+        Rectangle src = {
+            (float) x * p_tilesize,
+            (float) y * p_tilesize,
+            (float) p_tilesize,
+            (float) p_tilesize
+        };
+        
+        DrawTexturePro(normalAtlas, src, dest, {0, 0}, 0.0f, WHITE);
+    }
     
     for(std::pair<Vector2, int> item : normalTilemap[currentLevel])
     {
