@@ -5,6 +5,7 @@
 #include "../headers/main/map.h"
 #include "../headers/sprite/player.h"
 #include "../headers/main/modifiers.h"
+#include "../headers/main/input_manager.h"
 #include <algorithm>
 
 Entity::Entity(Vector2 pos, Vector2 size, Texture2D texture) : Sprite(pos, size, texture) {
@@ -183,6 +184,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 
                 case Map::CollisionTileType::WATER:
                     if(velocity.y > 0) velocity.y = 1;
+		    if(isPlayer && velocity.y > 0 && !isTerminalOpen && InputManager::IsActionHeld(InputManager::ACTION_MOVE_DOWN)) velocity.y = 3.5f;
                 break;
                 
                 case Map::CollisionTileType::DOUBLE_JUMP:
