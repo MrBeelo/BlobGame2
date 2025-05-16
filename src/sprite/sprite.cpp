@@ -85,7 +85,7 @@ void Sprite::Draw()
 
 void Sprite::DrawWithSrc(Vector2 srcRect, Vector2 textureSnippetSize)
 {
-    DrawTexturePro(texture, {srcRect.x, srcRect.y, this->GetSize().x, this->GetSize().y}, dest, {0, 0}, 0, WHITE);
+    DrawTexturePro(texture, {srcRect.x, srcRect.y, textureSnippetSize.x, textureSnippetSize.y}, dest, {0, 0}, 0, WHITE);
 }
 
 void Sprite::DrawWithFlip(bool isLeft)
@@ -97,7 +97,7 @@ void Sprite::DrawWithFlip(bool isLeft)
 void Sprite::DrawAdvanced(bool isLeft, Vector2 srcRect, Vector2 textureSnippetSize)
 {
     float flip = isLeft ? -1.0f : 1.0f;
-    DrawTexturePro(texture, {srcRect.x, srcRect.y, this->GetSize().x / 2 * flip, this->GetSize().y / 2}, dest, {0, 0}, 0, WHITE);
+    DrawTexturePro(texture, {srcRect.x, srcRect.y, textureSnippetSize.x * flip, textureSnippetSize.y}, dest, {0, 0}, 0, WHITE);
 }
 
 void Sprite::UpdateDest()

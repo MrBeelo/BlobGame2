@@ -4,4 +4,5 @@ bool Modifiers::speedMod = false;
 bool Modifiers::inverseMod = false;
 bool Modifiers::lightsOutMod = false;
 bool Modifiers::tickTockMod = false;
+bool Modifiers::fredMod = false;
 bool Modifiers::immunityMod = false;

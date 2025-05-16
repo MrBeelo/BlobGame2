@@ -14,6 +14,7 @@ class Sounds
     static Sound jump;
     static Sound success;
     static Sound lSwitch;
+    static Sound fredBoop;
     static Music itsPizzaTime;
     static Music menuMusic;
     static Music tutorialMusic;

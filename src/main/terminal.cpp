@@ -38,6 +38,7 @@ void Terminal::Update(Player *player)
             if(text == "/inverseMod") Modifiers::inverseMod = !Modifiers::inverseMod;
             if(text == "/lightsOutMod") Modifiers::lightsOutMod = !Modifiers::lightsOutMod;
             if(text == "/tickTockMod") Modifiers::tickTockMod = !Modifiers::tickTockMod;
+            if(text == "/fredMod") Modifiers::fredMod = !Modifiers::fredMod;
             if(text == "/immunityMod") Modifiers::immunityMod = !Modifiers::immunityMod;
             std::string moveToPrefix = "/moveTo ";
             if(text.rfind(moveToPrefix, 0) == 0) if(int x; std::istringstream(text.substr(moveToPrefix.size())) >> x) Map::MoveTo(x, player); speedrunTimer.Start();

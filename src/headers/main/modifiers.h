@@ -11,6 +11,7 @@ class Modifiers
     static bool inverseMod;
     static bool lightsOutMod;
     static bool tickTockMod;
+    static bool fredMod;
     static bool immunityMod;
 };
 

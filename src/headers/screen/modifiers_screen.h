@@ -17,12 +17,14 @@ class ModifiersScreen : Screen
     std::string label2;
     std::string label3;
     std::string label4;
+    std::string label5;
     
     Button button1 = {0, "NEED MORE SPEED"};
     Button button2 = {1, "INVERSE"};
     Button button3 = {2, "TICK TOCK"};
     Button button4 = {3, "LIGHTS OUT"};
-    Button button5 = {4, "BACK"};
+    Button button5 = {4, "FRED"};
+    Button button6 = {5, "BACK"};
 };
 
 #endif

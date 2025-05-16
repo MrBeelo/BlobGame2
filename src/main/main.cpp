@@ -20,6 +20,7 @@
 #include "../headers/main/terminal.h"
 #include "../headers/main/modifiers.h"
 #include "../headers/main/savefile.h"
+#include "../headers/sprite/fred.h"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -55,6 +56,7 @@ void LeaveGame()
 {
     Text::UnloadContent();
     Player::UnloadContent();
+    Fred::UnloadContent();
     Map::UnloadContent();
     Sounds::UnloadContent();
     Shaders::UnloadContent();
@@ -77,6 +79,7 @@ int main(void)
     
     Text::LoadContent();
     Player::LoadContent();
+    Fred::LoadContent();
     Map::LoadContent();
     Sounds::LoadContent();
     Shaders::LoadContent();
@@ -90,6 +93,7 @@ int main(void)
     raylibLogo = LoadTexture("assets/other/raylib_logo.png");
     
     Player player = {};
+    Fred fred = {};
     
     player.CameraConfig();
     
@@ -131,6 +135,7 @@ int main(void)
         switch (gameState) {
             case PLAYING: 
                 player.Update();
+                if(Modifiers::fredMod) fred.Update(&player);
                 if(player.GetPos().x <= 200) tutorialText = "AD to move, space to jump.";
                 else if (player.GetPos().x > 200 && player.GetPos().x <= 700) tutorialText = "Spikes kill.";
                 else if (player.GetPos().x > 700 && player.GetPos().x <= 959) tutorialText = "Walljump on walls.";
@@ -212,6 +217,7 @@ int main(void)
         {
             Map::Draw();
             player.Draw();
+            fred.Draw();
             if(f3On) {
                 Map::DrawCollisions();
                 DrawRectangleLinesEx(player.bufferedRect, 4, BLUE);
