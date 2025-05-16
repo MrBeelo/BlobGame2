@@ -40,7 +40,7 @@ void Terminal::Update(Player *player)
             if(text == "/tickTockMod") Modifiers::tickTockMod = !Modifiers::tickTockMod;
             if(text == "/immunityMod") Modifiers::immunityMod = !Modifiers::immunityMod;
             std::string moveToPrefix = "/moveTo ";
-            if(text.rfind(moveToPrefix, 0) == 0) if(int x; std::istringstream(text.substr(moveToPrefix.size())) >> x) Map::MoveTo(x, player);
+            if(text.rfind(moveToPrefix, 0) == 0) if(int x; std::istringstream(text.substr(moveToPrefix.size())) >> x) Map::MoveTo(x, player); speedrunTimer.Start();
             
             text = "";
             isTerminalOpen = false;

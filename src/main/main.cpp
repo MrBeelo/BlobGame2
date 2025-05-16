@@ -35,7 +35,7 @@ GameState gameState = MAIN_MENU;
 RenderTexture2D target;
 float scale;
 Vector2 vMouse;
-const char *version = "PRE-ALPHA";
+const char *version = "ALPHA";
 Texture2D raylibLogo;
 const char *credits = "Made By MrBeelo";
 Stopwatch speedrunTimer = {false};
@@ -113,6 +113,7 @@ int main(void)
     ModifiersScreen modifiersScreen = {};
     
     const char *tutorialText = "";
+    const char *levelText = "";
     
     while (!WindowShouldClose())
     {  
@@ -144,6 +145,17 @@ int main(void)
             case WIN: winScreen.Update(); break;
             case INFO: infoScreen.Update(); break;
             case MODIFIERS: modifiersScreen.Update(); break;
+        }
+        
+        switch(currentLevel)
+        {
+            case 0: levelText = "0 - TUTORIAL"; break;
+            case 1: levelText = "1 - STARTING OFF SIMPLE"; break;
+            case 2: levelText = "2 - STILL PRETTY EASY"; break;
+            case 3: levelText = "3 - SPIKE HELL"; break;
+            case 4: levelText = "4 - CLICK CLICK"; break;
+            case 5: levelText = "5 - H2O HELPS"; break;
+            case 6: levelText = "6 - WATER AND SWITCH DON'T MIX"; break;
         }
         
         if(gameState == PLAYING || gameState == PAUSED || gameState == PASS || gameState == WIN || gameState == DIED) {
@@ -212,6 +224,7 @@ int main(void)
         switch (gameState) {
             case PLAYING: 
                 Text::DrawOutfitBoldShakyText((ToStringWithDecimalPoints(timeLimit - speedrunTimer.GetStopwatchTime(), 1)).c_str(), {buffer, simulationSize.y - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(timeLimit - speedrunTimer.GetStopwatchTime(), 1).c_str(), 100).y - buffer}, 100, WHITE); 
+                Text::DrawOutfitBoldShakyText(levelText, {buffer, buffer}, 32, WHITE);
                 if(currentLevel == 0)
                 {
                     Text::DrawOutfitBoldShakyText(tutorialText, 
