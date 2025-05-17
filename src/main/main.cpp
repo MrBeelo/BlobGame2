@@ -217,7 +217,6 @@ int main(void)
         {
             Map::Draw();
             player.Draw();
-            fred.Draw();
             if(f3On) {
                 Map::DrawCollisions();
                 DrawRectangleLinesEx(player.bufferedRect, 4, BLUE);
@@ -231,6 +230,7 @@ int main(void)
             case PLAYING: 
                 Text::DrawOutfitBoldShakyText((ToStringWithDecimalPoints(timeLimit - speedrunTimer.GetStopwatchTime(), 1)).c_str(), {buffer, simulationSize.y - Text::MeasureOutfitBoldText(ToStringWithDecimalPoints(timeLimit - speedrunTimer.GetStopwatchTime(), 1).c_str(), 100).y - buffer}, 100, WHITE); 
                 Text::DrawOutfitBoldShakyText(levelText, {buffer, buffer}, 32, WHITE);
+                if(Modifiers::fredMod) fred.Draw();
                 if(currentLevel == 0)
                 {
                     Text::DrawOutfitBoldShakyText(tutorialText, 
