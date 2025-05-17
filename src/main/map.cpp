@@ -24,6 +24,7 @@ std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> Map::backTilemap[lev
 std::vector<Tile> Map::backTiles;
 
 std::vector<Rectangle> Map::spikes;
+std::vector<Rectangle> Map::springs;
 
 Vector2 Map::mapSize;
 Vector2 Map::currentSpawnPoint;
@@ -314,6 +315,7 @@ void Map::LoadMapSizeAndTiles()
 void Map::Eval()
 {
     spikes.clear();
+    springs.clear();
     
     for(Tile tile : collisionTiles)
     {
@@ -338,9 +340,13 @@ void Map::Eval()
                 currentSpawnPoint = tile.GetPos();
             break;
 
-	    case Map::CollisionTileType::CASETTE:
-	    	mapHasSwitchBlocks = true;
-	    break;
+            case Map::CollisionTileType::CASETTE:
+                mapHasSwitchBlocks = true;
+		    break;
+			
+			case Map::CollisionTileType::SPRING:
+			    springs.push_back({tile.GetPos().x, tile.GetPos().y + 16, 32, 16});
+			break;
         }
     }
 }

@@ -232,6 +232,14 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
         }
     }
     
+    for(Rectangle spring : Map::springs)
+    {
+        if(CheckCollisionRecs(this->GetDest(), spring))
+        {
+            SetVelocity({0, -20});
+        }
+    }
+    
     if(isCollidingWithHazard && isPlayer)
     {
         Player* player = static_cast<Player*>(this);

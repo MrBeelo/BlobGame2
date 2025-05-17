@@ -17,7 +17,7 @@ class Map
     Map();
     ~Map();
     const static int tilesize = 32;
-    const static int levelAmount = 7 + 1;
+    const static int levelAmount = 8 + 1;
     static Texture2D normalAtlas;
     static Texture2D collisionAtlas;
     static std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> normalTilemap[levelAmount];
@@ -27,6 +27,7 @@ class Map
     static std::vector<Tile> collisionTiles;
     static std::vector<Tile> backTiles;
     static std::vector<Rectangle> spikes;
+    static std::vector<Rectangle> springs;
     static std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> LoadMap(std::string filepath);
     static Vector2 mapSize;
     static void GetMapSize(std::string filepath);
@@ -41,8 +42,8 @@ class Map
     static void Win(Player *player);
     static void LoadMapSizeAndTiles();
     static void Eval();
-    enum CollisionTileType {SOLID = 0, HAZARD, PASS, WIN, WATER, DOUBLE_JUMP, CASETTE,
-        SPIKE_DOWN = 8, SPIKE_LEFT, SPIKE_UP, SPIKE_RIGHT, SPAWN_PLAYER = 16};
+    enum CollisionTileType {SOLID = 0, HAZARD, PASS, WIN, WATER, DOUBLE_JUMP, CASETTE, SPRING,
+        SPIKE_DOWN, SPIKE_LEFT, SPIKE_UP, SPIKE_RIGHT, SPAWN_PLAYER = 16};
     static Vector2 currentSpawnPoint;
     static bool switchBlocksOn;
     static bool mapHasSwitchBlocks;

@@ -161,6 +161,8 @@ int main(void)
             case 4: levelText = "4 - CLICK CLICK"; break;
             case 5: levelText = "5 - H2O HELPS"; break;
             case 6: levelText = "6 - WATER AND SWITCH DON'T MIX"; break;
+            case 7: levelText = "7 - CHALLENGE RUN"; break;
+            case 8: levelText = "8 - SPRING SPAM"; break;
         }
         
         if(gameState == PLAYING || gameState == PAUSED || gameState == PASS || gameState == WIN || gameState == DIED) {
