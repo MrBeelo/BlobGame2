@@ -199,7 +199,8 @@ void Player::RotateCameraAndUpdateBGColor()
     {
         offbeat = true;
         
-        if(!Map::switchBlocksOn && (!this->isCollidingWithSwitch || (this->isCollidingWithSwitch && (this->isCollidingX || this->isCollidingY))))
+        //if(!Map::switchBlocksOn && (!this->isCollidingWithSwitch || (this->isCollidingWithSwitch && (this->isCollidingX || this->isCollidingY))))
+        if(!Map::switchBlocksOn && !this->isCollidingWithSwitch)
         {
             Map::switchBlocksOn = true;
         } else if(Map::switchBlocksOn)

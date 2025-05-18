@@ -12,6 +12,7 @@ class Sounds
     static void LoadContent();
     static void UnloadContent();
     static Sound jump;
+    static Sound boing;
     static Sound success;
     static Sound lSwitch;
     static Sound fredBoop;

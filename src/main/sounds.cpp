@@ -5,6 +5,7 @@ Sounds::~Sounds() {}
 
 Sound Sounds::success;
 Sound Sounds::jump;
+Sound Sounds::boing;
 Sound Sounds::lSwitch;
 Sound Sounds::fredBoop;
 Music Sounds::itsPizzaTime;
@@ -15,6 +16,7 @@ void Sounds::LoadContent()
 {
     success = LoadSound("assets/sound/success.wav");
     jump = LoadSound("assets/sound/jump.wav");
+    boing = LoadSound("assets/sound/boing.wav");
     lSwitch = LoadSound("assets/sound/switch.wav");
     fredBoop = LoadSound("assets/sound/boop.wav");
     itsPizzaTime = LoadMusicStream("assets/sound/itsPizzaTime.mp3");
@@ -26,6 +28,7 @@ void Sounds::UnloadContent()
 {
     UnloadSound(success);
     UnloadSound(jump);
+    UnloadSound(boing);
     UnloadSound(lSwitch);
     UnloadSound(fredBoop);
     UnloadMusicStream(itsPizzaTime);

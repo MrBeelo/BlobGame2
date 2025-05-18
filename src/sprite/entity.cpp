@@ -6,6 +6,7 @@
 #include "../headers/sprite/player.h"
 #include "../headers/main/modifiers.h"
 #include "../headers/main/input_manager.h"
+#include "../headers/main/sounds.h"
 #include <algorithm>
 
 Entity::Entity(Vector2 pos, Vector2 size, Texture2D texture) : Sprite(pos, size, texture) {
@@ -237,6 +238,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
         if(CheckCollisionRecs(this->GetDest(), spring))
         {
             SetVelocity({0, -20});
+            if(isPlayer) PlaySound(Sounds::boing);
         }
     }
     
