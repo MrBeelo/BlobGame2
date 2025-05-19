@@ -136,6 +136,7 @@ int main(void)
             case PLAYING: 
                 player.Update();
                 if(Modifiers::fredMod) fred.Update(&player);
+                
                 if(player.GetPos().x <= 200) tutorialText = "AD to move, space to jump.";
                 else if (player.GetPos().x > 200 && player.GetPos().x <= 700) tutorialText = "Spikes kill.";
                 else if (player.GetPos().x > 700 && player.GetPos().x <= 959) tutorialText = "Walljump on walls.";
@@ -198,7 +199,11 @@ int main(void)
         terminal.Update(&player);
         Shaders::Update(&player);
         
-        if(Modifiers::tickTockMod) timeLimit = 25; else timeLimit = 40;
+        if(Modifiers::tickTockMod) {
+            if(currentLevel != 10) timeLimit = 25; else timeLimit = 40;
+        } else {
+            if(currentLevel != 10) timeLimit = 40; else timeLimit = 55;
+        }
         
         if(InputManager::IsActionPressed(InputManager::ACTION_F3)) f3On = !f3On;
         if(InputManager::IsActionPressed(InputManager::ACTION_ESC)) {
@@ -240,6 +245,12 @@ int main(void)
                         {simulationSize.x / 2 - Text::MeasureOutfitBoldText(tutorialText, 42).x / 2,
                             simulationSize.y / 4}, 
                         42, WHITE);
+                } else if(currentLevel == 10 && player.GetPos().x < 200) 
+                {
+                    Text::DrawOutfitBoldShakyText("FINAL LEVEL", 
+                    {simulationSize.x / 2 - Text::MeasureOutfitBoldText("FINAL LEVEL", 128).x / 2,
+                        simulationSize.y / 4}, 
+                    128, WHITE);
                 }
             break;
             case MAIN_MENU: mainMenuScreen.Draw(); break;
