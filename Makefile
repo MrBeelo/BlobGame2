@@ -16,14 +16,14 @@ FILE_FORMAT = .cpp
 #Defaults to C++, change to c to use the C language.
 TARGET_LANGUAGE ?= c++
 #Defaults to linux, change to win for Windows or web for HTML5.
-TARGET_PLATFORM ?= linux
+TARGET_PLATFORM ?= win
 
 ifeq ($(TARGET_PLATFORM), win)
 	BUILD_DIR = bin/win
 	CXX = g++
 	OBJ_DIR = obj/win
 	LIBRARIES_DIR = lib/win
-	LDFLAGS += -lopengl32 -lgdi32 -lwinmm
+	LDFLAGS += -lopengl32 -lgdi32 -lwinmm -lmingw32
 	CXXFLAGS += -DPLATFORM_DESKTOP
 	EXECUTABLE = $(BUILD_DIR)/$(PROGRAM_NAME).exe
 endif
@@ -65,9 +65,8 @@ ifeq ($(TARGET_LANGUAGE), c++)
 endif
 
 # Find all .cpp files in the src directory
-SRC_FILES = $(shell find $(SRC_DIR) -name '*$(FILE_FORMAT)')
+SRC_FILES := $(wildcard $(SRC_DIR)/**/*$(FILE_FORMAT))
 OBJ_FILES = $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%,$(SRC_FILES:$(FILE_FORMAT)=.o))
-
 
 # Targets
 all: $(EXECUTABLE) copy-res
