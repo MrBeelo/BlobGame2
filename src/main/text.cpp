@@ -1,5 +1,6 @@
 #include "../headers/main/text.hpp"
 #include "../headers/raylib/raylib.h"
+#include "../headers/main/globals.hpp"
 #include <string>
 
 
@@ -33,4 +34,9 @@ void Text::DrawOutfitBoldShakyText(const char *text, Vector2 position, float fon
 Vector2 Text::MeasureOutfitBoldText(const char *text, float fontSize)
 {
     return MeasureTextEx(OutfitBold, text, fontSize, 0.5f);
+}
+
+float Text::GetCenteredOutfitBoldXPos(const char *text, float fontsize)
+{
+    return simulationSize.x / 2 - Text::MeasureOutfitBoldText(text, fontsize).x / 2;
 }

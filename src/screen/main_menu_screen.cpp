@@ -1,6 +1,7 @@
 #include "../headers/screen/main_menu_screen.h"
 #include "../headers/main/globals.hpp"
 #include "../headers/raylib/raylib.h"
+#include "../headers/screen/intro_screen.h"
 
 MainMenuScreen::MainMenuScreen() {}
 MainMenuScreen::~MainMenuScreen() {}
@@ -13,8 +14,14 @@ void MainMenuScreen::Update()
     button4.Update();
     
     if (button1.IsClicked()) {
-        gameState = PLAYING;
-        speedrunTimer.Start();
+        if(introDone)
+        {
+            gameState = PLAYING;
+            speedrunTimer.Start();
+        } else {
+            gameState = INTRO;
+            IntroScreen::Start();
+        }
     }
     
     if (button2.IsClicked()) gameState = MODIFIERS;

@@ -28,6 +28,7 @@ extern Color backgroundColor;
 extern Image windowIcon;
 extern bool isTerminalOpen;
 extern float timeLimit;
+extern bool introDone;
 extern std::string ToStringWithDecimalPoints(float value, int decimalPoints);
 
 enum GameState
@@ -40,7 +41,8 @@ enum GameState
     PASS,
     WIN,
     INFO,
-    MODIFIERS
+    MODIFIERS,
+    INTRO
 };
 
 extern GameState gameState;

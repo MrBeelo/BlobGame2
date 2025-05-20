@@ -13,6 +13,8 @@ class SaveFile {
     static void Load();
     static int GetCurrentLevel();
     static void SetCurrentLevel(int level);
+    static bool GetIntroDone();
+    static void SetIntroDone(bool introDone);
     static void Write();
 };
 

@@ -14,6 +14,8 @@ class WinScreen : Screen
     std::string GetTitleText() const override { return "YOU WIN"; }
     Button button1 = {0, "BACK TO MAIN MENU"};
     Button button2 = {1, "PLAY AGAIN"};
+    const char *winText = "That was it. Now play again or get out.";
+    const char *modReminderText = "Oh yeah there are also some modifiers if you wanna check them out.";
 };
 
 #endif

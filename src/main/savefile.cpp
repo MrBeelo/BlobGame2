@@ -8,6 +8,7 @@ void SaveFile::Load() {
         inFile.close();
     } else {
         saveData["current_level"] = 0;
+        saveData["intro_done"] = false;
         Write();
     }
 }
@@ -21,6 +22,20 @@ int SaveFile::GetCurrentLevel() {
 
 void SaveFile::SetCurrentLevel(int level) {
     saveData["current_level"] = level;
+    Write();
+}
+
+bool SaveFile::GetIntroDone()
+{
+    if (saveData.contains("intro_done") && saveData["intro_done"].is_boolean()) {
+        return saveData["intro_done"];
+    }
+    return 0;
+}
+
+void SaveFile::SetIntroDone(bool introDone)
+{
+    saveData["intro_done"] = introDone;
     Write();
 }
 

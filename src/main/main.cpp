@@ -12,6 +12,7 @@
 #include "../headers/screen/win_screen.h"
 #include "../headers/screen/info_screen.h"
 #include "../headers/screen/modifiers_screen.h"
+#include "../headers/screen/intro_screen.h"
 #include "../headers/main/sounds.h"
 #include "../headers/main/map.h"
 #include "../headers/main/shaders.h"
@@ -36,7 +37,7 @@ GameState gameState = MAIN_MENU;
 RenderTexture2D target;
 float scale;
 Vector2 vMouse;
-const char *version = "1.0.0";
+const char *version = "1.0.1";
 Texture2D raylibLogo;
 const char *credits = "Made By MrBeelo";
 Stopwatch speedrunTimer = {false};
@@ -44,6 +45,7 @@ Color backgroundColor = WHITE;
 Image windowIcon;
 bool isTerminalOpen = false;
 float timeLimit = 40;
+bool introDone = false;
 
 std::string ToStringWithDecimalPoints(float value, int decimalPoints) {
     std::ostringstream out;
@@ -104,6 +106,7 @@ int main(void)
     
     SaveFile::Load();
     currentLevel = SaveFile::GetCurrentLevel();
+    introDone = SaveFile::GetIntroDone();
     
     Map::MoveTo(currentLevel, &player);
     
@@ -115,6 +118,7 @@ int main(void)
     WinScreen winScreen = {};
     InfoScreen infoScreen = {};
     ModifiersScreen modifiersScreen = {};
+    IntroScreen introScreen = {};
     
     const char *tutorialText = "";
     const char *levelText = "";
@@ -151,6 +155,7 @@ int main(void)
             case WIN: winScreen.Update(); break;
             case INFO: infoScreen.Update(); break;
             case MODIFIERS: modifiersScreen.Update(); break;
+            case INTRO: introScreen.Update(); break;
         }
         
         switch(currentLevel)
@@ -168,14 +173,14 @@ int main(void)
             case 10: levelText = "10 - AND SO IT ENDS"; break;
         }
         
-        if(gameState == PLAYING || gameState == PAUSED || gameState == PASS || gameState == DIED) {
-            if(currentLevel > 0)
+        if(gameState == PLAYING || gameState == PAUSED || gameState == PASS || gameState == DIED || gameState == INTRO) {
+            if(currentLevel > 0 && introDone)
             {
                 UpdateMusicStream(Sounds::itsPizzaTime);
                 if(!IsMusicStreamPlaying(Sounds::itsPizzaTime)) {
-		       	PlayMusicStream(Sounds::itsPizzaTime);
-			player.cameraTimer.Activate();
-		}
+                    PlayMusicStream(Sounds::itsPizzaTime);
+                    player.cameraTimer.Activate();
+                }
                 if(IsMusicStreamPlaying(Sounds::menuMusic)) StopMusicStream(Sounds::menuMusic);
                 if(IsMusicStreamPlaying(Sounds::tutorialMusic)) StopMusicStream(Sounds::tutorialMusic);
             } else {
@@ -262,6 +267,7 @@ int main(void)
             case WIN: winScreen.Draw(); break;
             case INFO: infoScreen.Draw(); break;
             case MODIFIERS: modifiersScreen.Draw(); break;
+            case INTRO: introScreen.Draw(); break;
         }
         
         terminal.Draw();

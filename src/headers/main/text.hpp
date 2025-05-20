@@ -14,6 +14,7 @@ class Text
     static void DrawOutfitBoldText(const char *text, Vector2 position, float fontSize, Color color);
     static void DrawOutfitBoldShakyText(const char *text, Vector2 position, float fontSize, Color color);
     static Vector2 MeasureOutfitBoldText(const char *text, float fontSize);
+    static float GetCenteredOutfitBoldXPos(const char *text, float fontsize);
 };
 
 #endif
