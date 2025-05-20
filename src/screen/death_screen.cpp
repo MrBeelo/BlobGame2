@@ -1,5 +1,6 @@
 #include "../headers/screen/death_screen.h"
 #include "../headers/main/globals.hpp"
+#include "../headers/main/input_manager.h"
 #include <string>
 
 DeathScreen::DeathScreen() {}
@@ -12,12 +13,12 @@ void DeathScreen::Update()
     button1.Update();
     button2.Update(); 
     
-    if(button1.IsClicked()) {
+    if (button1.IsClicked() || InputManager::IsActionPressed(InputManager::ACTION_JUMP) || InputManager::IsActionPressed(InputManager::ACTION_CONFIRM)) {
         gameState = PLAYING;
         speedrunTimer.Start();
     }
     
-    if(button2.IsClicked()) gameState = MAIN_MENU;
+    if (button2.IsClicked() || InputManager::IsActionPressed(InputManager::ACTION_ESC)) gameState = MAIN_MENU;
 }
 
 void DeathScreen::Draw()

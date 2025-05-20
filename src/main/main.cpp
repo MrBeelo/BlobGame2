@@ -36,7 +36,7 @@ GameState gameState = MAIN_MENU;
 RenderTexture2D target;
 float scale;
 Vector2 vMouse;
-const char *version = "ALPHA";
+const char *version = "1.0.0";
 Texture2D raylibLogo;
 const char *credits = "Made By MrBeelo";
 Stopwatch speedrunTimer = {false};
@@ -137,7 +137,7 @@ int main(void)
                 player.Update();
                 if(Modifiers::fredMod) fred.Update(&player);
                 
-                if(player.GetPos().x <= 200) tutorialText = "AD to move, space to jump.";
+                if(player.GetPos().x <= 200) tutorialText = "AD to move, space to jump, S to slam.";
                 else if (player.GetPos().x > 200 && player.GetPos().x <= 700) tutorialText = "Spikes kill.";
                 else if (player.GetPos().x > 700 && player.GetPos().x <= 959) tutorialText = "Walljump on walls.";
                 else if (player.GetPos().x > 959 && player.GetPos().x <= 1250) tutorialText = "Double jump on orange crystals.";
@@ -165,9 +165,10 @@ int main(void)
             case 7: levelText = "7 - CHALLENGE RUN"; break;
             case 8: levelText = "8 - SPRING SPAM"; break;
             case 9: levelText = "9 - A BIT OF EVERYTHING"; break;
+            case 10: levelText = "10 - AND SO IT ENDS"; break;
         }
         
-        if(gameState == PLAYING || gameState == PAUSED || gameState == PASS || gameState == WIN || gameState == DIED) {
+        if(gameState == PLAYING || gameState == PAUSED || gameState == PASS || gameState == DIED) {
             if(currentLevel > 0)
             {
                 UpdateMusicStream(Sounds::itsPizzaTime);
@@ -245,7 +246,7 @@ int main(void)
                         {simulationSize.x / 2 - Text::MeasureOutfitBoldText(tutorialText, 42).x / 2,
                             simulationSize.y / 4}, 
                         42, WHITE);
-                } else if(currentLevel == 10 && player.GetPos().x < 200) 
+                } else if(currentLevel == 10 && player.GetPos().x < 10) 
                 {
                     Text::DrawOutfitBoldShakyText("FINAL LEVEL", 
                     {simulationSize.x / 2 - Text::MeasureOutfitBoldText("FINAL LEVEL", 128).x / 2,
