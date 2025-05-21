@@ -9,6 +9,7 @@ void SaveFile::Load() {
     } else {
         saveData["current_level"] = 0;
         saveData["intro_done"] = false;
+        saveData["volume"] = 1.0f;
         Write();
     }
 }
@@ -36,6 +37,20 @@ bool SaveFile::GetIntroDone()
 void SaveFile::SetIntroDone(bool introDone)
 {
     saveData["intro_done"] = introDone;
+    Write();
+}
+
+float SaveFile::GetVolume()
+{
+    if (saveData.contains("volume") && saveData["volume"].is_boolean()) {
+        return saveData["volume"];
+    }
+    return 0;
+}
+
+void SaveFile::SetVolume(float volume)
+{
+    saveData["volume"] = volume;
     Write();
 }
 

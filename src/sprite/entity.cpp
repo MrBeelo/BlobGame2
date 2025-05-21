@@ -71,12 +71,13 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
 {
     if (horizontal) {
         this->isCollidingX = false;
+        this->isCollidingWithSwitchX = false;
     } else {
         this->isCollidingY = false;
+        this->isCollidingWithSwitchY = false;
         this->isCollidingDown = false;
     }
     
-    this->isCollidingWithSwitch = false;
     this->isCollidingWithHazard = false;
     this->isCollidingWithDoubleJumpCrystal = false;
     
@@ -186,29 +187,31 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 
                 case Map::CollisionTileType::WATER:
                     if(velocity.y > 0) velocity.y = 1;
-		    if(isPlayer && velocity.y > 0 && !isTerminalOpen && InputManager::IsActionHeld(InputManager::ACTION_MOVE_DOWN)) velocity.y = 3.5f;
+                    if(isPlayer && velocity.y > 0 && !isTerminalOpen && InputManager::IsActionHeld(InputManager::ACTION_MOVE_DOWN)) velocity.y = 3.5f;
                 break;
                 
-                case Map::CollisionTileType::DOUBLE_JUMP:
-                    isCollidingWithDoubleJumpCrystal = true;
-                break;
+                //case Map::CollisionTileType::DOUBLE_JUMP:
+                    //isCollidingWithDoubleJumpCrystal = true;
+                //break;
                 
                 case Map::CollisionTileType::CASETTE:
-                isCollidingWithSwitch = true;
-                if(Map::switchBlocksOn)
+                if(horizontal)
                 {
-                    if(horizontal)
+                    this->isCollidingWithSwitchX = true;
+                    if(Map::switchBlocksOn)
                     {
-                        this->isCollidingX = true;
                         if(this->GetVelocity().x > 0) //MOVING RIGHT
                         {
                             this->SetPosX(tile.GetDest().x - this->GetDest().width);
                         } else if(this->GetVelocity().x < 0) { //MOVING LEFT
                             this->SetPosX(tile.GetDest().x + tile.GetDest().width);
                         }
-                    } else
+                    }
+                } else
+                {
+                    this->isCollidingWithSwitchY = true;
+                    if(Map::switchBlocksOn)
                     {
-                        this->isCollidingY = true;
                         if(this->GetVelocity().y < 0) //MOVING UP
                         {
                             this->SetVelocityY(0.1f);
@@ -240,6 +243,14 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
         {
             SetVelocity({0, -20});
             if(isPlayer) PlaySound(Sounds::boing);
+        }
+    }
+    
+    for(Rectangle djCrystal : Map::djCrystals)
+    {
+        if(CheckCollisionRecs(this->GetDest(), djCrystal))
+        {
+            isCollidingWithDoubleJumpCrystal = true;
         }
     }
     

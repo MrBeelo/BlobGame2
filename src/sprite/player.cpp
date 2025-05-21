@@ -87,7 +87,7 @@ void Player::PlayerMove()
         SetVelocityY(-15);
     }
 
-    if(!isTerminalOpen && InputManager::IsActionHeld(InputManager::ACTION_MOVE_DOWN)) AddVelocity({.x=0, .y=1});
+    if(!isTerminalOpen && InputManager::IsActionHeld(InputManager::ACTION_SLAM)) AddVelocity({.x=0, .y=1});
 }
 
 void Player::Kill()
@@ -200,7 +200,7 @@ void Player::RotateCameraAndUpdateBGColor()
         offbeat = true;
         
         //if(!Map::switchBlocksOn && (!this->isCollidingWithSwitch || (this->isCollidingWithSwitch && (this->isCollidingX || this->isCollidingY))))
-        if(!Map::switchBlocksOn && !this->isCollidingWithSwitch)
+        if(!Map::switchBlocksOn && (!this->isCollidingWithSwitchX && !this->isCollidingWithSwitchY) || (this->isCollidingWithSwitchX && this->isCollidingX) || (this->isCollidingWithSwitchY && this->isCollidingY))
         {
             Map::switchBlocksOn = true;
         } else if(Map::switchBlocksOn)

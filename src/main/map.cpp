@@ -25,6 +25,7 @@ std::vector<Tile> Map::backTiles;
 
 std::vector<Rectangle> Map::spikes;
 std::vector<Rectangle> Map::springs;
+std::vector<Rectangle> Map::djCrystals;
 
 Vector2 Map::mapSize;
 Vector2 Map::currentSpawnPoint;
@@ -120,7 +121,7 @@ void Map::LoadContent()
     {
         normalTilemap[i] = LoadMap("data/level" + std::to_string(i) + "_normal.csv");
         collisionTilemap[i] = LoadMap("data/level" + std::to_string(i) + "_collision.csv");
-	backTilemap[i] = LoadMap("data/level" + std::to_string(i) + "_back.csv"); 
+        backTilemap[i] = LoadMap("data/level" + std::to_string(i) + "_back.csv"); 
     }
 }
 
@@ -316,6 +317,7 @@ void Map::Eval()
 {
     spikes.clear();
     springs.clear();
+    djCrystals.clear();
     
     for(Tile tile : collisionTiles)
     {
@@ -345,7 +347,11 @@ void Map::Eval()
 		    break;
 			
 			case Map::CollisionTileType::SPRING:
-			    springs.push_back({tile.GetPos().x, tile.GetPos().y + 16, 32, 16});
+			    springs.push_back({tile.GetPos().x, tile.GetPos().y + 16, tilesize, 16});
+			break;
+			
+			case Map::CollisionTileType::DOUBLE_JUMP:
+			    djCrystals.push_back({tile.GetPos().x - djBuffer, tile.GetPos().y - djBuffer, tilesize + djBuffer * 2, tilesize + djBuffer * 2});
 			break;
         }
     }

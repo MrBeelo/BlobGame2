@@ -18,6 +18,7 @@ class Map
     ~Map();
     const static int tilesize = 32;
     const static int levelAmount = 11;
+    const static int djBuffer = 16;
     static Texture2D normalAtlas;
     static Texture2D collisionAtlas;
     static std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> normalTilemap[levelAmount];
@@ -28,6 +29,7 @@ class Map
     static std::vector<Tile> backTiles;
     static std::vector<Rectangle> spikes;
     static std::vector<Rectangle> springs;
+    static std::vector<Rectangle> djCrystals;
     static std::unordered_map<Vector2, int, Vector2Hash, Vector2Equal> LoadMap(std::string filepath);
     static Vector2 mapSize;
     static void GetMapSize(std::string filepath);

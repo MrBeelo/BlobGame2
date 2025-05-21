@@ -35,6 +35,10 @@ bool InputManager::IsActionPressed(InputAction action) {
             
         case ACTION_TERMINAL:
             return IsKeyPressed(KEY_GRAVE);
+            
+        case ACTION_SLAM:
+            return IsKeyPressed(KEY_X) || IsKeyPressed(KEY_DOWN) ||
+                (IsAnyGamepadAvailable(16) && GetGamepadAxisMovement(0, GAMEPAD_AXIS_LEFT_Y) > 0.5f);
 
         default:
             return false;

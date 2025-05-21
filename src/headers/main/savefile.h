@@ -15,6 +15,8 @@ class SaveFile {
     static void SetCurrentLevel(int level);
     static bool GetIntroDone();
     static void SetIntroDone(bool introDone);
+    static float GetVolume();
+    static void SetVolume(float volume);
     static void Write();
 };
 

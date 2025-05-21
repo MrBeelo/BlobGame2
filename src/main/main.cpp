@@ -37,7 +37,7 @@ GameState gameState = MAIN_MENU;
 RenderTexture2D target;
 float scale;
 Vector2 vMouse;
-const char *version = "1.0.2";
+const char *version = "1.0.3";
 Texture2D raylibLogo;
 const char *credits = "Made By MrBeelo";
 Stopwatch speedrunTimer = {false};
@@ -141,7 +141,7 @@ int main(void)
                 player.Update();
                 if(Modifiers::fredMod) fred.Update(&player);
                 
-                if(player.GetPos().x <= 200) tutorialText = "AD to move, space to jump, S to slam.";
+                if(player.GetPos().x <= 200) tutorialText = "AD to move, space to jump, X to slam.";
                 else if (player.GetPos().x > 200 && player.GetPos().x <= 700) tutorialText = "Spikes kill.";
                 else if (player.GetPos().x > 700 && player.GetPos().x <= 959) tutorialText = "Walljump on walls.";
                 else if (player.GetPos().x > 959 && player.GetPos().x <= 1250) tutorialText = "Double jump on orange crystals.";
@@ -235,6 +235,7 @@ int main(void)
                 Map::DrawCollisions();
                 DrawRectangleLinesEx(player.bufferedRect, 4, BLUE);
                 DrawRectangleLinesEx(player.GetDest(), 4, RED);
+                for(Rectangle djCrystal : Map::djCrystals) DrawRectangleLinesEx(djCrystal, 2, ORANGE);
             }
         }
         
