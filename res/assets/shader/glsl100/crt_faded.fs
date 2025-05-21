@@ -61,7 +61,7 @@ void main()
             float sampleDist = distance(sampleCoord, screenCenter);
             float sampleDarkness = pow(clamp(sampleDist / radius, 0.0, 1.0), intensity);
         
-            vec4 sampleColor = texture(texture0, sampleCoord) * (1.0 - sampleDarkness);
+            vec4 sampleColor = texture2D(texture0, sampleCoord) * (1.0 - sampleDarkness);
             sum += sampleColor;
         }
     }

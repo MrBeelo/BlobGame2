@@ -15,8 +15,11 @@ FILE_FORMAT = .cpp
 
 #Defaults to C++, change to c to use the C language.
 TARGET_LANGUAGE ?= c++
-#Defaults to linux, change to win for Windows or web for HTML5.
+#Defaults to linux, change to win for Windows, web for HTML5, web-shell for HTML5 with a shell.
 TARGET_PLATFORM ?= linux
+#Defaults to default, change to raylib for raylib shell or blank for blank shell.
+#USE ONLY IF TARGET_PLATFORM IS web, ELSE LEAVE DEFAULT!!!
+TARGET_SHELL ?= default
 
 ifeq ($(TARGET_PLATFORM), win)
 	BUILD_DIR = bin/win
@@ -53,7 +56,15 @@ ifeq ($(TARGET_PLATFORM), web)
 	LIBRARIES_DIR = lib/web
 	EXECUTABLE = $(BUILD_DIR)/$(PROGRAM_NAME).html
 	CXXFLAGS += -DPLATFORM_WEB -DGRAPHICS_API_OPENGL_ES2
-	LDFLAGS += -s ASYNCIFY -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s ENVIRONMENT=web --preload-file $(RESOURCES_DIR) -s TOTAL_MEMORY=64MB --shell-file shell.html
+	LDFLAGS += -s ASYNCIFY -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s ENVIRONMENT=web --preload-file $(RESOURCES_DIR) -s TOTAL_MEMORY=64MB -s EXPORTED_RUNTIME_METHODS=HEAPF32
+endif
+
+ifeq ($(TARGET_SHELL), raylib)
+	LDFLAGS += --shell-file res/assets/shell/raylib-shell.html
+endif
+
+ifeq ($(TARGET_SHELL), blank)
+	LDFLAGS += --shell-file res/assets/shell/blank-shell.html
 endif
 
 ifeq ($(TARGET_LANGUAGE), c)
