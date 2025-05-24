@@ -16,7 +16,7 @@ FILE_FORMAT = .cpp
 #Defaults to C++, change to c to use the C language.
 TARGET_LANGUAGE ?= c++
 #Defaults to linux, change to win for Windows, web for HTML5, web-shell for HTML5 with a shell.
-TARGET_PLATFORM ?= win
+TARGET_PLATFORM ?= linux
 #Defaults to default, change to raylib for raylib shell or blank for blank shell.
 #USE ONLY IF TARGET_PLATFORM IS web, ELSE LEAVE DEFAULT!!!
 TARGET_SHELL ?= default

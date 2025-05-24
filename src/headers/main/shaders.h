@@ -15,6 +15,9 @@ class Shaders
     static void Update(Player *player);
     enum PostproShader {FX_GRAYSCALE = 0, FX_PIXELIZER, FX_FISHEYE, FX_SOBEL, FX_CRT_CURVE, FX_CRT_FADED};
     static bool useShader;
+    static int centerLoc;
+    static int radiusLoc;
+    static int intensityLoc;
 };
 
 #endif
