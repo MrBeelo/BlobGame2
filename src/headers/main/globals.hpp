@@ -46,8 +46,7 @@ enum GameState
 };
 
 extern GameState gameState;
-
-extern void LeaveGame();
+extern bool shouldExitGame;
 
 struct Vector2Hash {
     std::size_t operator()(const Vector2& v) const {

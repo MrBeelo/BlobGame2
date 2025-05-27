@@ -25,7 +25,10 @@ void Shaders::LoadContent()
 
 void Shaders::UnloadContent()
 {
-    for (int i = 0; i < shaderCount; i++) UnloadShader(fsShaders[i]);
+    for (int i = 0; i < shaderCount; i++) 
+    {
+        UnloadShader(fsShaders[i]); fsShaders[i] = { 0 };
+    }
 }
 
 void Shaders::Update(Player *player)
