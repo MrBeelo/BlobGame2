@@ -9,7 +9,7 @@ void ExitScreen::Update()
     button1.Update();
     button2.Update(); 
     
-    if (button1.IsClicked()) LeaveGame();
+    if (button1.IsClicked()) shouldExitGame = true;
     if (button2.IsClicked()) gameState = MAIN_MENU;
 }
 

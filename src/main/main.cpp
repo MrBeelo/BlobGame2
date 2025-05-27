@@ -37,7 +37,7 @@ GameState gameState = MAIN_MENU;
 RenderTexture2D target;
 float scale;
 Vector2 vMouse;
-const char *version = "1.0.4";
+const char *version = "1.0.5";
 Texture2D raylibLogo;
 const char *credits = "Made By MrBeelo";
 Stopwatch speedrunTimer = {false};
@@ -46,27 +46,12 @@ Image windowIcon;
 bool isTerminalOpen = false;
 float timeLimit = 40;
 bool introDone = false;
+bool shouldExitGame = false;
 
 std::string ToStringWithDecimalPoints(float value, int decimalPoints) {
     std::ostringstream out;
     out << std::fixed << std::setprecision(decimalPoints) << value;
     return out.str();
-}
-
-
-void LeaveGame()
-{
-    Text::UnloadContent();
-    Player::UnloadContent();
-    Fred::UnloadContent();
-    Map::UnloadContent();
-    Sounds::UnloadContent();
-    Shaders::UnloadContent();
-    UnloadRenderTexture(target);
-    UnloadTexture(raylibLogo);
-    UnloadImage(windowIcon);
-
-    CloseWindow();
 }
 
 int main(void)
@@ -123,7 +108,7 @@ int main(void)
     const char *tutorialText = "";
     const char *levelText = "";
     
-    while (!WindowShouldClose())
+    while (!WindowShouldClose() && !shouldExitGame)
     {  
         windowSize = {(float) GetScreenWidth(), (float) GetScreenHeight()};
         simDT = GetFrameTime() * 60;
@@ -221,7 +206,7 @@ int main(void)
             if(!terminal.text.empty()) terminal.text.pop_back();
         }
         
-        BeginTextureMode(target);
+        if(target.texture.id != 0) BeginTextureMode(target);
         
         ClearBackground(backgroundColor);
         
@@ -294,7 +279,7 @@ int main(void)
             Text::DrawOutfitBoldText(("Switch Blocks On: " + std::to_string(Map::switchBlocksOn)).c_str(), {10, 10 + 30 * 15}, 24, WHITE);
         }
             
-        EndTextureMode();
+        if(target.texture.id != 0) EndTextureMode();
         
         BeginDrawing();
         ClearBackground({20, 20, 20, 255});
@@ -308,6 +293,16 @@ int main(void)
         EndDrawing();
     }
 
-    LeaveGame();
+    Text::UnloadContent();
+    Player::UnloadContent();
+    Fred::UnloadContent();
+    Map::UnloadContent();
+    Sounds::UnloadContent();
+    Shaders::UnloadContent();
+    UnloadRenderTexture(target);
+    UnloadTexture(raylibLogo);
+    UnloadImage(windowIcon);
+    
+    CloseWindow();
     return 0;
 }
