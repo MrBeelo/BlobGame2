@@ -87,7 +87,7 @@ void Player::PlayerMove()
         SetVelocityY(-15);
     }
 
-    if(!isTerminalOpen && InputManager::IsActionHeld(InputManager::ACTION_SLAM)) AddVelocity({.x=0, .y=1});
+    if(!isTerminalOpen && InputManager::IsActionHeld(InputManager::ACTION_SLAM)) AddVelocity({0, 1});
 }
 
 void Player::Kill()

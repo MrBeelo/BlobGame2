@@ -187,7 +187,7 @@ void Entity::CheckCollisions(std::vector<Tile> &collisionTiles, bool horizontal)
                 
                 case Map::CollisionTileType::WATER:
                     if(velocity.y > 0) velocity.y = 1;
-                    if(isPlayer && velocity.y > 0 && !isTerminalOpen && InputManager::IsActionHeld(InputManager::ACTION_MOVE_DOWN)) velocity.y = 3.5f;
+                    if(isPlayer && velocity.y > 0 && !isTerminalOpen && InputManager::IsActionHeld(InputManager::ACTION_SLAM)) velocity.y = 3.5f;
                 break;
                 
                 //case Map::CollisionTileType::DOUBLE_JUMP:

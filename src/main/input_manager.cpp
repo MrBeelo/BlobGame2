@@ -63,6 +63,10 @@ bool InputManager::IsActionHeld(InputAction action) {
             return IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN) ||
                 (IsAnyGamepadAvailable(16) && GetGamepadAxisMovement(0, GAMEPAD_AXIS_LEFT_Y) > 0.5f);
 
+        case ACTION_SLAM:
+            return IsKeyDown(KEY_X) || IsKeyDown(KEY_DOWN) ||
+                (IsAnyGamepadAvailable(16) && GetGamepadAxisMovement(0, GAMEPAD_AXIS_LEFT_Y) > 0.5f);
+
         default:
             return false;
     }
