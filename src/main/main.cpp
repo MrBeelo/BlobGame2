@@ -37,7 +37,7 @@ GameState gameState = MAIN_MENU;
 RenderTexture2D target;
 float scale;
 Vector2 vMouse;
-const char *version = "1.0.6";
+const char *version = "1.0.7";
 Texture2D raylibLogo;
 const char *credits = "Made By MrBeelo";
 Stopwatch speedrunTimer = {false};

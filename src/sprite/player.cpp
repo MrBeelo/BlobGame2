@@ -12,6 +12,7 @@
 
 Texture2D Player::textureAtlas;
 Camera2D Player::camera;
+bool cameraShake = false;
 
 void Player::LoadContent()
 {
@@ -192,7 +193,7 @@ void Player::CalculateAnimations()
 
 void Player::RotateCameraAndUpdateBGColor()
 {
-    if(cameraGoingLeft) camera.rotation -= 4; else camera.rotation += 4;
+    if(cameraShake) { if(cameraGoingLeft) camera.rotation -= 4; else camera.rotation += 4; }
     cameraGoingLeft = !cameraGoingLeft;
 
     if(!offbeat)
